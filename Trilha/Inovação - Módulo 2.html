@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso de Inovação: Como Estimular a Criatividade?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .screen {
+            display: none;
+            min-height: 100vh;
+            padding: 20px 20px 100px 20px;
+            animation: fadeIn 0.5s ease-in-out;
+            position: relative;
+        }
+
+        .screen.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-screen {
+            text-align: center;
+            max-width: 900px;
+            background: white;
+            padding: 60px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 3px solid #2d5a27;
+        }
+
+        .content-screen h1 {
+            font-size: 3.2em;
+            color: #2d5a27;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .content-screen h2 {
+            font-size: 3em;
+            color: #2d5a27;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        .content-screen p {
+            font-size: 1.3em;
+            color: #4a6741;
+            margin-bottom: 20px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .content-screen ul {
+            text-align: left;
+            padding-left: 25px;
+            font-size: 1.2em;
+            color: #4a6741;
+        }
+        
+        .content-screen li {
+            margin-bottom: 15px;
+        }
+
+        .start-btn, .navigation-btn, .quiz-btn {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .start-btn:hover, .navigation-btn:hover, .quiz-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(76, 175, 80, 0.4);
+            background: linear-gradient(135deg, #45a049, #4CAF50);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #e8f5e8, #d4edda);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #4CAF50;
+            margin: 25px 0;
+            font-style: italic;
+            text-align: justify;
+        }
+
+        .card-screen-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .card-screen-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .card-screen-header h2 {
+            font-size: 2.5em;
+            color: #2d5a27;
+            margin-bottom: 15px;
+        }
+
+        .card-screen-header p {
+            font-size: 1.2em;
+            color: #4a6741;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            perspective: 1000px;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 2px solid transparent;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(45, 90, 39, 0.2);
+            border-color: #4CAF50;
+        }
+
+        .card-icon {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            line-height: 1;
+        }
+
+        .info-card h3 {
+            font-size: 1.5em;
+            color: #2d5a27;
+        }
+
+        #card-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        #card-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .expanded-card-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.5);
+            width: 90%;
+            max-width: 800px;
+            max-height: 85vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow-y: auto;
+            padding: 40px;
+            text-align: left;
+        }
+        
+        #card-overlay.active .expanded-card-container {
+             transform: translate(-50%, -50%) scale(1);
+             opacity: 1;
+             visibility: visible;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2em;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #2d5a27;
+        }
+
+        .expanded-card-content h3 {
+            font-size: 2em;
+            color: #2d5a27;
+            margin-bottom: 20px;
+        }
+
+        .expanded-card-content h4 {
+            color: #4CAF50;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .expanded-card-content p, .expanded-card-content li {
+            color: #4a6741;
+            font-size: 1.1em;
+            line-height: 1.7;
+        }
+        .expanded-card-content ul {
+            list-style-position: inside;
+            padding-left: 10px;
+        }
+         .expanded-card-content li {
+            margin-bottom: 8px;
+        }
+
+        .quiz-screen-container {
+            max-width: 800px;
+            background: white;
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 3px solid #2d5a27;
+            text-align: center;
+        }
+
+        .quiz-screen-container h2 {
+            font-size: 2.5em;
+            color: #2d5a27;
+            margin-bottom: 30px;
+        }
+
+        .question-container {
+            background: #f8fdf8;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #d4edda;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .question-container p {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .options label {
+            display: block;
+            background: #e8f5e8;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 1.1em;
+            color: #4a6741;
+        }
+
+        .options label:hover {
+            background-color: #d4edda;
+        }
+
+        .options input {
+            margin-right: 10px;
+        }
+
+        #quiz-results {
+            margin-top: 40px;
+            font-size: 1.5em;
+            color: #2d5a27;
+            font-weight: 600;
+            display: none;
+        }
+        
+        .welcome-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            padding: 10px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .footer-logo {
+            height: 40px;
+            width: auto;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="screen active" id="welcome-screen">
+        <div class="content-screen">
+            <h1>💡 Como Estimular a Criatividade?</h1>
+            <p>A criatividade é o ponto de partida para toda inovação. Muitas vezes, pensamos nela como um dom raro, mas a verdade é que a criatividade é uma habilidade que pode e deve ser exercitada, como um músculo.</p>
+            <p>Neste módulo, você vai aprender como treinar seu pensamento criativo e como criar um ambiente favorável à geração de novas ideias. Apresentaremos técnicas simples e poderosas como brainstorming, mapa mental e os 5 porquês, além de dicas práticas para desbloquear o seu potencial inovador e o da sua equipe.</p>
+            <button class="start-btn" onclick="showScreen('definition-screen')">Começar a Exercitar a Mente</button>
+        </div>
+    </div>
+
+    <footer class="welcome-footer" id="main-footer" style="display: none;">
+        <img src="https://i.imgur.com/3LOW6zy.png" alt="Logo IFRS" class="footer-logo">
+        <img src="https://i.imgur.com/7ZOZb7V.png" alt="Logo NEPI Azul" class="footer-logo">
+    </footer>
+
+    <div class="screen" id="definition-screen">
+        <div class="content-screen">
+            <h2>O que é Criatividade, Afinal?</h2>
+            <div class="main-text-content" style="text-align: left;">
+                <p>No ambiente corporativo, criatividade não é sobre pintar um quadro ou compor uma música. É, de forma muito prática, sobre <strong>criatividade combinatória</strong>: a habilidade de pegar elementos que já existem (uma tecnologia, um processo, uma necessidade do cliente, um dado) e combiná-los de uma maneira nova e útil.</p>
+                <p>Pense em peças de LEGO. Com um número limitado de tipos de blocos, você pode criar um número quase infinito de estruturas. A criatividade no trabalho funciona da mesma forma: usamos os 'blocos' que temos à nossa disposição para construir soluções originais.</p>
+                <div class="highlight-box">
+                    Para sermos criativos, nosso cérebro opera em dois modos: <strong>Pensamento Divergente</strong> (gerar o maior número de opções e ideias possível, sem julgamento) e <strong>Pensamento Convergente</strong> (analisar, filtrar e selecionar as melhores ideias para transformá-las em ação). As técnicas que veremos a seguir ajudam a fortalecer ambos os modos.
+                </div>
+            </div>
+            <button class="navigation-btn" onclick="showScreen('environment-screen')">Criando o Ambiente Ideal</button>
+        </div>
+    </div>
+
+    <div class="screen" id="environment-screen">
+        <div class="content-screen">
+            <h2>Como Criar um Ambiente Criativo?</h2>
+            <div class="main-text-content" style="text-align: left;">
+                 <p>Antes de aplicarmos qualquer técnica, precisamos de um terreno fértil. As melhores sementes (ideias) não crescem em um solo rochoso. Um ambiente criativo se sustenta em quatro pilares essenciais:</p>
+                 <ul>
+                    <li><strong>🤝 Segurança Psicológica:</strong> É o pilar mais importante. Significa criar um espaço onde as pessoas têm a liberdade de compartilhar ideias incompletas ou 'malucas' sem medo de críticas. Líderes podem fomentar isso usando frases como 'Construindo sobre a sua ideia...' e celebrando as tentativas, mesmo que falhem.</li>
+                    <li><strong>🧠 Diversidade de Pensamento:</strong> A criatividade floresce na intersecção de diferentes pontos de vista. Um engenheiro, um designer e um analista financeiro verão o mesmo problema através de lentes completamente diferentes e igualmente valiosas.</li>
+                    <li><strong>⏳ Tempo para o Ócio Criativo:</strong> A ciência mostra que nosso cérebro continua trabalhando em um problema mesmo quando estamos em repouso. Permitir pausas e momentos de desconexão não é perda de tempo; é uma parte essencial do processo criativo para que as conexões inesperadas aconteçam.</li>
+                     <li><strong>🧱 O Estímulo das Restrições:</strong> Pode parecer contraintuitivo, mas ter restrições claras (de tempo, orçamento, tecnologia) muitas vezes nos força a sermos mais criativos e a encontrar soluções inovadoras que não teríamos considerado em um cenário de recursos infinitos.</li>
+                 </ul>
+            </div>
+            <button class="navigation-btn" onclick="showScreen('techniques-screen')">Conhecer as Ferramentas</button>
+        </div>
+    </div>
+
+    <div class="screen" id="techniques-screen">
+        <div class="card-screen-container">
+            <div class="card-screen-header">
+                <h2>Ferramentas Práticas para Gerar Ideias</h2>
+                <p>Clique nos cards para aprender técnicas simples e poderosas para a geração de ideias.</p>
+            </div>
+            <div class="card-grid" id="techniques-grid"></div>
+            <div style="text-align: center;">
+                <button class="navigation-btn" onclick="showScreen('unblocking-screen')">Desbloqueando o Pensamento</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="screen" id="unblocking-screen">
+         <div class="card-screen-container">
+            <div class="card-screen-header">
+                <h2>Dicas para Desbloquear o Pensamento</h2>
+                <p>O que fazer quando as ideias simplesmente não vêm? Use estas técnicas para sair do bloqueio criativo.</p>
+            </div>
+            <div class="card-grid" id="unblocking-grid"></div>
+            <div style="text-align: center;">
+                <button class="navigation-btn" onclick="showScreen('quiz-screen')">Testar Meus Conhecimentos</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="screen" id="quiz-screen">
+        <div class="quiz-screen-container">
+            <h2>Quiz: Estimulando a Criatividade</h2>
+            <div class="question-container">
+                <p>1. Durante uma sessão de brainstorming, o pensamento divergente significa:</p>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="a"> a) Criticar as ideias para chegar mais rápido à solução.</label>
+                    <label><input type="radio" name="q1" value="b"> b) Focar em gerar o maior número possível de opções, sem julgamento.</label>
+                    <label><input type="radio" name="q1" value="c"> c) Votar nas melhores ideias apresentadas.</label>
+                    <label><input type="radio" name="q1" value="d"> d) Apenas os especialistas devem dar ideias.</label>
+                </div>
+            </div>
+             <div class="question-container">
+                <p>2. A técnica dos "5 Porquês" é mais eficaz para qual finalidade?</p>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="a"> a) Gerar um grande volume de ideias aleatórias.</label>
+                    <label><input type="radio" name="q2" value="b"> b) Encontrar a causa raiz de um problema, indo além dos sintomas.</label>
+                    <label><input type="radio" name="q2" value="c"> c) Organizar visualmente um plano de projeto.</label>
+                    <label><input type="radio" name="q2" value="d"> d) Votar na melhor ideia de um grupo.</label>
+                </div>
+            </div>
+            <div class="question-container">
+                <p>3. A pergunta "O que podemos remover para simplificar este produto?" faz parte de qual técnica?</p>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="a"> a) Os 5 Porquês.</label>
+                    <label><input type="radio" name="q3" value="b"> b) Mapa Mental.</label>
+                    <label><input type="radio" name="q3" value="c"> c) SCAMPER.</label>
+                    <label><input type="radio" name="q3" value="d"> d) Brainstorming Reverso.</label>
+                </div>
+            </div>
+            <div class="question-container">
+                <p>4. Qual das seguintes atitudes é fundamental para criar um ambiente criativo?</p>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="a"> a) Evitar restrições de tempo e orçamento para não limitar as ideias.</label>
+                    <label><input type="radio" name="q4" value="b"> b) Contratar apenas pessoas com a mesma formação para garantir o alinhamento.</label>
+                    <label><input type="radio" name="q4" value="c"> c) Criar um ambiente de segurança psicológica onde o erro é visto como parte do processo.</label>
+                    <label><input type="radio" name="q4" value="d"> d) Manter o foco absoluto na tarefa, evitando pausas e distrações.</label>
+                </div>
+            </div>
+            <div class="question-container">
+                <p>5. Perguntar "Como um hotel 5 estrelas faria o nosso processo de atendimento ao cliente?" é um exemplo de qual técnica de desbloqueio criativo?</p>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="a"> a) Inversão do Problema.</label>
+                    <label><input type="radio" name="q5" value="b"> b) Fazer Analogias e Conexões Inusitadas.</label>
+                    <label><input type="radio" name="q5" value="c"> c) Mapa Mental.</label>
+                    <label><input type="radio" name="q5" value="d"> d) SCAMPER.</label>
+                </div>
+            </div>
+            <button class="navigation-btn" onclick="showQuizResults()">Ver Resultados</button>
+            <p id="quiz-results"></p>
+        </div>
+    </div>
+    
+    <div id="card-overlay">
+        <div class="expanded-card-container">
+            <span class="close-btn" onclick="closeCard()">&times;</span>
+            <div class="expanded-card-content" id="expanded-card-content"></div>
+        </div>
+    </div>
+
+
+    <script>
+        const techniquesData = [
+            { icon: "🧠", title: "Brainstorming", content: "<h3>Brainstorming: Além da Tempestade de Ideias</h3><p>É a técnica mais famosa para <strong>pensamento divergente</strong>.</p><h4>Regras de Ouro:</h4><ul><li>Foco na quantidade, não na qualidade.</li><li>Críticas são proibidas na fase de geração.</li><li>Ideias 'malucas' são bem-vindas.</li><li>Construa sobre as ideias dos outros.</li></ul><h4>Variações:</h4><ul><li><strong>Brainstorming Reverso:</strong> Em vez de perguntar 'Como resolvemos X?', pergunte 'Como poderíamos causar ou piorar o problema X?'.</li><li><strong>Round Robin:</strong> Cada participante compartilha uma ideia por vez, em círculo. Isso garante a participação de todos.</li></ul><p><strong>Dica Pro:</strong> Use post-its (físicos ou digitais) para tornar as ideias visuais e fáceis de agrupar na fase de convergência.</p>" },
+            { icon: "🗺️", title: "Mapa Mental", content: "<h3>Mapa Mental: Visualizando Conexões</h3><p>Uma ferramenta visual que imita a forma como nosso cérebro pensa: de forma radial e associativa.</p><h4>Como fazer:</h4><p>Comece com um tema central e puxe ramificações com as ideias principais. A partir delas, puxe novos ramos com detalhes, tarefas ou novas perguntas.</p><h4>Dicas para o sucesso:</h4><ul><li>Use palavras-chave únicas em cada ramo.</li><li>Use cores diferentes para categorizar temas.</li><li>Inclua pequenos desenhos ou ícones para reforçar conceitos.</li></ul><p>O objetivo é o fluxo de ideias, não a perfeição artística.</p>" },
+            { icon: "❓", title: "Os 5 Porquês", content: "<h3>Os 5 Porquês: A Arte de Investigar</h3><p>Esta é uma ferramenta de <strong>pensamento convergente</strong>, focada em encontrar a causa raiz de um problema.</p><h4>O Processo:</h4><p>Diante de um problema, pergunte 'Por quê?' de forma sequencial à cada resposta. O objetivo não é encontrar um culpado, mas sim uma falha no processo.</p><h4>Exemplo:</h4><ul><li>Problema: A campanha não atingiu a meta.</li><li>1. <strong>Por quê?</strong> O anúncio teve poucos cliques.</li><li>2. <strong>Por quê?</strong> A imagem não chamou a atenção.</li><li>3. <strong>Por quê?</strong> A imagem foi escolhida às pressas.</li><li>4. <strong>Por quê?</strong> O prazo para a campanha era muito curto.</li><li>5. <strong>Por quê?</strong> O planejamento não considerou o tempo de criação. (Causa Raiz)</li></ul>" }
+        ];
+
+        const unblockingData = [
+            { icon: "🔄", title: "Inverta o Problema", content: "<h3>Pense ao Contrário</h3><p>Se a meta é 'Como podemos aumentar o engajamento?', inverta a pergunta: 'Como criaríamos o pior ambiente de trabalho possível?'. Listar todas as formas de piorar uma situação (ex: 'comunicação confusa', 'reuniões inúteis', 'falta de reconhecimento') revela de forma clara o que precisa ser feito para melhorar.</p>" },
+            { icon: "🔗", title: "Faça Analogias", content: "<h3>Conexões Inusitadas</h3><p>A inovação muitas vezes vem da aplicação de um conceito de uma área em outra. Force seu cérebro a criar novas pontes.</p><h4>Faça perguntas como:</h4><ul><li>'Como a <strong>Netflix</strong> resolveria nosso problema de gestão de estoque?'</li><li>'Como um <strong>desenvolvedor de games</strong> tornaria nosso treinamento obrigatório mais engajador?'</li><li>'O que podemos aprender com as <strong>formigas</strong> sobre a eficiência da nossa logística?'</li></ul>" },
+            { icon: "✍️", title: "SCAMPER", content: "<h3>SCAMPER: Um Checklist para Inovar</h3><p>SCAMPER é um acrônimo que funciona como um checklist de perguntas para estimular novas ideias sobre um produto ou processo existente.</p><ul><li><strong>S</strong>ubstituir: O que pode ser substituído?</li><li><strong>C</strong>ombinar: O que pode ser combinado?</li><li><strong>A</strong>daptar: O que podemos adaptar de outra solução?</li><li><strong>M</strong>odificar: O que pode ser modificado ou ampliado?</li><li><strong>P</strong>or para outro uso: Podemos usar isso para outra finalidade?</li><li><strong>E</strong>liminar: O que pode ser removido ou simplificado?</li><li><strong>R</strong>everter: E se invertermos a ordem do processo?</li></ul>" }
+        ];
+
+        function showScreen(screenId) {
+            const footer = document.getElementById('main-footer');
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            const activeScreen = document.getElementById(screenId);
+            if (activeScreen) {
+                activeScreen.classList.add('active');
+            }
+            if (screenId === 'welcome-screen') {
+                footer.style.display = 'flex';
+            } else {
+                footer.style.display = 'none';
+            }
+            window.scrollTo(0, 0);
+        }
+
+        function buildInteractiveCards(containerId, data) {
+            const grid = document.getElementById(containerId);
+            if (!grid) return;
+            grid.innerHTML = '';
+            
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'info-card';
+                card.innerHTML = `
+                    <div class="card-icon">${item.icon}</div>
+                    <h3>${item.title}</h3>
+                `;
+                card.addEventListener('click', () => openCard(item.content));
+                grid.appendChild(card);
+            });
+        }
+        
+        function openCard(content) {
+            const overlay = document.getElementById('card-overlay');
+            const contentHolder = document.getElementById('expanded-card-content');
+            contentHolder.innerHTML = content;
+            overlay.classList.add('active');
+        }
+
+        function closeCard() {
+             const overlay = document.getElementById('card-overlay');
+             overlay.classList.remove('active');
+        }
+
+        function showQuizResults() {
+            let correctCount = 0;
+            const totalQuestions = 5;
+            const answers = { q1: 'b', q2: 'b', q3: 'c', q4: 'c', q5: 'd' };
+            for (const q in answers) {
+                const selected = document.querySelector(`input[name="${q}"]:checked`);
+                if (selected && selected.value === answers[q]) {
+                    correctCount++;
+                }
+            }
+            const percentage = (correctCount / totalQuestions) * 100;
+            const resultsEl = document.getElementById('quiz-results');
+            resultsEl.textContent = `Você acertou ${correctCount} de ${totalQuestions} perguntas (${percentage.toFixed(0)}%).`;
+            resultsEl.style.display = 'block';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showScreen('welcome-screen');
+            buildInteractiveCards('techniques-grid', techniquesData);
+            buildInteractiveCards('unblocking-grid', unblockingData);
+        });
+    </script>
+</body>
+</html>

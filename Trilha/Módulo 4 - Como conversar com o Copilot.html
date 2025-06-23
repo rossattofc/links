@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso: A Arte dos Prompts</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .screen {
+            display: none;
+            min-height: 100vh;
+            padding: 20px 20px 100px 20px;
+            animation: fadeIn 0.5s ease-in-out;
+            position: relative;
+        }
+
+        .screen.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-screen {
+            text-align: center;
+            max-width: 900px;
+            background: white;
+            padding: 60px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 3px solid #2d5a27;
+        }
+
+        .content-screen h1 {
+            font-size: 3.2em;
+            color: #2d5a27;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .content-screen h2 {
+            font-size: 3em;
+            color: #2d5a27;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        .content-screen p {
+            font-size: 1.3em;
+            color: #4a6741;
+            margin-bottom: 20px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .content-screen .main-text-content {
+             text-align: justify;
+            font-size: 1.2em;
+            color: #4a6741;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .start-btn, .navigation-btn, .quiz-btn, .demo-btn {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .start-btn:hover, .navigation-btn:hover, .quiz-btn:hover, .demo-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(76, 175, 80, 0.4);
+            background: linear-gradient(135deg, #45a049, #4CAF50);
+        }
+
+        .demo-btn {
+            padding: 12px 28px;
+            font-size: 1em;
+            margin: 10px 5px 0 5px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #e8f5e8, #d4edda);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #4CAF50;
+            margin: 25px 0;
+            font-style: italic;
+            text-align: justify;
+        }
+
+        .interactive-demo {
+            background: #f8fdf8;
+            border: 1px solid #d4edda;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .interactive-demo h3 {
+            color: #2d5a27;
+            font-size: 1.4em;
+            margin-bottom: 10px;
+        }
+
+        .interactive-demo p {
+            font-size: 1.1em !important;
+            margin-bottom: 20px;
+        }
+        
+        .demo-output {
+            background: #e8f5e8;
+            color: #2d5a27;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            min-height: 60px;
+            display: none;
+            white-space: pre-wrap;
+            text-align: left;
+            border-left: 4px solid #45a049;
+        }
+
+        .accordion-screen-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .accordion-header-main {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .accordion-header-main h2 {
+            font-size: 2.5em;
+            color: #2d5a27;
+            margin-bottom: 15px;
+        }
+
+        .accordion-header-main p {
+            font-size: 1.2em;
+            color: #4a6741;
+        }
+        
+        .accordion-item {
+            background-color: white;
+            margin-bottom: 15px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+            overflow: hidden;
+            border: 2px solid #e8f5e8;
+            transition: all 0.3s ease;
+        }
+
+        .accordion-item:hover {
+             border-color: #4CAF50;
+        }
+
+        .accordion-header {
+            padding: 20px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .accordion-item.active .accordion-header {
+            background-color: #f0f8f0;
+        }
+
+        .accordion-header-title {
+            display: flex;
+            align-items: center;
+            text-align: left;
+        }
+
+        .accordion-icon {
+            font-size: 1.8em;
+            margin-right: 20px;
+        }
+
+        .accordion-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #2d5a27;
+        }
+
+        .accordion-chevron {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #4CAF50;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .accordion-item.active .accordion-chevron {
+            transform: rotate(90deg);
+        }
+
+        .accordion-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out;
+            background-color: #f8fdf8;
+            color: #4a6741;
+            text-align: left;
+        }
+        
+        .accordion-panel-content {
+            padding: 0 30px 25px 30px;
+        }
+        
+        .accordion-panel-content h4 {
+            color: #2d5a27;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+        .accordion-panel-content ul {
+            padding-left: 25px;
+        }
+        .accordion-panel-content li {
+            margin-bottom: 8px;
+        }
+        .accordion-panel-content p.example {
+            font-style: italic;
+            background: white;
+            padding: 15px;
+            border-left: 3px solid #4CAF50;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .quiz-screen-container {
+            max-width: 800px;
+            background: white;
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 3px solid #2d5a27;
+            text-align: center;
+        }
+
+        .quiz-screen-container h2 {
+            font-size: 2.5em;
+            color: #2d5a27;
+            margin-bottom: 30px;
+        }
+
+        .question-container {
+            background: #f8fdf8;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #d4edda;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .question-container p {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .options label {
+            display: block;
+            background: #e8f5e8;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 1.1em;
+            color: #4a6741;
+        }
+
+        .options label:hover {
+            background-color: #d4edda;
+        }
+
+        .options input {
+            margin-right: 10px;
+        }
+
+        #quiz-results {
+            margin-top: 40px;
+            font-size: 1.5em;
+            color: #2d5a27;
+            font-weight: 600;
+            display: none;
+        }
+        
+        .welcome-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            padding: 10px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .footer-logo {
+            height: 40px;
+            width: auto;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="screen active" id="welcome-screen">
+        <div class="content-screen">
+            <h1>✍️ A Arte dos Prompts: Como Conversar com o Copilot</h1>
+            <p>Para aproveitar todo o potencial do Microsoft Copilot, é fundamental saber como “conversar” com ele. Um pedido vago gera um resultado vago. Um pedido claro e detalhado gera um resultado fantástico.</p>
+            <p>Neste módulo, vamos ensinar as boas práticas de <em>prompting</em> — a arte de fazer perguntas, dar instruções e guiar a IA para obter exatamente o que você precisa. Pense nisso como aprender a ser um bom gestor para seu novo assistente digital. Dominar essa comunicação é uma habilidade essencial na nova era do trabalho.</p>
+            <button class="start-btn" onclick="showScreen('definition-screen')">Entender o que é um Prompt</button>
+        </div>
+    </div>
+
+    <footer class="welcome-footer" id="main-footer" style="display: none;">
+        <img src="https://i.imgur.com/3LOW6zy.png" alt="Logo IFRS" class="footer-logo">
+        <img src="https://i.imgur.com/7ZOZb7V.png" alt="Logo NEPI Azul" class="footer-logo">
+    </footer>
+
+    <div class="screen" id="definition-screen">
+        <div class="content-screen">
+            <h2>O que é um Prompt?</h2>
+            <div class="main-text-content">
+                <p>Um <strong>prompt</strong> é simplesmente a instrução, pergunta ou tarefa que você entrega a uma IA. É o ponto de partida de toda a interação.</p>
+                <div class="highlight-box">
+                    Diferente de um buscador como o Google, onde usamos palavras-chave, com o Copilot nós temos uma <strong>conversa</strong>. Você pode (e deve) usar frases completas, dar contexto e pedir ajustes.
+                </div>
+                <p>Pense no prompt como um <em>briefing</em> que você daria a um colega de equipe: quanto mais claro e completo for o seu pedido, melhor e mais útil será o trabalho que você receberá de volta.</p>
+
+                <div class="interactive-demo">
+                    <h3>🔬 A Diferença na Prática</h3>
+                    <p>Veja como a qualidade do prompt muda o resultado. Clique para comparar.</p>
+                    <div>
+                        <button class="demo-btn" onclick="showPromptResponse('vague')">Prompt Vago</button>
+                        <button class="demo-btn" onclick="showPromptResponse('effective')">Prompt Efetivo</button>
+                    </div>
+                    <div class="demo-output" id="prompt-demo-output"></div>
+                </div>
+            </div>
+            <button class="navigation-btn" onclick="showScreen('pillars-screen')">Conhecer os Pilares</button>
+        </div>
+    </div>
+
+    <div class="screen" id="pillars-screen">
+        <div class="accordion-screen-container">
+            <div class="accordion-header-main">
+                <h2>Os Pilares de um Prompt Eficaz</h2>
+                <p>Um prompt de alta qualidade geralmente se apoia em quatro pilares. Dominá-los transformará seus resultados.</p>
+            </div>
+            <div id="pillars-accordion"></div>
+            <div style="text-align: center;">
+                <button class="navigation-btn" onclick="showScreen('examples-screen')">Ver Exemplos Práticos</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="screen" id="examples-screen">
+        <div class="accordion-screen-container">
+            <div class="accordion-header-main">
+                <h2>Prompts em Ação no Microsoft 365</h2>
+                <p>Vamos ver como aplicar os pilares do prompt nas ferramentas que você usa todos os dias.</p>
+            </div>
+            <div id="examples-accordion"></div>
+            <div style="text-align: center;">
+                <button class="navigation-btn" onclick="showScreen('advanced-screen')">Técnicas Avançadas</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="screen" id="advanced-screen">
+        <div class="accordion-screen-container">
+            <div class="accordion-header-main">
+                <h2>Técnicas Avançadas e Dicas Extras</h2>
+                <p>A qualidade da sua interação com a IA faz toda a diferença. Aprenda as melhores práticas.</p>
+            </div>
+            <div id="advanced-accordion"></div>
+            <div style="text-align: center;">
+                <button class="navigation-btn" onclick="showScreen('quiz-screen')">Testar Meus Conhecimentos</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="screen" id="quiz-screen">
+        <div class="quiz-screen-container">
+            <h2>Quiz: A Arte dos Prompts</h2>
+            <div class="question-container">
+                <p>1. Quando você especifica "Crie uma lista com marcadores", qual pilar de um prompt eficaz você está usando?</p>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="a"> a) Objetivo</label>
+                    <label><input type="radio" name="q1" value="b"> b) Contexto</label>
+                    <label><input type="radio" name="q1" value="c"> c) Formato</label>
+                    <label><input type="radio" name="q1" value="d"> d) Tom</label>
+                </div>
+            </div>
+            <div class="question-container">
+                <p>2. Qual dos seguintes seria o prompt MAIS EFICAZ para iniciar um documento no Word?</p>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="a"> a) "fazer um relatório de vendas"</label>
+                    <label><input type="radio" name="q2" value="b"> b) "Crie um relatório de vendas do último trimestre para a diretoria, com seções de destaques, desafios e próximos passos."</label>
+                    <label><input type="radio" name="q2" value="c"> c) "informações sobre vendas"</label>
+                    <label><input type="radio" name="q2" value="d"> d) "Quais foram as vendas do último trimestre?"</label>
+                </div>
+            </div>
+            <div class="question-container">
+                <p>3. A técnica de pedir ao Copilot "Aja como um especialista em finanças e analise estes dados" é chamada de:</p>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="a"> a) Prompt em Cadeia</label>
+                    <label><input type="radio" name="q3" value="b"> b) Definição de Persona</label>
+                    <label><input type="radio" name="q3" value="c"> c) Iteração</label>
+                    <label><input type="radio" name="q3" value="d"> d) Formatação</label>
+                </div>
+            </div>
+            <div class="question-container">
+                <p>4. Se o primeiro resultado do Copilot não for exatamente o que você queria, qual é a melhor atitude?</p>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="a"> a) Desistir e fazer manualmente.</label>
+                    <label><input type="radio" name="q4" value="b"> b) Começar um novo chat com o mesmo prompt vago.</label>
+                    <label><input type="radio" name="q4" value="c"> c) Continuar a conversa, pedindo ajustes e refinamentos no resultado.</label>
+                    <label><input type="radio" name="q4" value="d"> d) Copiar e colar o prompt várias vezes.</label>
+                </div>
+            </div>
+            <div class="question-container">
+                <p>5. Qual a principal vantagem de dar um bom CONTEXTO ao seu prompt?</p>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="a"> a) A resposta fica mais longa.</label>
+                    <label><input type="radio" name="q5" value="b"> b) A IA responde mais rápido.</label>
+                    <label><input type="radio" name="q5" value="c"> c) A resposta se torna muito mais relevante e útil para a sua necessidade específica.</label>
+                    <label><input type="radio" name="q5" value="d"> d) Garante que a IA não cometerá erros.</label>
+                </div>
+            </div>
+            <button class="navigation-btn" onclick="showQuizResults()">Ver Resultados</button>
+            <p id="quiz-results"></p>
+        </div>
+    </div>
+
+    <script>
+        const pillarsData = [
+            { icon: "🎯", title: "Defina um Objetivo Claro", content: "<h4>O que fazer?</h4><p>Comece seu prompt com um verbo de ação forte. Diga exatamente o que você quer que a IA faça. Isso direciona todo o processo e evita respostas genéricas.</p><h4>Exemplos de Verbos:</h4><ul><li>Crie...</li><li>Resuma...</li><li>Analise...</li><li>Compare...</li><li>Liste...</li><li>Transforme...</li><li>Aja como...</li></ul>" },
+            { icon: "📚", title: "Forneça o Contexto Necessário", content: "<h4>Por que e para quem?</h4><p>Dê à IA as informações de base que ela precisa para entender a situação. Quem é o público-alvo? Qual o histórico do assunto? Onde essa informação será usada?</p><h4>Exemplo Prático:</h4><p class='example'>Em vez de dizer 'Faça um texto sobre nosso novo produto', diga: <em>'Crie um post para o Instagram sobre nosso novo produto, o 'EcoFresh'. O público são jovens de 18 a 25 anos preocupados com sustentabilidade. Destaque que a embalagem é 100% reciclada.'</em></p>" },
+            { icon: "🎨", title: "Especifique o Formato da Resposta", content: "<h4>Como deve ser a entrega?</h4><p>Não deixe a IA adivinhar como você quer a resposta. Seja explícito para economizar tempo de edição.</p><h4>Peça por formatos como:</h4><ul><li>Uma lista com marcadores (bullet points)</li><li>Uma tabela com 3 colunas específicas</li><li>Um único parágrafo conciso</li><li>Um rascunho de e-mail</li></ul><p class='example'><em>'Apresente a comparação em uma tabela com colunas para 'Vantagens' e 'Desvantagens'.'</em></p>" },
+            { icon: "🎭", title: "Ajuste o Tom da Comunicação", content: "<h4>Qual o estilo da escrita?</h4><p>A IA pode adotar diferentes estilos de escrita para se adequar à sua necessidade. Especifique o tom desejado para que a mensagem tenha o impacto correto.</p><h4>Exemplos de Tons:</h4><ul><li>Formal e profissional</li><li>Amigável e informal</li><li>Técnico e detalhado</li><li>Persuasivo e vendedor</li></ul><p class='example'><em>'Escreva um e-mail de agradecimento ao cliente, usando um tom amigável e pessoal.'</em></p>" }
+        ];
+
+        const examplesData = [
+            { icon: "📧", title: "Prompts para o Outlook", content: "<h4>Dominando seus E-mails</h4><p class='example'><strong>Exemplo 1 (Resumir):</strong><br><em>'Resuma os e-mails não lidos de [Nome do Colega] sobre o 'Projeto Zafira' e liste as principais tarefas atribuídas a mim em formato de bullet points.'</em></p><p class='example'><strong>Exemplo 2 (Rascunhar):</strong><br><em>'Rascunhe uma resposta para este e-mail, recusando educadamente o convite para a reunião de sexta-feira devido a um conflito de agenda e sugerindo um novo horário na próxima semana.'</em></p>" },
+            { icon: "💬", title: "Prompts para o Teams", content: "<h4>Otimizando Reuniões e Chats</h4><p class='example'><strong>Exemplo 1 (Resumir Reunião):</strong><br><em>'Com base na transcrição desta reunião, crie uma tabela com duas colunas: 'Decisão Tomada' e 'Responsável pela Ação'.'</em></p><p class='example'><strong>Exemplo 2 (Buscar Informação):</strong><br><em>'Quais foram os arquivos sobre o orçamento de marketing compartilhados neste canal no último mês?'</em></p>" },
+            { icon: "📄", title: "Prompts para Word e PowerPoint", content: "<h4>Criando Conteúdo do Zero</h4><p class='example'><strong>Exemplo 1 (Word):</strong><br><em>'Aja como um especialista em gestão de projetos e crie um rascunho de um plano de comunicação para o lançamento de um novo aplicativo interno. Inclua seções para público-alvo, canais, principais mensagens e cronograma.'</em></p><p class='example'><strong>Exemplo 2 (PowerPoint):</strong><br><em>'Crie uma apresentação de 5 slides a partir do documento '[Nome do Documento.docx]', focando nos resultados, desafios e próximos passos.'</em></p>" },
+            { icon: "📊", title: "Prompts para o Excel", content: "<h4>Desvendando Dados</h4><p class='example'><strong>Exemplo 1 (Análise):</strong><br><em>'Na tabela 'Vendas_Anuais', identifique os 3 produtos com a menor margem de lucro no quarto trimestre. Destaque essas linhas em vermelho.'</em></p><p class='example'><strong>Exemplo 2 (Fórmula):</strong><br><em>'Qual a fórmula para calcular a média de valores na coluna D, apenas para as linhas onde a coluna A é 'Região Sul'?'</em></p>" }
+        ];
+
+        const advancedData = [
+            { icon: "👥", title: "Definindo uma Persona", content: "<h4>Peça para a IA 'Atuar'</h4><p>Dê um papel ou uma 'persona' ao Copilot para obter respostas mais especializadas e focadas. Isso ajuda a IA a acessar o conhecimento e o estilo de um determinado especialista.</p><p class='example'><em>'Aja como um advogado especialista em contratos e revise esta cláusula para identificar possíveis ambiguidades ou riscos.'</em></p>" },
+            { icon: "🔄", title: "Iteração e Refinamento", content: "<h4>O Prompt é uma Conversa</h4><p>Raramente o primeiro resultado será perfeito. A maior vantagem do Copilot é a capacidade de refinar a resposta em uma conversa contínua. Não comece um novo chat, continue no mesmo!</p><h4>Exemplo de Conversa:</h4><ol><li><strong>Você:</strong> 'Liste 5 ideias de post para o blog sobre produtividade.'</li><li><strong>Copilot:</strong> (Lista 5 ideias)</li><li><strong>Você:</strong> <em>'Gostei da ideia 3. Expanda-a em 3 parágrafos, usando um tom mais informal.'</em></li></ol>" },
+            { icon: "➡️", title: "Prompts em Cadeia", content: "<h4>Dividindo Tarefas Complexas</h4><p>Para tarefas grandes e complexas, é mais eficaz quebrar o pedido em etapas menores e sequenciais. Peça uma coisa de cada vez para garantir a qualidade em cada passo.</p><h4>Exemplo de Cadeia:</h4><ol><li><strong>Passo 1:</strong> 'Resuma o documento X.'</li><li><strong>Passo 2:</strong> 'Com base no resumo, identifique os 3 riscos mais críticos.'</li><li><strong>Passo 3:</strong> 'Agora, crie um slide do PowerPoint para cada risco.'</li></ol>" },
+            { icon: "❌", title: "O que Evitar", content: "<h4>Erros Comuns de Prompting</h4><p>Para obter melhores resultados, evite algumas armadilhas comuns:</p><ul><li><strong>Ambiguidade:</strong> Prompts vagos como 'fale sobre marketing' geram respostas genéricas.</li><li><strong>Falta de Contexto:</strong> Não assuma que o Copilot sabe de tudo. Dê o contexto necessário.</li><li><strong>Confiança Cega:</strong> Sempre revise e valide informações críticas (dados, nomes, datas). A IA pode cometer erros.</li></ul>" }
+        ];
+
+        function showScreen(screenId) {
+            const footer = document.getElementById('main-footer');
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            const activeScreen = document.getElementById(screenId);
+            if (activeScreen) {
+                activeScreen.classList.add('active');
+            }
+            if (screenId === 'welcome-screen') {
+                footer.style.display = 'flex';
+            } else {
+                footer.style.display = 'none';
+            }
+            window.scrollTo(0, 0);
+        }
+
+        // --- FUNÇÃO DO ACORDEÃO CORRIGIDA E FINAL ---
+        function buildAccordion(containerId, data) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = '';
+            
+            const allItems = []; // Manter referência a todos os itens criados
+
+            data.forEach(itemData => {
+                const accordionItem = document.createElement('div');
+                accordionItem.className = 'accordion-item';
+                accordionItem.innerHTML = `
+                    <div class="accordion-header">
+                        <div class="accordion-header-title">
+                            <span class="accordion-icon">${itemData.icon}</span>
+                            <span class="accordion-title">${itemData.title}</span>
+                        </div>
+                        <span class="accordion-chevron">›</span>
+                    </div>
+                    <div class="accordion-panel">
+                        <div class="accordion-panel-content">
+                            ${itemData.content}
+                        </div>
+                    </div>
+                `;
+                container.appendChild(accordionItem);
+                allItems.push(accordionItem); // Adiciona o novo item ao array
+            });
+
+            // Adiciona os event listeners depois que todos os itens estão no DOM
+            allItems.forEach(item => {
+                const header = item.querySelector('.accordion-header');
+                const panel = item.querySelector('.accordion-panel');
+
+                header.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+
+                    // Fecha todos os itens antes de abrir o novo
+                    allItems.forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.accordion-panel').style.maxHeight = null;
+                    });
+
+                    // Se o item clicado não estava ativo, abre-o
+                    if (!isActive) {
+                        item.classList.add('active');
+                        panel.style.maxHeight = panel.scrollHeight + "px";
+                    }
+                });
+            });
+        }
+        
+        function showPromptResponse(type) {
+            const output = document.getElementById('prompt-demo-output');
+            output.style.display = 'block';
+            if (type === 'vague') {
+                output.innerHTML = "<strong>Prompt:</strong><br>fazer apresentação<br><br><strong>Resultado Simulado:</strong><br> Sobre qual assunto? Para quem? Quantos slides? Preciso de mais detalhes para criar uma apresentação.";
+            } else {
+                output.innerHTML = "<strong>Prompt:</strong><br>Crie uma apresentação de 5 slides no PowerPoint sobre os resultados de vendas do último trimestre, usando os dados do arquivo 'RelatorioVendas_Q2.xlsx'. O público-alvo são os diretores. Use um tom formal e inclua um slide de próximos passos.<br><br><strong>Resultado Simulado:</strong><br>Claro. Gerando apresentação...<br>Slide 1: Título - Análise de Resultados de Vendas Q2.<br>Slide 2: Destaques de Vendas.<br>...etc.";
+            }
+        }
+
+        function showQuizResults() {
+            let correctCount = 0;
+            const totalQuestions = 5;
+            const answers = { q1: 'c', q2: 'b', q3: 'b', q4: 'c', q5: 'c' };
+            for (const q in answers) {
+                const selected = document.querySelector(`input[name="${q}"]:checked`);
+                if (selected && selected.value === answers[q]) {
+                    correctCount++;
+                }
+            }
+            const percentage = (correctCount / totalQuestions) * 100;
+            const resultsEl = document.getElementById('quiz-results');
+            resultsEl.textContent = `Você acertou ${correctCount} de ${totalQuestions} perguntas (${percentage.toFixed(0)}%).`;
+            resultsEl.style.display = 'block';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showScreen('welcome-screen');
+            buildAccordion('pillars-accordion', pillarsData);
+            buildAccordion('examples-accordion', examplesData);
+            buildAccordion('advanced-accordion', advancedData);
+        });
+    </script>
+</body>
+</html>
