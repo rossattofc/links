@@ -79,7 +79,7 @@
             margin-bottom: 40px;
         }
 
-        .start-btn, .navigation-btn, .quiz-btn, .demo-btn {
+        .start-btn, .navigation-btn, .quiz-btn, .demo-btn, .back-btn {
             background: linear-gradient(135deg, #4CAF50, #45a049);
             color: white;
             border: none;
@@ -94,13 +94,32 @@
             box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
             text-decoration: none;
             display: inline-block;
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
-        .start-btn:hover, .navigation-btn:hover, .quiz-btn:hover, .demo-btn:hover {
+        .start-btn:hover, .navigation-btn:hover, .quiz-btn:hover, .demo-btn:hover, .back-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 12px 25px rgba(76, 175, 80, 0.4);
-            background: linear-gradient(135deg, #45a049, #4CAF50);
+        }
+        
+        .back-btn {
+            background: transparent;
+            color: #4CAF50;
+            border: 2px solid #4CAF50;
+            box-shadow: none;
+        }
+        
+        .back-btn:hover {
+            background: #e8f5e8;
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.2);
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
         }
 
         .demo-btn {
@@ -311,9 +330,14 @@
         .options label:hover {
             background-color: #d4edda;
         }
+        
+        .options label.selected {
+            background-color: #d4edda;
+            font-weight: bold;
+        }
 
-        .options input {
-            margin-right: 10px;
+        .options input[type="radio"] {
+            display: none;
         }
 
         #quiz-results {
@@ -356,7 +380,7 @@
         </div>
     </div>
 
-    <footer class="welcome-footer" id="main-footer" style="display: none;">
+    <footer class="welcome-footer" id="main-footer">
         <img src="https://i.imgur.com/3LOW6zy.png" alt="Logo IFRS" class="footer-logo">
         <img src="https://i.imgur.com/7ZOZb7V.png" alt="Logo NEPI Azul" class="footer-logo">
     </footer>
@@ -381,7 +405,10 @@
                     <div class="demo-output" id="prompt-demo-output"></div>
                 </div>
             </div>
-            <button class="navigation-btn" onclick="showScreen('pillars-screen')">Conhecer os Pilares</button>
+            <div class="navigation-buttons">
+                <button class="back-btn" onclick="showScreen('welcome-screen')">Voltar</button>
+                <button class="navigation-btn" onclick="showScreen('pillars-screen')">Conhecer os Pilares</button>
+            </div>
         </div>
     </div>
 
@@ -392,7 +419,8 @@
                 <p>Um prompt de alta qualidade geralmente se apoia em quatro pilares. Dominá-los transformará seus resultados.</p>
             </div>
             <div id="pillars-accordion"></div>
-            <div style="text-align: center;">
+            <div class="navigation-buttons">
+                <button class="back-btn" onclick="showScreen('definition-screen')">Voltar</button>
                 <button class="navigation-btn" onclick="showScreen('examples-screen')">Ver Exemplos Práticos</button>
             </div>
         </div>
@@ -405,7 +433,8 @@
                 <p>Vamos ver como aplicar os pilares do prompt nas ferramentas que você usa todos os dias.</p>
             </div>
             <div id="examples-accordion"></div>
-            <div style="text-align: center;">
+            <div class="navigation-buttons">
+                <button class="back-btn" onclick="showScreen('pillars-screen')">Voltar</button>
                 <button class="navigation-btn" onclick="showScreen('advanced-screen')">Técnicas Avançadas</button>
             </div>
         </div>
@@ -418,7 +447,8 @@
                 <p>A qualidade da sua interação com a IA faz toda a diferença. Aprenda as melhores práticas.</p>
             </div>
             <div id="advanced-accordion"></div>
-            <div style="text-align: center;">
+            <div class="navigation-buttons">
+                <button class="back-btn" onclick="showScreen('examples-screen')">Voltar</button>
                 <button class="navigation-btn" onclick="showScreen('quiz-screen')">Testar Meus Conhecimentos</button>
             </div>
         </div>
@@ -429,7 +459,7 @@
             <h2>Quiz: A Arte dos Prompts</h2>
             <div class="question-container">
                 <p>1. Quando você especifica "Crie uma lista com marcadores", qual pilar de um prompt eficaz você está usando?</p>
-                <div class="options">
+                <div class="options" data-answer="c">
                     <label><input type="radio" name="q1" value="a"> a) Objetivo</label>
                     <label><input type="radio" name="q1" value="b"> b) Contexto</label>
                     <label><input type="radio" name="q1" value="c"> c) Formato</label>
@@ -438,7 +468,7 @@
             </div>
             <div class="question-container">
                 <p>2. Qual dos seguintes seria o prompt MAIS EFICAZ para iniciar um documento no Word?</p>
-                <div class="options">
+                <div class="options" data-answer="b">
                     <label><input type="radio" name="q2" value="a"> a) "fazer um relatório de vendas"</label>
                     <label><input type="radio" name="q2" value="b"> b) "Crie um relatório de vendas do último trimestre para a diretoria, com seções de destaques, desafios e próximos passos."</label>
                     <label><input type="radio" name="q2" value="c"> c) "informações sobre vendas"</label>
@@ -447,7 +477,7 @@
             </div>
             <div class="question-container">
                 <p>3. A técnica de pedir ao Copilot "Aja como um especialista em finanças e analise estes dados" é chamada de:</p>
-                <div class="options">
+                <div class="options" data-answer="b">
                     <label><input type="radio" name="q3" value="a"> a) Prompt em Cadeia</label>
                     <label><input type="radio" name="q3" value="b"> b) Definição de Persona</label>
                     <label><input type="radio" name="q3" value="c"> c) Iteração</label>
@@ -456,7 +486,7 @@
             </div>
             <div class="question-container">
                 <p>4. Se o primeiro resultado do Copilot não for exatamente o que você queria, qual é a melhor atitude?</p>
-                <div class="options">
+                <div class="options" data-answer="c">
                     <label><input type="radio" name="q4" value="a"> a) Desistir e fazer manualmente.</label>
                     <label><input type="radio" name="q4" value="b"> b) Começar um novo chat com o mesmo prompt vago.</label>
                     <label><input type="radio" name="q4" value="c"> c) Continuar a conversa, pedindo ajustes e refinamentos no resultado.</label>
@@ -465,141 +495,32 @@
             </div>
             <div class="question-container">
                 <p>5. Qual a principal vantagem de dar um bom CONTEXTO ao seu prompt?</p>
-                <div class="options">
+                <div class="options" data-answer="c">
                     <label><input type="radio" name="q5" value="a"> a) A resposta fica mais longa.</label>
                     <label><input type="radio" name="q5" value="b"> b) A IA responde mais rápido.</label>
                     <label><input type="radio" name="q5" value="c"> c) A resposta se torna muito mais relevante e útil para a sua necessidade específica.</label>
                     <label><input type="radio" name="q5" value="d"> d) Garante que a IA não cometerá erros.</label>
                 </div>
             </div>
-            <button class="navigation-btn" onclick="showQuizResults()">Ver Resultados</button>
+            <div class="navigation-buttons" id="quiz-nav-buttons">
+                <button class="back-btn" onclick="showScreen('advanced-screen')">Voltar</button>
+                <button class="navigation-btn" id="show-results-btn" onclick="showQuizResults()">Ver Resultados</button>
+            </div>
             <p id="quiz-results"></p>
+            <button class="navigation-btn" id="finish-module-btn" style="display: none;" onclick="showScreen('final-screen')">Finalizar Módulo</button>
         </div>
     </div>
-
-    <script>
-        const pillarsData = [
-            { icon: "🎯", title: "Defina um Objetivo Claro", content: "<h4>O que fazer?</h4><p>Comece seu prompt com um verbo de ação forte. Diga exatamente o que você quer que a IA faça. Isso direciona todo o processo e evita respostas genéricas.</p><h4>Exemplos de Verbos:</h4><ul><li>Crie...</li><li>Resuma...</li><li>Analise...</li><li>Compare...</li><li>Liste...</li><li>Transforme...</li><li>Aja como...</li></ul>" },
-            { icon: "📚", title: "Forneça o Contexto Necessário", content: "<h4>Por que e para quem?</h4><p>Dê à IA as informações de base que ela precisa para entender a situação. Quem é o público-alvo? Qual o histórico do assunto? Onde essa informação será usada?</p><h4>Exemplo Prático:</h4><p class='example'>Em vez de dizer 'Faça um texto sobre nosso novo produto', diga: <em>'Crie um post para o Instagram sobre nosso novo produto, o 'EcoFresh'. O público são jovens de 18 a 25 anos preocupados com sustentabilidade. Destaque que a embalagem é 100% reciclada.'</em></p>" },
-            { icon: "🎨", title: "Especifique o Formato da Resposta", content: "<h4>Como deve ser a entrega?</h4><p>Não deixe a IA adivinhar como você quer a resposta. Seja explícito para economizar tempo de edição.</p><h4>Peça por formatos como:</h4><ul><li>Uma lista com marcadores (bullet points)</li><li>Uma tabela com 3 colunas específicas</li><li>Um único parágrafo conciso</li><li>Um rascunho de e-mail</li></ul><p class='example'><em>'Apresente a comparação em uma tabela com colunas para 'Vantagens' e 'Desvantagens'.'</em></p>" },
-            { icon: "🎭", title: "Ajuste o Tom da Comunicação", content: "<h4>Qual o estilo da escrita?</h4><p>A IA pode adotar diferentes estilos de escrita para se adequar à sua necessidade. Especifique o tom desejado para que a mensagem tenha o impacto correto.</p><h4>Exemplos de Tons:</h4><ul><li>Formal e profissional</li><li>Amigável e informal</li><li>Técnico e detalhado</li><li>Persuasivo e vendedor</li></ul><p class='example'><em>'Escreva um e-mail de agradecimento ao cliente, usando um tom amigável e pessoal.'</em></p>" }
-        ];
-
-        const examplesData = [
-            { icon: "📧", title: "Prompts para o Outlook", content: "<h4>Dominando seus E-mails</h4><p class='example'><strong>Exemplo 1 (Resumir):</strong><br><em>'Resuma os e-mails não lidos de [Nome do Colega] sobre o 'Projeto Zafira' e liste as principais tarefas atribuídas a mim em formato de bullet points.'</em></p><p class='example'><strong>Exemplo 2 (Rascunhar):</strong><br><em>'Rascunhe uma resposta para este e-mail, recusando educadamente o convite para a reunião de sexta-feira devido a um conflito de agenda e sugerindo um novo horário na próxima semana.'</em></p>" },
-            { icon: "💬", title: "Prompts para o Teams", content: "<h4>Otimizando Reuniões e Chats</h4><p class='example'><strong>Exemplo 1 (Resumir Reunião):</strong><br><em>'Com base na transcrição desta reunião, crie uma tabela com duas colunas: 'Decisão Tomada' e 'Responsável pela Ação'.'</em></p><p class='example'><strong>Exemplo 2 (Buscar Informação):</strong><br><em>'Quais foram os arquivos sobre o orçamento de marketing compartilhados neste canal no último mês?'</em></p>" },
-            { icon: "📄", title: "Prompts para Word e PowerPoint", content: "<h4>Criando Conteúdo do Zero</h4><p class='example'><strong>Exemplo 1 (Word):</strong><br><em>'Aja como um especialista em gestão de projetos e crie um rascunho de um plano de comunicação para o lançamento de um novo aplicativo interno. Inclua seções para público-alvo, canais, principais mensagens e cronograma.'</em></p><p class='example'><strong>Exemplo 2 (PowerPoint):</strong><br><em>'Crie uma apresentação de 5 slides a partir do documento '[Nome do Documento.docx]', focando nos resultados, desafios e próximos passos.'</em></p>" },
-            { icon: "📊", title: "Prompts para o Excel", content: "<h4>Desvendando Dados</h4><p class='example'><strong>Exemplo 1 (Análise):</strong><br><em>'Na tabela 'Vendas_Anuais', identifique os 3 produtos com a menor margem de lucro no quarto trimestre. Destaque essas linhas em vermelho.'</em></p><p class='example'><strong>Exemplo 2 (Fórmula):</strong><br><em>'Qual a fórmula para calcular a média de valores na coluna D, apenas para as linhas onde a coluna A é 'Região Sul'?'</em></p>" }
-        ];
-
-        const advancedData = [
-            { icon: "👥", title: "Definindo uma Persona", content: "<h4>Peça para a IA 'Atuar'</h4><p>Dê um papel ou uma 'persona' ao Copilot para obter respostas mais especializadas e focadas. Isso ajuda a IA a acessar o conhecimento e o estilo de um determinado especialista.</p><p class='example'><em>'Aja como um advogado especialista em contratos e revise esta cláusula para identificar possíveis ambiguidades ou riscos.'</em></p>" },
-            { icon: "🔄", title: "Iteração e Refinamento", content: "<h4>O Prompt é uma Conversa</h4><p>Raramente o primeiro resultado será perfeito. A maior vantagem do Copilot é a capacidade de refinar a resposta em uma conversa contínua. Não comece um novo chat, continue no mesmo!</p><h4>Exemplo de Conversa:</h4><ol><li><strong>Você:</strong> 'Liste 5 ideias de post para o blog sobre produtividade.'</li><li><strong>Copilot:</strong> (Lista 5 ideias)</li><li><strong>Você:</strong> <em>'Gostei da ideia 3. Expanda-a em 3 parágrafos, usando um tom mais informal.'</em></li></ol>" },
-            { icon: "➡️", title: "Prompts em Cadeia", content: "<h4>Dividindo Tarefas Complexas</h4><p>Para tarefas grandes e complexas, é mais eficaz quebrar o pedido em etapas menores e sequenciais. Peça uma coisa de cada vez para garantir a qualidade em cada passo.</p><h4>Exemplo de Cadeia:</h4><ol><li><strong>Passo 1:</strong> 'Resuma o documento X.'</li><li><strong>Passo 2:</strong> 'Com base no resumo, identifique os 3 riscos mais críticos.'</li><li><strong>Passo 3:</strong> 'Agora, crie um slide do PowerPoint para cada risco.'</li></ol>" },
-            { icon: "❌", title: "O que Evitar", content: "<h4>Erros Comuns de Prompting</h4><p>Para obter melhores resultados, evite algumas armadilhas comuns:</p><ul><li><strong>Ambiguidade:</strong> Prompts vagos como 'fale sobre marketing' geram respostas genéricas.</li><li><strong>Falta de Contexto:</strong> Não assuma que o Copilot sabe de tudo. Dê o contexto necessário.</li><li><strong>Confiança Cega:</strong> Sempre revise e valide informações críticas (dados, nomes, datas). A IA pode cometer erros.</li></ul>" }
-        ];
-
-        function showScreen(screenId) {
-            const footer = document.getElementById('main-footer');
-            document.querySelectorAll('.screen').forEach(screen => {
-                screen.classList.remove('active');
-            });
-            const activeScreen = document.getElementById(screenId);
-            if (activeScreen) {
-                activeScreen.classList.add('active');
-            }
-            if (screenId === 'welcome-screen') {
-                footer.style.display = 'flex';
-            } else {
-                footer.style.display = 'none';
-            }
-            window.scrollTo(0, 0);
-        }
-
-        // --- FUNÇÃO DO ACORDEÃO CORRIGIDA E FINAL ---
-        function buildAccordion(containerId, data) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
-            container.innerHTML = '';
-            
-            const allItems = []; // Manter referência a todos os itens criados
-
-            data.forEach(itemData => {
-                const accordionItem = document.createElement('div');
-                accordionItem.className = 'accordion-item';
-                accordionItem.innerHTML = `
-                    <div class="accordion-header">
-                        <div class="accordion-header-title">
-                            <span class="accordion-icon">${itemData.icon}</span>
-                            <span class="accordion-title">${itemData.title}</span>
-                        </div>
-                        <span class="accordion-chevron">›</span>
-                    </div>
-                    <div class="accordion-panel">
-                        <div class="accordion-panel-content">
-                            ${itemData.content}
-                        </div>
-                    </div>
-                `;
-                container.appendChild(accordionItem);
-                allItems.push(accordionItem); // Adiciona o novo item ao array
-            });
-
-            // Adiciona os event listeners depois que todos os itens estão no DOM
-            allItems.forEach(item => {
-                const header = item.querySelector('.accordion-header');
-                const panel = item.querySelector('.accordion-panel');
-
-                header.addEventListener('click', () => {
-                    const isActive = item.classList.contains('active');
-
-                    // Fecha todos os itens antes de abrir o novo
-                    allItems.forEach(otherItem => {
-                        otherItem.classList.remove('active');
-                        otherItem.querySelector('.accordion-panel').style.maxHeight = null;
-                    });
-
-                    // Se o item clicado não estava ativo, abre-o
-                    if (!isActive) {
-                        item.classList.add('active');
-                        panel.style.maxHeight = panel.scrollHeight + "px";
-                    }
-                });
-            });
-        }
-        
-        function showPromptResponse(type) {
-            const output = document.getElementById('prompt-demo-output');
-            output.style.display = 'block';
-            if (type === 'vague') {
-                output.innerHTML = "<strong>Prompt:</strong><br>fazer apresentação<br><br><strong>Resultado Simulado:</strong><br> Sobre qual assunto? Para quem? Quantos slides? Preciso de mais detalhes para criar uma apresentação.";
-            } else {
-                output.innerHTML = "<strong>Prompt:</strong><br>Crie uma apresentação de 5 slides no PowerPoint sobre os resultados de vendas do último trimestre, usando os dados do arquivo 'RelatorioVendas_Q2.xlsx'. O público-alvo são os diretores. Use um tom formal e inclua um slide de próximos passos.<br><br><strong>Resultado Simulado:</strong><br>Claro. Gerando apresentação...<br>Slide 1: Título - Análise de Resultados de Vendas Q2.<br>Slide 2: Destaques de Vendas.<br>...etc.";
-            }
-        }
-
-        function showQuizResults() {
-            let correctCount = 0;
-            const totalQuestions = 5;
-            const answers = { q1: 'c', q2: 'b', q3: 'b', q4: 'c', q5: 'c' };
-            for (const q in answers) {
-                const selected = document.querySelector(`input[name="${q}"]:checked`);
-                if (selected && selected.value === answers[q]) {
-                    correctCount++;
-                }
-            }
-            const percentage = (correctCount / totalQuestions) * 100;
-            const resultsEl = document.getElementById('quiz-results');
-            resultsEl.textContent = `Você acertou ${correctCount} de ${totalQuestions} perguntas (${percentage.toFixed(0)}%).`;
-            resultsEl.style.display = 'block';
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            showScreen('welcome-screen');
-            buildAccordion('pillars-accordion', pillarsData);
-            buildAccordion('examples-accordion', examplesData);
-            buildAccordion('advanced-accordion', advancedData);
-        });
-    </script>
-</body>
-</html>
+    
+    <div class="screen" id="final-screen">
+        <div class="content-screen">
+            <h2>🎉 Ótimo Trabalho!</h2>
+            <div class="main-text-content">
+                <p>Parabéns! Você concluiu o módulo sobre a Arte dos Prompts e agora tem as ferramentas para se comunicar de forma muito mais eficaz com o Copilot e outras IAs.</p>
+                <p>Lembre-se que esta é uma habilidade que melhora com a prática. Continue testando, refinando suas perguntas e explorando as diferentes técnicas. Quanto melhor for a sua conversa com a IA, mais poderosa ela se tornará como sua assistente no dia a dia.</p>
+                <div class="highlight-box">
+                   A qualidade da resposta de uma IA está diretamente ligada à qualidade da pergunta. Ao dominar os prompts, você assume o controle da tecnologia.
+                </div>
+            </div>
+            <div class="navigation-buttons">
+                <button class="back-btn" onclick="showScreen('quiz-screen')">Voltar ao Quiz</button>
+                <button class="naviga
