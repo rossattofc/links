@@ -48,12 +48,6 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             border: 3px solid #2d5a27;
         }
-        
-        .card-screen-container {
-             text-align: center;
-             max-width: 1200px;
-             margin: 0 auto;
-        }
 
         .content-screen h1 {
             font-size: 3.2em;
@@ -140,35 +134,6 @@
             font-size: 1.1em;
             color: #4a6741;
         }
-
-        /* CARD GRID */
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        .info-card {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            border: 2px solid #e8f5e8;
-        }
-        .info-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(45, 90, 39, 0.15);
-            border-color: #4CAF50;
-        }
-        .card-icon {
-            font-size: 3em;
-            margin-bottom: 15px;
-            line-height: 1;
-            color: #4CAF50;
-        }
-        .info-card h3 { font-size: 1.4em; color: #2d5a27; margin-bottom: 10px; }
-        .info-card p { font-size: 1em !important; text-align: center !important; }
         
         /* QUIZ E FOOTER */
         .quiz-screen-container { max-width: 800px; background: white; padding: 50px 40px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 3px solid #2d5a27; text-align: center; }
@@ -185,24 +150,6 @@
         .page-footer { position: fixed; bottom: 0; left: 0; width: 100%; background: linear-gradient(135deg, #4CAF50, #45a049); padding: 10px 40px; display: flex; align-items: center; justify-content: flex-end; box-shadow: 0 -5px 15px rgba(0,0,0,0.1); z-index: 100; }
         .footer-logo { height: 40px;  width: auto; margin-left: 20px; }
         
-        /* TIMELINE */
-        .timeline-container { width: 100%; max-width: 800px; margin: 40px auto; position: relative; }
-        .timeline-container::after { content: ''; position: absolute; width: 4px; background-color: #4CAF50; top: 0; bottom: 0; left: 50%; margin-left: -2px; border-radius: 4px; }
-        .timeline-item { padding: 10px 40px; position: relative; background-color: inherit; width: 50%; }
-        .timeline-item::after { content: ''; position: absolute; width: 25px; height: 25px; right: -17px; background-color: white; border: 4px solid #4CAF50; top: 25px; border-radius: 50%; z-index: 1; }
-        .timeline-item.left { left: 0; }
-        .timeline-item.right { left: 50%; }
-        .timeline-item.right::after { left: -16px; }
-        .timeline-header { padding: 25px 20px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: left; border: 2px solid #d4edda; }
-        .timeline-header h3 { font-size: 1.6em; color: #2d5a27; }
-        .timeline-icon { font-size: 1.5em; margin-right: 10px; }
-        .timeline-item p { text-align: left; font-size: 1.05em; }
-        @media screen and (max-width: 600px) {
-            .timeline-container::after { left: 31px; }
-            .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
-            .timeline-item.left, .timeline-item.right { left: 0%; }
-            .timeline-item.left::after, .timeline-item.right::after { left: 15px; }
-        }
     </style>
 </head>
 <body>
@@ -210,8 +157,8 @@
     <div class="screen active" id="welcome-screen">
         <div class="content-screen">
             <h1>Módulo 1: O Que é o Programa de Ideias?</h1>
-            <p>A inovação é um dos pilares para a sustentabilidade e o crescimento da Cooperativa. [cite_start]Para fomentar esse hábito, o programa de intraempreendedorismo "Nossas Ideias" surge como uma poderosa ferramenta, incentivando os colaboradores a proporem soluções criativas e melhorias contínuas. [cite: 29]</p>
-            [cite_start]<p>Neste módulo, você vai conhecer o propósito do programa, entender como ele foi pensado para valorizar seu olhar crítico e descobrir como sua participação pode transformar desafios em oportunidades, fortalecendo a cultura de protagonismo e colaboração. [cite: 31]</p>
+            <p>A inovação é um dos pilares para a sustentabilidade e o crescimento da Cooperativa. Para fomentar esse hábito, o programa de intraempreendedorismo "Nossas Ideias" surge como uma poderosa ferramenta, incentivando os colaboradores a proporem soluções criativas e melhorias contínuas.</p>
+            <p>Neste módulo, você vai conhecer o propósito do programa e entender como ele foi pensado para valorizar seu olhar crítico, fortalecendo a cultura de protagonismo e colaboração que nos move.</p>
             <button class="start-btn" data-navigate-to="purpose-screen">Vamos Começar</button>
         </div>
     </div>
@@ -223,64 +170,33 @@
 
     <div class="screen" id="purpose-screen">
         <div class="content-screen">
-            <h2>O Propósito do "Nossas Ideias"</h2>
+            <h2>O Programa e Seu Objetivo</h2>
             <div class="main-text-content">
-                [cite_start]<p>O programa foi criado para fortalecer a cultura de inovação e o espírito empreendedor dentro da Cooperativa. [cite: 29] [cite_start]Ele funciona como um canal oficial e acessível, onde todos os colaboradores podem registrar suas sugestões para melhorar nosso dia a dia. [cite: 30]</p>
-                [cite_start]<p>A iniciativa foi desenhada para valorizar o seu protagonismo e estimular o pensamento crítico, garantindo que as boas ideias estejam sempre alinhadas aos objetivos estratégicos da Cooperativa. [cite: 31] [cite_start]Podem participar todos os colaboradores, independentemente da área, do cargo ou do tempo de casa. [cite: 39]</p>
+                [cite_start]<p>O "Nossas Ideias" é o canal oficial e permanente da Cooperativa para fortalecer a cultura de inovação e o espírito empreendedor em nosso ambiente de trabalho[cite: 29, 30, 76]. [cite_start]O principal objetivo é estabelecer um fluxo claro e transparente para que todos possam sugerir melhorias[cite: 30, 36].</p>
+                [cite_start]<p>A iniciativa valoriza o seu protagonismo e estimula o pensamento crítico, buscando soluções que estejam alinhadas aos objetivos estratégicos da Cooperativa[cite: 31, 37].</p>
                 <div class="highlight-box">
                     Aqui, a inovação não é tarefa de um único setor. É uma cultura construída pela colaboração de todos, transformando o ambiente de trabalho em um espaço mais criativo e eficiente.
                 </div>
             </div>
             <div class="navigation-buttons">
                 <button class="back-btn" data-navigate-to="welcome-screen">Voltar</button>
-                <button class="navigation-btn" data-navigate-to="ideas-screen">Que Ideias Posso Enviar?</button>
+                <button class="navigation-btn" data-navigate-to="participation-screen">Quem Pode Participar?</button>
             </div>
         </div>
     </div>
     
-    <div class="screen" id="ideas-screen">
-        <div class="card-screen-container">
-            <h2 style="font-size: 2.5em; color: #2d5a27; margin-bottom: 15px;">Quais Tipos de Ideias Posso Enviar?</h2>
-            [cite_start]<p style="font-size: 1.2em; color: #4a6741; max-width: 800px; margin: 0 auto 40px auto;">Você pode sugerir melhorias em diversas frentes. [cite: 30] [cite_start]O importante é que a ideia seja descrita de forma clara, apontando o problema, a solução e os benefícios esperados. [cite: 43] Veja alguns exemplos:</p>
-            
-            <div class="card-grid">
-                <div class="info-card">
-                    <div class="card-icon">⚙️</div>
-                    <h3>Melhoria de Processos</h3>
-                    <p>Sugestões para otimizar fluxos de trabalho, reduzir burocracia, automatizar tarefas ou aumentar a eficiência de atividades internas.</p>
-                </div>
-                <div class="info-card">
-                    <div class="card-icon">💡</div>
-                    <h3>Produtos e Serviços</h3>
-                    <p>Ideias para criar novos produtos, aprimorar os serviços existentes ou inovar na forma como atendemos nossos associados.</p>
-                </div>
-                <div class="info-card">
-                    <div class="card-icon">🤝</div>
-                    <h3>Ambiente e Cultura</h3>
-                    <p>Propostas relacionadas a práticas de gestão, comunicação interna, bem-estar, desenvolvimento de equipes e fortalecimento da nossa cultura.</p>
-                </div>
-                 <div class="info-card">
-                    <div class="card-icon">🎯</div>
-                    <h3>Experiência do Associado</h3>
-                    [cite_start]<p>Iniciativas que possam melhorar a jornada e a satisfação dos nossos associados em qualquer ponto de contato com a Cooperativa. [cite: 33, 60]</p>
+    <div class="screen" id="participation-screen">
+        <div class="content-screen">
+            <h2>Quem Participa e Com o Quê?</h2>
+            <div class="main-text-content">
+                <p>O programa é direcionado a **todos os colaboradores da Cooperativa**, sem exceção. [cite_start]Independentemente da sua área de atuação, função exercida ou tempo de casa, sua perspectiva é valiosa[cite: 39].</p>
+                [cite_start]<p>Você pode contribuir com ideias e propostas de melhorias para diversas frentes do nosso negócio, como processos internos, produtos e serviços, práticas de gestão ou a experiência dos nossos associados[cite: 30]. O foco é amplo, pois a inovação pode surgir em qualquer atividade da Cooperativa.</p>
+                 <div class="highlight-box">
+                    Se você identificou um problema, um gargalo ou uma oportunidade de fazer algo de forma melhor, mais rápida ou mais eficiente, essa é uma excelente candidata a ideia!
                 </div>
             </div>
              <div class="navigation-buttons">
                 <button class="back-btn" data-navigate-to="purpose-screen">Voltar</button>
-                <button class="navigation-btn" data-navigate-to="journey-screen">Ver a Jornada da Ideia</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="screen" id="journey-screen">
-         <div class="card-screen-container">
-            <h2 style="font-size: 2.5em; color: #2d5a27; margin-bottom: 15px;">A Jornada da Sua Ideia</h2>
-            [cite_start]<p style="font-size: 1.2em; color: #4a6741; max-width: 800px; margin: 0 auto 40px auto;">Após o cadastro, sua ideia passa por um processo de avaliação transparente e estruturado. [cite: 32] Conheça as etapas:</p>
-            
-            <div class="timeline-container" id="journey-timeline"></div>
-
-            <div class="navigation-buttons">
-                <button class="back-btn" data-navigate-to="ideas-screen">Voltar</button>
                 <button class="navigation-btn" data-navigate-to="quiz-screen">Testar Conhecimento</button>
             </div>
         </div>
@@ -291,47 +207,27 @@
             <h2>Quiz Rápido</h2>
             
             <div class="question-container">
-                <p><strong>1. Qual o principal objetivo do programa "Nossas Ideias"?</strong></p>
+                <p><strong>1. Qual é o principal objetivo do programa "Nossas Ideias"?</strong></p>
                 <div class="options" data-answer="b">
-                    <label><input type="radio" name="q1" value="a"> A) Criar novos produtos, exclusivamente.</label>
-                    [cite_start]<label><input type="radio" name="q1" value="b"> B) Fortalecer a cultura de inovação e o protagonismo dos colaboradores. [cite: 29, 31]</label>
-                    <label><input type="radio" name="q1" value="c"> C) Premiar apenas as ideias que geram mais lucro.</label>
-                    <label><input type="radio" name="q1" value="d"> D) Reduzir o número de reuniões na Cooperativa.</label>
+                    <label><input type="radio" name="q1" value="a"> A) Desenvolver apenas novos produtos para associados.</label>
+                    [cite_start]<label><input type="radio" name="q1" value="b"> B) Fortalecer a cultura de inovação e o protagonismo dos colaboradores[cite: 29, 31].</label>
+                    <label><input type="radio" name="q1" value="c"> C) Premiar somente as ideias de baixo custo.</label>
+                    <label><input type="radio" name="q1" value="d"> D) Substituir as reuniões de equipe.</label>
                 </div>
             </div>
 
             <div class="question-container">
-                <p><strong>2. Onde as ideias devem ser cadastradas?</strong></p>
-                <div class="options" data-answer="c">
-                    <label><input type="radio" name="q2" value="a"> A) Enviando um e-mail para o gerente da área.</label>
-                    <label><input type="radio" name="q2" value="b"> B) Em uma planilha compartilhada.</label>
-                    [cite_start]<label><input type="radio" name="q2" value="c"> C) Exclusivamente no Portal de Ideias Sistêmicas. [cite: 42]</label>
-                    <label><input type="radio" name="q2" value="d"> D) Durante as reuniões de equipe.</label>
-                </div>
-            </div>
-            
-            <div class="question-container">
-                <p><strong>3. Quem realiza a primeira análise (pré-avaliação) de todas as ideias submetidas?</strong></p>
-                <div class="options" data-answer="a">
-                    [cite_start]<label><input type="radio" name="q3" value="a"> A) A Gerência de Estratégia e Inovação. [cite: 46]</label>
-                    <label><input type="radio" name="q3" value="b"> B) A Diretoria Executiva.</label>
-                    <label><input type="radio" name="q3" value="c"> C) A equipe de Recursos Humanos.</label>
-                    <label><input type="radio" name="q3" value="d"> D) A gerência da área do colaborador que enviou a ideia.</label>
-                </div>
-            </div>
-
-            <div class="question-container">
-                <p><strong>4. Para que uma ideia seja bem avaliada, o que é imprescindível no cadastro?</strong></p>
+                <p><strong>2. Quem pode participar do programa?</strong></p>
                 <div class="options" data-answer="d">
-                    <label><input type="radio" name="q4" value="a"> A) Anexar uma apresentação em PowerPoint.</label>
-                    <label><input type="radio" name="q4" value="b"> B) Ter a aprovação prévia de um diretor.</label>
-                    <label><input type="radio" name="q4" value="c"> C) Ser uma ideia que não precise de recursos para ser implementada.</label>
-                    [cite_start]<label><input type="radio" name="q4" value="d"> D) Descrever com clareza o problema, a solução e os benefícios esperados. [cite: 43]</label>
+                    <label><input type="radio" name="q2" value="a"> A) Apenas colaboradores com mais de um ano de casa.</label>
+                    <label><input type="radio" name="q2" value="b"> B) Apenas as lideranças e gerentes.</label>
+                    <label><input type="radio" name="q2" value="c"> C) Apenas a área de Estratégia e Inovação.</label>
+                    [cite_start]<label><input type="radio" name="q2" value="d"> D) Todos os colaboradores, sem distinção de cargo ou área[cite: 39].</label>
                 </div>
             </div>
 
             <div class="navigation-buttons" id="quiz-nav-buttons">
-                <button class="back-btn" data-navigate-to="journey-screen">Voltar</button>
+                <button class="back-btn" data-navigate-to="participation-screen">Voltar</button>
                 <button class="navigation-btn" id="show-results-btn">Ver Resultados</button>
             </div>
             <p id="quiz-results"></p>
@@ -343,10 +239,10 @@
         <div class="content-screen">
             <h2>Módulo Concluído</h2>
             <div class="main-text-content">
-                <p>Parabéns! Você concluiu a primeira etapa e já conhece a estrutura e o propósito do "Nossas Ideias".</p>
-                <p>O próximo passo é colocar seu olhar criativo em prática. Observe os processos, converse com seus colegas e não hesite em registrar suas sugestões. Sua participação é o que move a inovação em nossa Cooperativa.</p>
+                <p>Parabéns! Você concluiu a introdução ao "Nossas Ideias" e já conhece a estrutura e o propósito do programa.</p>
+                <p>O próximo passo é colocar seu olhar crítico em prática. Observe os processos, converse com seus colegas e sinta-se à vontade para participar. Sua contribuição é o que move a inovação em nossa Cooperativa.</p>
                 <div class="highlight-box">
-                  Cada ideia, por menor que pareça, tem o potencial de gerar grandes transformações. Contamos com a sua contribuição!
+                  Cada ideia, por menor que pareça, tem o potencial de gerar grandes transformações. Contamos com a sua!
                 </div>
             </div>
             <div class="navigation-buttons">
@@ -358,13 +254,6 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-
-            const journeyData = [
-                [cite_start]{ icon: "📝", title: "1. Cadastro da Ideia", content: `<p>Você registra sua proposta no <strong>Portal de Ideias Sistêmicas</strong>, na aba “Ideias Locais”. [cite: 42] [cite_start]É fundamental descrever o problema, a solução e os benefícios de forma clara e objetiva. [cite: 43]</p>` },
-                [cite_start]{ icon: "🔍", title: "2. Análise Inicial", content: `<p>A <strong>Gerência de Estratégia e Inovação</strong> faz uma pré-avaliação em até <strong>5 dias úteis</strong>, verificando a clareza e o alinhamento estratégico da proposta. [cite: 46, 47] [cite_start]Se necessário, podem pedir para você complementar a ideia. [cite: 48]</p>` },
-                [cite_start]{ icon: "✅", title: "3. Avaliação da Gerência", content: `<p>A ideia é encaminhada para a <strong>gerência da área impactada</strong>, que tem até <strong>20 dias úteis</strong> para analisar a viabilidade técnica e operacional. [cite: 50, 51]</p>` },
-                [cite_start]{ icon: "💬", title: "4. Devolutiva e Próximos Passos", content: `<p>Você recebe o retorno (aprovado ou não) com a justificativa no próprio Portal de Ideias. [cite: 63] [cite_start]Se aprovada, a área responsável inicia o processo de implementação. [cite: 67]</p>` }
-            ];
 
             function showScreen(screenId) {
                 const footer = document.getElementById('main-footer');
@@ -402,26 +291,6 @@
                 window.scrollTo(0, 0);
             }
             
-            function buildTimeline(containerId, data) {
-                const container = document.getElementById(containerId);
-                if (!container) return;
-                container.innerHTML = '';
-                
-                data.forEach((item, index) => {
-                    const positionClass = index % 2 === 0 ? 'left' : 'right';
-                    const timelineItem = document.createElement('div');
-                    timelineItem.className = `timeline-item ${positionClass}`;
-                    
-                    timelineItem.innerHTML = `
-                        <div class="timeline-header">
-                            <h3><span class="timeline-icon">${item.icon}</span>${item.title}</h3>
-                        </div>
-                        ${item.content}
-                    `;
-                    container.appendChild(timelineItem);
-                });
-            }
-
             function showQuizResults() {
                 let correctCount = 0;
                 const questions = document.querySelectorAll('.question-container');
@@ -481,9 +350,6 @@
                     this.classList.add('selected');
                 });
             });
-
-            // Construir conteúdo dinâmico
-            buildTimeline('journey-timeline', journeyData);
             
             // Mostrar a primeira tela
             showScreen('welcome-screen');
