@@ -387,7 +387,7 @@
             <h1>✍️ A Arte dos Prompts: Como Conversar com o Copilot</h1>
             <p>Para aproveitar todo o potencial do Microsoft Copilot, é fundamental saber como “conversar” com ele. Um pedido vago gera um resultado vago. Um pedido claro e detalhado gera um resultado fantástico.</p>
             <p>Neste módulo, vamos ensinar as boas práticas de <em>prompting</em> — a arte de fazer perguntas, dar instruções e guiar a IA para obter exatamente o que você precisa. Pense nisso como aprender a ser um bom gestor para seu novo assistente digital. Dominar essa comunicação é uma habilidade essencial na nova era do trabalho.</p>
-            <button class="start-btn" onclick="showScreen('definition-screen')">Entender o que é um Prompt</button>
+            <button class="start-btn" data-navigate-to="definition-screen">Entender o que é um Prompt</button>
         </div>
     </div>
 
@@ -410,15 +410,15 @@
                     <h3>🔬 A Diferença na Prática</h3>
                     <p>Veja como a qualidade do prompt muda o resultado. Clique para comparar.</p>
                     <div>
-                        <button class="demo-btn" onclick="showPromptResponse('vague')">Prompt Vago</button>
-                        <button class="demo-btn" onclick="showPromptResponse('effective')">Prompt Efetivo</button>
+                        <button class="demo-btn" data-prompt-type="vague">Prompt Vago</button>
+                        <button class="demo-btn" data-prompt-type="effective">Prompt Efetivo</button>
                     </div>
                     <div class="demo-output" id="prompt-demo-output"></div>
                 </div>
             </div>
             <div class="navigation-buttons">
-                <button class="back-btn" onclick="showScreen('welcome-screen')">Voltar</button>
-                <button class="navigation-btn" onclick="showScreen('pillars-screen')">Conhecer os Pilares</button>
+                <button class="back-btn" data-navigate-to="welcome-screen">Voltar</button>
+                <button class="navigation-btn" data-navigate-to="pillars-screen">Conhecer os Pilares</button>
             </div>
         </div>
     </div>
@@ -431,8 +431,8 @@
             </div>
             <div id="pillars-accordion"></div>
             <div class="navigation-buttons">
-                <button class="back-btn" onclick="showScreen('definition-screen')">Voltar</button>
-                <button class="navigation-btn" onclick="showScreen('examples-screen')">Ver Exemplos Práticos</button>
+                <button class="back-btn" data-navigate-to="definition-screen">Voltar</button>
+                <button class="navigation-btn" data-navigate-to="examples-screen">Ver Exemplos Práticos</button>
             </div>
         </div>
     </div>
@@ -445,8 +445,8 @@
             </div>
             <div id="examples-accordion"></div>
             <div class="navigation-buttons">
-                <button class="back-btn" onclick="showScreen('pillars-screen')">Voltar</button>
-                <button class="navigation-btn" onclick="showScreen('advanced-screen')">Técnicas Avançadas</button>
+                <button class="back-btn" data-navigate-to="pillars-screen">Voltar</button>
+                <button class="navigation-btn" data-navigate-to="advanced-screen">Técnicas Avançadas</button>
             </div>
         </div>
     </div>
@@ -459,8 +459,8 @@
             </div>
             <div id="advanced-accordion"></div>
             <div class="navigation-buttons">
-                <button class="back-btn" onclick="showScreen('examples-screen')">Voltar</button>
-                <button class="navigation-btn" onclick="showScreen('quiz-screen')">Testar Meus Conhecimentos</button>
+                <button class="back-btn" data-navigate-to="examples-screen">Voltar</button>
+                <button class="navigation-btn" data-navigate-to="quiz-screen">Testar Meus Conhecimentos</button>
             </div>
         </div>
     </div>
@@ -514,11 +514,11 @@
                 </div>
             </div>
             <div class="navigation-buttons" id="quiz-nav-buttons">
-                <button class="back-btn" onclick="showScreen('advanced-screen')">Voltar</button>
-                <button class="navigation-btn" id="show-results-btn" onclick="showQuizResults()">Ver Resultados</button>
+                <button class="back-btn" data-navigate-to="advanced-screen">Voltar</button>
+                <button class="navigation-btn" id="show-results-btn">Ver Resultados</button>
             </div>
             <p id="quiz-results"></p>
-            <button class="navigation-btn" id="finish-module-btn" style="display: none;" onclick="showScreen('final-screen')">Finalizar Módulo</button>
+            <button class="navigation-btn" id="finish-module-btn" style="display: none;" data-navigate-to="final-screen">Finalizar Módulo</button>
         </div>
     </div>
     
@@ -529,4 +529,7 @@
                 <p>Parabéns! Você concluiu o módulo sobre a Arte dos Prompts e agora tem as ferramentas para se comunicar de forma muito mais eficaz com o Copilot e outras IAs.</p>
                 <p>Lembre-se que esta é uma habilidade que melhora com a prática. Continue testando, refinando suas perguntas e explorando as diferentes técnicas. Quanto melhor for a sua conversa com a IA, mais poderosa ela se tornará como sua assistente no dia a dia.</p>
                 <div class="highlight-box">
-                   A qualidade da resposta de uma IA está diretamente ligada à qualidade da pergunta. Ao dominar os prompt
+                   A qualidade da resposta de uma IA está diretamente ligada à qualidade da pergunta. Ao dominar os prompts, você assume o controle do resultado.
+                </div>
+            </div>
+             <div class="na
