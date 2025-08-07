@@ -1,0 +1,235 @@
+Passo a passo - Transformar HTML em SCROM 
+
+Passo 1: Criar o Arquivo imsmanifest.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest identifier="com.meucurso.introducaoia.v1" version="1.2"
+          xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2"
+          xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://www.imsproject.org/xsd/imscp_rootv1p1p2 imscp_rootv1p1p2.xsd http://www.imsglobal.org/xsd/imsmd_rootv1p2p1 imsmd_rootv1p2p1.xsd http://www.adlnet.org/xsd/adlcp_rootv1p2 adlcp_rootv1p2.xsd">
+
+    <metadata>
+        <schema>ADL SCORM</schema>
+        <schemaversion>1.2</schemaversion>
+        <lom xmlns="http://www.imsglobal.org/xsd/imsmd_rootv1p2p1">
+            <general>
+                <title>
+                    <langstring xml:lang="pt-BR">Módulo 1: Introdução à Inteligência Artificial</langstring>
+                </title>
+                <description>
+                    <langstring xml:lang="pt-BR">Curso introdutório sobre os fundamentos da Inteligência Artificial.</langstring>
+                </description>
+            </general>
+        </lom>
+    </metadata>
+
+    <organizations default="org_1">
+        <organization identifier="org_1">
+            <title>Introdução à IA</title>
+            <item identifier="item_1" identifierref="res_1" isvisible="true">
+                <title>Módulo Introdutório</title>
+            </item>
+        </organization>
+    </organizations>
+
+    <resources>
+        <resource identifier="res_1" type="webcontent" adlcp:scormtype="sco" href="index.html">
+            <file href="index.html"/>
+            <file href="SCORM_API_wrapper.js"/>
+        </resource>
+    </resources>
+
+</manifest>
+
+Passo 2: Criar o Wrapper da API SCORM
+
+/*******************************************************************************
+**
+** SCORM_API_wrapper.js (VERSÃO 2 - COM BUSCA AVANÇADA)
+**
+** Esta versão tenta encontrar a API de forma mais agressiva, procurando
+** em janelas pais e na janela principal do navegador.
+**
+*******************************************************************************/
+
+const scorm = (() => {
+    let API = null;
+    let isInitialized = false;
+
+    // FUNÇÃO DE BUSCA MELHORADA
+    function findAPI(win) {
+        let findAPITries = 0;
+        // Procura na janela atual e nas janelas "pai"
+        while ((!win.API) && (win.parent) && (win.parent != win)) {
+            findAPITries++;
+            if (findAPITries > 500) {
+                console.error("Erro: excedeu o número de tentativas para encontrar a API SCORM na hierarquia de pais.");
+                return null;
+            }
+            win = win.parent;
+        }
+
+        // Se não encontrou, tenta procurar em janelas "opener" (caso o curso abra em um pop-up)
+        if (win.API) {
+            return win.API;
+        } else if (window.opener) {
+            return findAPI(window.opener);
+        } else {
+             return null;
+        }
+    }
+
+    function init() {
+        if (isInitialized) return;
+        
+        API = findAPI(window);
+
+        if (API) {
+            API.LMSInitialize("");
+            isInitialized = true;
+            console.log("SCORM API Inicializada com sucesso.");
+            setValue("cmi.core.lesson_status", "incomplete");
+            commit();
+        } else {
+            console.error("A API SCORM não foi encontrada. Verifique se o curso está sendo executado a partir de um LMS e se a estrutura do pacote .ZIP está correta (sem pastas internas).");
+        }
+    }
+
+    function setValue(param, value) {
+        if (isInitialized && API) {
+            return API.LMSSetValue(param, value);
+        }
+        return false;
+    }
+
+    function commit() {
+        if (isInitialized && API) {
+            return API.LMSCommit("");
+        }
+        return false;
+    }
+
+    function exit() {
+        if (isInitialized && API) {
+            API.LMSFinish("");
+            isInitialized = false;
+            API = null;
+            console.log("Conexão SCORM finalizada.");
+        }
+    }
+
+    // Função para registrar a conclusão e a nota (VERSÃO MELHORADA)
+    function complete(score) {
+        if (!isInitialized) return;
+        
+        let lessonStatus = "completed"; // Status padrão
+        
+        if (score !== undefined) {
+            const passingScore = 70; // Defina uma nota de aprovação, ex: 70
+            setValue("cmi.core.score.min", "0");
+            setValue("cmi.core.score.max", "100");
+            setValue("cmi.core.score.raw", score.toString());
+            
+            if (score >= passingScore) {
+                lessonStatus = "passed";
+            } else {
+                lessonStatus = "failed";
+            }
+        }
+
+        setValue("cmi.core.lesson_status", lessonStatus);
+        setValue("cmi.core.exit", "suspend");
+
+        const success = commit();
+        if (success) {
+            console.log(`Status enviado ao AVA: ${lessonStatus}. Pontuação: ${score}. Dados salvos.`);
+        } else {
+            console.error("Falha ao salvar dados no AVA.");
+        }
+    }
+    
+    return {
+        init,
+        exit,
+        complete
+    };
+})();
+
+Passo 3: Integrar o SCORM no index.html
+
+Dentro da tag <head> do seu index.html, adicione a seguinte linha:
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>História da Inteligência Artificial</title>
+    <script src="SCORM_API_wrapper.js"></script> <style>
+
+Vamos modificar o seu script no final do arquivo para iniciar a comunicação quando a página carrega e terminá-la quando a página é fechada.
+
+Encontre o seu bloco <script> no final do arquivo e modifique o listener DOMContentLoaded:
+
+JavaScript
+
+        document.addEventListener('DOMContentLoaded', () => {
+             // Inicia a aplicação
+            showScreen('welcome-screen');
+            
+            // ADICIONE ESTA LINHA PARA INICIAR O SCORM
+            scorm.init();
+
+            // Adiciona listener para os botões de opção do quiz para feedback visual
+            document.querySelectorAll('.options label').forEach(label => {
+                label.addEventListener('click', function() {
+                    this.closest('.options').querySelectorAll('label').forEach(otherLabel => {
+                        otherLabel.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                });
+            });
+        });
+
+        // ADICIONE ESTA LINHA PARA FINALIZAR O SCORM AO FECHAR A PÁGINA
+        window.addEventListener('unload', scorm.exit);
+
+Registrar a conclusão e nota do quis
+
+Modifique a função showQuizResults() da seguinte forma:
+
+JavaScript
+
+        function showQuizResults() {
+            let correctCount = 0;
+            const answers = { q1: 'b', q2: 'c', q3: 'c', q4: 'c', q5: 'c' };
+            const questions = Object.keys(answers);
+            
+            questions.forEach(q => {
+                const optionsDiv = document.querySelector(`input[name="${q}"]`).closest('.options');
+                optionsDiv.querySelectorAll('label').forEach(l => l.classList.remove('correct', 'incorrect'));
+                
+                const selected = document.querySelector(`input[name="${q}"]:checked`);
+                if (selected) {
+                    const selectedLabel = selected.parentElement;
+                    if (selected.value === answers[q]) {
+                        correctCount++;
+                        selectedLabel.classList.add('correct');
+                    } else {
+                        selectedLabel.classList.add('incorrect');
+                        optionsDiv.querySelector(`input[value="${answers[q]}"]`).parentElement.classList.add('correct');
+                    }
+                }
+            });
+
+            const percentage = (correctCount / questions.length) * 100;
+            document.getElementById('quiz-results').textContent = `Você acertou ${correctCount} de ${questions.length} perguntas (${percentage.toFixed(0)}%).`;
+            document.getElementById('quiz-results').style.display = 'block';
+            document.getElementById('quiz-nav-buttons').style.display = 'none';
+            document.getElementById('finish-module-btn').style.display = 'inline-block';
+            
+            // *** AQUI É A MÁGICA DO SCORM ***
+            // Chama a função para completar o curso no AVA, passando a nota.
+            scorm.complete(percentage.toFixed(0));
+        }
+A linha scorm.complete(percentage.toFixed(0)); enviará para o AVA o status de "completed" e a nota do aluno (de 0 a 100).
