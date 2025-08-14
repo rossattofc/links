@@ -5,15 +5,14 @@ import xlwings as xw
 from pptx import Presentation
 from pptx.util import Inches
 
-def criar_apresentacao_de_graficos():
+def criar_apresentacao_de_graficos_robusto():
     """
-    Abre uma janela para selecionar uma pasta, encontra todos os arquivos Excel,
-    e cria uma apresentação de PowerPoint com os gráficos de cada planilha.
+    Versão robusta que lida tanto com gráficos incorporados em planilhas
+    quanto com planilhas que são gráficos (Chart Sheets).
     """
     # 1. Abrir janela para selecionar a pasta
     root = tk.Tk()
-    root.withdraw()  # Esconde a janela principal do tkinter
-    
+    root.withdraw()
     folder_path = filedialog.askdirectory(title="Selecione a pasta com as planilhas do Excel")
     
     if not folder_path:
@@ -24,77 +23,80 @@ def criar_apresentacao_de_graficos():
 
     # 2. Inicializar a apresentação e a aplicação Excel
     prs = Presentation()
-    # Define o layout de slide em branco (geralmente o índice 6)
-    blank_slide_layout = prs.slide_layouts[6] 
+    blank_slide_layout = prs.slide_layouts[6]
 
-    # Inicia o Excel em modo invisível para não atrapalhar o usuário
+    # Usar 'with' garante que o Excel será fechado mesmo se ocorrer um erro
     with xw.App(visible=False) as excel_app:
         
         # 3. Loop através de todos os arquivos na pasta
         for filename in os.listdir(folder_path):
-            # Verifica se é um arquivo Excel
             if filename.lower().endswith(('.xlsx', '.xlsm', '.xls')):
                 excel_file_path = os.path.join(folder_path, filename)
                 print(f"\nProcessando arquivo: {filename}...")
                 
                 try:
-                    # Abre a pasta de trabalho do Excel em modo somente leitura
                     wb = excel_app.books.open(excel_file_path)
 
-                    # 4. Loop através de cada planilha (aba) no arquivo
+                    # 4. Loop através de cada aba (planilha ou gráfico) no arquivo
                     for sheet in wb.sheets:
-                        # Verifica se a planilha tem gráficos
-                        if sheet.charts.count > 0:
-                            print(f"  - Encontrados {sheet.charts.count} gráficos na aba '{sheet.name}'. Criando slide...")
-                            
-                            # Adiciona um novo slide para esta planilha
-                            slide = prs.slides.add_slide(blank_slide_layout)
+                        
+                        charts_to_export = []
+                        
+                        # >>> ALTERAÇÃO PRINCIPAL: Detectar o tipo de aba <<<
 
-                            # Adiciona um título ao slide
+                        # CASO 1: Aba é uma planilha normal (worksheet)
+                        if sheet.type == 'worksheet':
+                            if sheet.charts.count > 0:
+                                print(f"  - Encontrados {sheet.charts.count} gráficos na aba '{sheet.name}'.")
+                                # Adiciona todos os gráficos da planilha à lista para exportação
+                                charts_to_export.extend(sheet.charts)
+                        
+                        # CASO 2: A própria aba é um gráfico (chart sheet)
+                        elif sheet.type == 'chart':
+                            print(f"  - Encontrada planilha de gráfico '{sheet.name}'.")
+                            # Adiciona a própria aba (que é um gráfico) à lista
+                            charts_to_export.append(sheet)
+
+                        # Se encontramos algo para exportar (seja qual for o tipo)
+                        if charts_to_export:
+                            # Cria um novo slide para esta aba
+                            slide = prs.slides.add_slide(blank_slide_layout)
                             title = slide.shapes.add_textbox(Inches(0.5), Inches(0.2), Inches(9), Inches(0.5))
                             title.text_frame.text = f"{wb.name} - {sheet.name}"
                             
-                            # Posições iniciais para as imagens no slide
-                            left = Inches(0.5)
-                            top = Inches(1.0)
-                            
-                            # 5. Loop através de cada gráfico na planilha
-                            for i, chart in enumerate(sheet.charts):
-                                # Define um nome de arquivo temporário para a imagem do gráfico
+                            left, top = Inches(0.5), Inches(1.0) # Posições no slide
+
+                            # Loop na lista de gráficos que criamos
+                            for i, chart in enumerate(charts_to_export):
                                 temp_image_path = os.path.join(folder_path, f"temp_chart_{i}.png")
                                 
-                                # Exporta o gráfico como uma imagem PNG
+                                # Exporta o gráfico para um arquivo PNG
                                 chart.to_png(path=temp_image_path)
                                 
-                                # Adiciona a imagem ao slide
-                                slide.shapes.add_picture(temp_image_path, left, top, width=Inches(5))
+                                # Adiciona a imagem ao slide e ajusta o tamanho
+                                pic = slide.shapes.add_picture(temp_image_path, left, top, height=Inches(3))
                                 
-                                # Remove o arquivo de imagem temporário
                                 os.remove(temp_image_path)
                                 
-                                # Atualiza a posição para o próximo gráfico (abaixo do anterior)
-                                top += Inches(3.0) 
+                                # Atualiza a posição para o próximo gráfico ir para baixo
+                                top += pic.height + Inches(0.2)
                                 
-                                # Se o próximo gráfico sair do slide, cria uma nova coluna (opcional)
-                                if top >= Inches(7.0):
+                                # Se passar da borda, cria uma nova coluna
+                                if top > Inches(6.5):
                                     top = Inches(1.0)
-                                    left += Inches(5.2)
-
-                    # Fecha a pasta de trabalho
+                                    left += pic.width + Inches(0.2)
                     wb.close()
-                
                 except Exception as e:
-                    print(f"    ERRO ao processar o arquivo {filename}. Erro: {e}")
-                    # Garante que o workbook seja fechado em caso de erro
-                    if 'wb' in locals() and wb.app.pid:
-                        wb.close()
-    
+                    print(f"    ERRO ao processar o arquivo {filename}. Verifique se o arquivo não está corrompido. Erro: {e}")
+
     # 6. Salvar a apresentação final
-    output_pptx_path = os.path.join(folder_path, "Apresentacao_Gerada.pptx")
-    prs.save(output_pptx_path)
-    
-    print(f"\nConcluído! Apresentação salva em: {output_pptx_path}")
+    output_pptx_path = os.path.join(folder_path, "Apresentacao_Gerada_FINAL.pptx")
+    try:
+        prs.save(output_pptx_path)
+        print(f"\nConcluído! Apresentação salva em: {output_pptx_path}")
+    except Exception as e:
+        print(f"\nERRO ao salvar a apresentação. Verifique as permissões da pasta. Erro: {e}")
 
 # Executa a função principal
 if __name__ == "__main__":
-    criar_apresentacao_de_graficos()
+    criar_apresentacao_de_graficos_robusto()
