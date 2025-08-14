@@ -1,109 +1,100 @@
-Sub CriarApresentacaoComGraficos_Corrigido()
+import os
+import tkinter as tk
+from tkinter import filedialog
+import xlwings as xw
+from pptx import Presentation
+from pptx.util import Inches
 
-    ' Declaração das variáveis
-    Dim oPPTApp As Object         ' Objeto para a aplicação PowerPoint
-    Dim oPPTPres As Object        ' Objeto para a apresentação do PowerPoint
-    Dim oPPTSlide As Object       ' Objeto para o slide do PowerPoint
-    Dim oWorkbook As Object       ' Objeto para a pasta de trabalho do Excel
-    Dim oWorksheet As Worksheet   ' Objeto para a planilha do Excel
-    Dim oChartObject As ChartObject ' Objeto para o gráfico
-    Dim sPasta As String          ' String para o caminho da pasta
-    Dim sArquivo As String        ' String para o nome do arquivo
-    Dim topPos As Single          ' Variável para controlar a posição vertical dos gráficos
-    Dim leftPos As Single         ' Variável para controlar a posição horizontal dos gráficos
+def criar_apresentacao_de_graficos():
+    """
+    Abre uma janela para selecionar uma pasta, encontra todos os arquivos Excel,
+    e cria uma apresentação de PowerPoint com os gráficos de cada planilha.
+    """
+    # 1. Abrir janela para selecionar a pasta
+    root = tk.Tk()
+    root.withdraw()  # Esconde a janela principal do tkinter
+    
+    folder_path = filedialog.askdirectory(title="Selecione a pasta com as planilhas do Excel")
+    
+    if not folder_path:
+        print("Nenhuma pasta selecionada. Operação cancelada.")
+        return
 
-    ' Habilita o tratamento de erros para o caso do PowerPoint não estar aberto
-    On Error Resume Next
-    Set oPPTApp = GetObject(, "PowerPoint.Application")
-    If Err.Number <> 0 Then
-        Set oPPTApp = CreateObject("PowerPoint.Application")
-    End If
-    On Error GoTo 0
-    oPPTApp.Visible = True
+    print(f"Pasta selecionada: {folder_path}")
 
-    ' Solicita ao usuário que selecione a pasta
-    With Application.FileDialog(msoFileDialogFolderPicker)
-        .Title = "Selecione a pasta com as planilhas do Excel"
-        If .Show = -1 Then
-            sPasta = .SelectedItems(1) & "\"
-        Else
-            MsgBox "Nenhuma pasta selecionada. Operação cancelada.", vbExclamation
-            Exit Sub
-        End If
-    End With
+    # 2. Inicializar a apresentação e a aplicação Excel
+    prs = Presentation()
+    # Define o layout de slide em branco (geralmente o índice 6)
+    blank_slide_layout = prs.slide_layouts[6] 
 
-    ' Cria uma nova apresentação vazia
-    Set oPPTPres = oPPTApp.Presentations.Add
-
-    ' Inicia o loop para encontrar os arquivos Excel na pasta
-    sArquivo = Dir(sPasta & "*.xls*")
-
-    Do While sArquivo <> ""
-        ' Abre a pasta de trabalho do Excel em modo somente leitura
-        Set oWorkbook = Workbooks.Open(Filename:=sPasta & sArquivo, ReadOnly:=True)
-
-        ' >>> ALTERAÇÃO LÓGICA IMPORTANTE <<<
-        ' Loop através de cada PLANILHA (aba) dentro do arquivo
-        For Each oWorksheet In oWorkbook.Worksheets
-
-            ' Verifica se a planilha atual tem pelo menos um gráfico
-            If oWorksheet.ChartObjects.Count > 0 Then
-
-                ' Se tiver gráficos, SÓ ENTÃO cria um novo slide
-                Set oPPTSlide = oPPTPres.Slides.Add(oPPTPres.Slides.Count + 1, 12) ' 12 = ppLayoutBlank
+    # Inicia o Excel em modo invisível para não atrapalhar o usuário
+    with xw.App(visible=False) as excel_app:
+        
+        # 3. Loop através de todos os arquivos na pasta
+        for filename in os.listdir(folder_path):
+            # Verifica se é um arquivo Excel
+            if filename.lower().endswith(('.xlsx', '.xlsm', '.xls')):
+                excel_file_path = os.path.join(folder_path, filename)
+                print(f"\nProcessando arquivo: {filename}...")
                 
-                ' Adiciona um pequeno título no slide com o nome do arquivo e da aba
-                 oPPTSlide.Shapes.AddTextbox(1, 50, 20, 800, 40).TextFrame.TextRange.Text = oWorkbook.Name & " - " & oWorksheet.Name
+                try:
+                    # Abre a pasta de trabalho do Excel em modo somente leitura
+                    wb = excel_app.books.open(excel_file_path)
 
+                    # 4. Loop através de cada planilha (aba) no arquivo
+                    for sheet in wb.sheets:
+                        # Verifica se a planilha tem gráficos
+                        if sheet.charts.count > 0:
+                            print(f"  - Encontrados {sheet.charts.count} gráficos na aba '{sheet.name}'. Criando slide...")
+                            
+                            # Adiciona um novo slide para esta planilha
+                            slide = prs.slides.add_slide(blank_slide_layout)
 
-                ' Zera as posições para os gráficos de cada nova planilha
-                topPos = 100
-                leftPos = 60
+                            # Adiciona um título ao slide
+                            title = slide.shapes.add_textbox(Inches(0.5), Inches(0.2), Inches(9), Inches(0.5))
+                            title.text_frame.text = f"{wb.name} - {sheet.name}"
+                            
+                            # Posições iniciais para as imagens no slide
+                            left = Inches(0.5)
+                            top = Inches(1.0)
+                            
+                            # 5. Loop através de cada gráfico na planilha
+                            for i, chart in enumerate(sheet.charts):
+                                # Define um nome de arquivo temporário para a imagem do gráfico
+                                temp_image_path = os.path.join(folder_path, f"temp_chart_{i}.png")
+                                
+                                # Exporta o gráfico como uma imagem PNG
+                                chart.to_png(path=temp_image_path)
+                                
+                                # Adiciona a imagem ao slide
+                                slide.shapes.add_picture(temp_image_path, left, top, width=Inches(5))
+                                
+                                # Remove o arquivo de imagem temporário
+                                os.remove(temp_image_path)
+                                
+                                # Atualiza a posição para o próximo gráfico (abaixo do anterior)
+                                top += Inches(3.0) 
+                                
+                                # Se o próximo gráfico sair do slide, cria uma nova coluna (opcional)
+                                if top >= Inches(7.0):
+                                    top = Inches(1.0)
+                                    left += Inches(5.2)
 
-                ' Loop através de cada objeto de gráfico na planilha
-                For Each oChartObject In oWorksheet.ChartObjects
-                    
-                    ' Copia o gráfico como imagem
-                    oChartObject.Chart.CopyPicture Appearance:=xlScreen, Format:=xlPicture
+                    # Fecha a pasta de trabalho
+                    wb.close()
+                
+                except Exception as e:
+                    print(f"    ERRO ao processar o arquivo {filename}. Erro: {e}")
+                    # Garante que o workbook seja fechado em caso de erro
+                    if 'wb' in locals() and wb.app.pid:
+                        wb.close()
+    
+    # 6. Salvar a apresentação final
+    output_pptx_path = os.path.join(folder_path, "Apresentacao_Gerada.pptx")
+    prs.save(output_pptx_path)
+    
+    print(f"\nConcluído! Apresentação salva em: {output_pptx_path}")
 
-                    ' >>> ALTERAÇÃO NA COLAGEM <<<
-                    ' Cola o gráfico no slide. Usamos .PasteSpecial para mais controle.
-                    oPPTSlide.Shapes.PasteSpecial(DataType:=2).Select ' 2 = ppPasteEnhancedMetafile para boa qualidade
-
-                    ' Posiciona e redimensiona o gráfico colado para não sobrepor
-                    With oPPTApp.ActiveWindow.Selection.ShapeRange
-                        .Top = topPos
-                        .Left = leftPos
-                        .Width = 400 ' Define uma largura padrão
-                        .Height = 250 ' Define uma altura padrão
-                    End With
-
-                    ' Atualiza a posição para o próximo gráfico ir para o lado
-                    leftPos = leftPos + 420 ' Largura (400) + Espaço (20)
-
-                    ' Se a próxima posição sair da tela, quebra a linha
-                    If leftPos > oPPTPres.PageSetup.SlideWidth - 400 Then
-                        leftPos = 60
-                        topPos = topPos + 270 ' Altura (250) + Espaço (20)
-                    End If
-
-                Next oChartObject
-            End If
-        Next oWorksheet
-
-        ' Fecha a pasta de trabalho do Excel
-        oWorkbook.Close SaveChanges:=False
-
-        ' Pega o próximo arquivo na pasta
-        sArquivo = Dir
-    Loop
-
-    oPPTApp.ActiveWindow.Selection.Unselect
-    Set oPPTSlide = Nothing
-    Set oPPTPres = Nothing
-    Set oPPTApp = Nothing
-    Set oWorkbook = Nothing
-
-    MsgBox "A apresentação do PowerPoint foi criada com sucesso!", vbInformation
-
-End Sub
+# Executa a função principal
+if __name__ == "__main__":
+    criar_apresentacao_de_graficos()
