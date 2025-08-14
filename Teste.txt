@@ -1,86 +1,178 @@
-Sub CriarApresentacaoComGraficos()
+Sub CopiarGraficosParaPowerPoint()
+Dim pptApp As Object
+Dim pptPres As Object
+Dim pptSlide As Object
+Dim xlApp As Object
+Dim xlWorkbook As Object
+Dim xlWorksheet As Object
+Dim cht As Object
+Dim fso As Object
+Dim folder As Object
+Dim file As Object
+Dim pastaArquivos As String
+Dim tituloSlide As String
+Dim slideCount As Integer
 
-    ' Declaração das variáveis
-    Dim oPPTApp As Object ' Objeto para a aplicação PowerPoint
-    Dim oPPTPres As Object ' Objeto para a apresentação do PowerPoint
-    Dim oPPTSlide As Object ' Objeto para o slide do PowerPoint
-    Dim oExcelApp As Object ' Objeto para a aplicação Excel
-    Dim oWorkbook As Object ' Objeto para a pasta de trabalho do Excel
-    Dim oWorksheet As Worksheet ' Objeto para a planilha do Excel
-    Dim oChartObject As ChartObject ' Objeto para o gráfico
-    Dim sPasta As String ' String para o caminho da pasta
-    Dim sArquivo As String ' String para o nome do arquivo
+```
+' Definir o caminho da pasta com os arquivos Excel
+pastaArquivos = "C:\SeuCaminho\Pasta\" ' ALTERE ESTE CAMINHO
 
-    ' Solicita ao usuário que selecione a pasta com as planilhas
-    With Application.FileDialog(msoFileDialogFolderPicker)
-        .Title = "Selecione a pasta com as planilhas do Excel"
-        If .Show = -1 Then
-            sPasta = .SelectedItems(1) & "\"
+' Verificar se a pasta existe
+Set fso = CreateObject("Scripting.FileSystemObject")
+If Not fso.FolderExists(pastaArquivos) Then
+    MsgBox "Pasta não encontrada: " & pastaArquivos
+    Exit Sub
+End If
+
+' Criar ou conectar ao PowerPoint
+On Error Resume Next
+Set pptApp = GetObject(, "PowerPoint.Application")
+If pptApp Is Nothing Then
+    Set pptApp = CreateObject("PowerPoint.Application")
+End If
+On Error GoTo 0
+
+pptApp.Visible = True
+
+' Criar nova apresentação
+Set pptPres = pptApp.Presentations.Add
+
+' Criar ou conectar ao Excel
+On Error Resume Next
+Set xlApp = GetObject(, "Excel.Application")
+If xlApp Is Nothing Then
+    Set xlApp = CreateObject("Excel.Application")
+End If
+On Error GoTo 0
+
+xlApp.Visible = False
+xlApp.DisplayAlerts = False
+
+slideCount = 0
+
+' Percorrer todos os arquivos da pasta
+Set folder = fso.GetFolder(pastaArquivos)
+
+For Each file In folder.Files
+    ' Verificar se é arquivo Excel
+    If LCase(Right(file.Name, 4)) = ".xls" Or _
+       LCase(Right(file.Name, 5)) = ".xlsx" Or _
+       LCase(Right(file.Name, 5)) = ".xlsm" Then
+        
+        On Error Resume Next
+        
+        ' Abrir arquivo Excel
+        Set xlWorkbook = xlApp.Workbooks.Open(file.Path)
+        
+        If Not xlWorkbook Is Nothing Then
+            ' Usar a primeira planilha
+            Set xlWorksheet = xlWorkbook.Worksheets(1)
+            
+            ' Obter título da célula C1
+            tituloSlide = xlWorksheet.Range("C1").Value
+            If tituloSlide = "" Then
+                tituloSlide = "Gráficos - " & xlWorkbook.Name
+            End If
+            
+            ' Verificar se há gráficos na planilha
+            If xlWorksheet.ChartObjects.Count > 0 Then
+                slideCount = slideCount + 1
+                
+                ' Criar novo slide
+                Set pptSlide = pptPres.Slides.Add(slideCount, 1) ' Layout em branco
+                
+                ' Adicionar título ao slide
+                If pptSlide.Shapes.HasTitle Then
+                    pptSlide.Shapes.Title.TextFrame.TextRange.Text = tituloSlide
+                Else
+                    ' Se não houver caixa de título, criar uma
+                    With pptSlide.Shapes.AddTextbox(1, 50, 50, 600, 80)
+                        .TextFrame.TextRange.Text = tituloSlide
+                        .TextFrame.TextRange.Font.Size = 24
+                        .TextFrame.TextRange.Font.Bold = True
+                    End With
+                End If
+                
+                ' Copiar todos os gráficos da planilha
+                Dim posY As Single
+                Dim posX As Single
+                Dim chartWidth As Single
+                Dim chartHeight As Single
+                
+                posY = 120 ' Posição inicial Y (abaixo do título)
+                posX = 50  ' Posição inicial X
+                chartWidth = 300  ' Largura padrão do gráfico
+                chartHeight = 200 ' Altura padrão do gráfico
+                
+                For Each cht In xlWorksheet.ChartObjects
+                    ' Copiar gráfico
+                    cht.Copy
+                    
+                    ' Colar no PowerPoint
+                    pptSlide.Shapes.Paste
+                    
+                    ' Ajustar posição e tamanho do gráfico colado
+                    With pptSlide.Shapes(pptSlide.Shapes.Count)
+                        .Left = posX
+                        .Top = posY
+                        .Width = chartWidth
+                        .Height = chartHeight
+                    End With
+                    
+                    ' Ajustar posição para próximo gráfico
+                    posX = posX + chartWidth + 20
+                    
+                    ' Se ultrapassar a largura do slide, ir para próxima linha
+                    If posX + chartWidth > 650 Then
+                        posX = 50
+                        posY = posY + chartHeight + 20
+                    End If
+                    
+                    ' Limpar clipboard
+                    xlApp.CutCopyMode = False
+                Next cht
+                
+                MsgBox "Processado: " & file.Name & " (" & xlWorksheet.ChartObjects.Count & " gráficos)"
+                
+            Else
+                MsgBox "Nenhum gráfico encontrado em: " & file.Name
+            End If
+            
+            ' Fechar arquivo Excel
+            xlWorkbook.Close False
+            Set xlWorkbook = Nothing
+            
         Else
-            Exit Sub ' Sai da sub se nenhuma pasta for selecionada
+            MsgBox "Erro ao abrir arquivo: " & file.Name
         End If
-    End With
-
-    ' Tenta obter uma instância existente do PowerPoint
-    On Error Resume Next
-    Set oPPTApp = GetObject(, "PowerPoint.Application")
-    On Error GoTo 0
-
-    ' Se o PowerPoint não estiver aberto, cria uma nova instância
-    If oPPTApp Is Nothing Then
-        Set oPPTApp = CreateObject("PowerPoint.Application")
+        
+        On Error GoTo 0
     End If
-    oPPTApp.Visible = True
+Next file
 
-    ' Cria uma nova apresentação no PowerPoint
-    Set oPPTPres = oPPTApp.Presentations.Add
+' Limpar objetos
+xlApp.DisplayAlerts = True
+xlApp.Quit
+Set xlApp = Nothing
+Set pptApp = Nothing
+Set fso = Nothing
 
-    ' Inicia o loop para encontrar os arquivos Excel na pasta
-    sArquivo = Dir(sPasta & "*.xls*")
-
-    Do While sArquivo <> ""
-        ' Abre a planilha do Excel
-        Set oWorkbook = Workbooks.Open(sPasta & sArquivo)
-
-        ' Adiciona um novo slide na apresentação para cada planilha
-        Set oPPTSlide = oPPTPres.Slides.Add(oPPTPres.Slides.Count + 1, 12) ' 12 = ppLayoutBlank
-
-        ' Adiciona o nome do arquivo como título do slide
-        oPPTSlide.Shapes.AddTitle.TextFrame.TextRange.Text = "Gráficos de: " & oWorkbook.Name
-
-        ' Loop através de cada planilha no workbook
-        For Each oWorksheet In oWorkbook.Worksheets
-            ' Loop através de cada gráfico na planilha
-            For Each oChartObject In oWorksheet.ChartObjects
-                ' Copia o gráfico
-                oChartObject.Copy
-
-                ' Cola o gráfico no slide do PowerPoint
-                oPPTSlide.Shapes.Paste.Select
-
-                ' Opcional: Ajusta a posição e o tamanho do gráfico colado
-                With oPPTApp.ActiveWindow.Selection.ShapeRange
-                    .Left = 50 ' Posição a partir da esquerda
-                    .Top = 150 ' Posição a partir do topo
-                    ' .Width = 400 ' Largura
-                    ' .Height = 250 ' Altura
-                End With
-            Next oChartObject
-        Next oWorksheet
-
-        ' Fecha a planilha do Excel sem salvar
-        oWorkbook.Close SaveChanges:=False
-
-        ' Pega o próximo arquivo na pasta
-        sArquivo = Dir
-    Loop
-
-    ' Libera as variáveis de objeto
-    Set oPPTSlide = Nothing
-    Set oPPTPres = Nothing
-    Set oPPTApp = Nothing
-    Set oWorkbook = Nothing
-
-    MsgBox "A apresentação do PowerPoint foi criada com sucesso!", vbInformation
+If slideCount > 0 Then
+    MsgBox "Processo concluído! " & slideCount & " slides criados."
+Else
+    MsgBox "Nenhum arquivo com gráficos foi encontrado."
+End If
+```
 
 End Sub
+
+’ Sub auxiliar para testar se o PowerPoint está disponível
+Function PowerPointDisponivel() As Boolean
+On Error Resume Next
+Dim pptTest As Object
+Set pptTest = CreateObject(“PowerPoint.Application”)
+PowerPointDisponivel = (Err.Number = 0)
+If Not pptTest Is Nothing Then pptTest.Quit
+Set pptTest = Nothing
+On Error GoTo 0
+End Function
