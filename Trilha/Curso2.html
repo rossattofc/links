@@ -22,7 +22,7 @@
     .screen {
         display: none;
         min-height: 100vh;
-        padding: 20px 20px 80px 20px;
+        padding: 20px 20px 100px 20px;
         animation: fadeIn 0.5s ease-in-out;
         position: relative;
     }
@@ -102,7 +102,7 @@
         transform: translateY(-3px);
         box-shadow: 0 12px 25px rgba(63, 161, 16, 0.4);
     }
-
+    
     .back-btn {
         background: transparent;
         color: #3FA110;
@@ -121,12 +121,12 @@
         gap: 20px;
         flex-wrap: wrap;
         margin-top: 30px;
-        width: 100%;
     }
-    
+
     .demo-btn {
         padding: 12px 28px;
         font-size: 1em;
+        margin: 10px 5px 0 5px;
     }
 
     .highlight-box {
@@ -145,38 +145,21 @@
         border-radius: 15px;
         padding: 25px;
         margin: 30px 0;
-        text-align: left;
+        text-align: center;
     }
 
     .interactive-demo h3 {
         color: #146E37;
         font-size: 1.4em;
         margin-bottom: 10px;
-        text-align: center;
     }
 
     .interactive-demo p {
         font-size: 1.1em !important;
-        text-align: center !important;
         margin-bottom: 20px;
         color: #146E37 !important;
     }
-
-    .demo-input {
-        width: 100%;
-        padding: 15px;
-        border: 2px solid #ccc;
-        border-radius: 10px;
-        font-size: 1em;
-        margin-bottom: 10px;
-        transition: border-color 0.3s ease;
-    }
-
-    .demo-input:focus {
-        outline: none;
-        border-color: #3FA110;
-    }
-
+    
     .demo-output {
         background: #D7E6C8;
         color: #146E37;
@@ -191,145 +174,118 @@
         border-left: 4px solid #146e37;
     }
 
-    .card-screen-container {
+    .accordion-screen-container {
         width: 100%;
-        max-width: 1200px;
+        max-width: 900px;
         margin: 0 auto;
         padding: 40px 20px;
     }
-
-    .card-screen-header {
+    
+    .accordion-header-main {
         text-align: center;
         margin-bottom: 50px;
     }
 
-    .card-screen-header h2 {
+    .accordion-header-main h2 {
         font-size: 2.5em;
         color: #146E37;
         margin-bottom: 15px;
     }
 
-    .card-screen-header p {
+    .accordion-header-main p {
         font-size: 1.2em;
         color: #146E37;
-    }
-
-    .card-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 30px;
-        perspective: 1000px;
-    }
-
-    .info-card {
-        background: white;
-        border-radius: 20px;
-        padding: 30px;
         text-align: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-        border: 2px solid transparent;
-    }
-
-    .info-card:hover {
-        transform: translateY(-10px) scale(1.05);
-        box-shadow: 0 20px 40px rgba(20, 110, 55, 0.2);
-        border-color: #3FA110;
-    }
-
-    .card-icon {
-        font-size: 3.5em;
-        margin-bottom: 15px;
-        line-height: 1;
-    }
-
-    .info-card h3 {
-        font-size: 1.5em;
-        color: #146E37;
     }
     
-    #card-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.6);
-        opacity: 0;
-        visibility: hidden;
+    .accordion-item {
+        background-color: white;
+        margin-bottom: 15px;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+        overflow: hidden;
+        border: 2px solid #D7E6C8;
         transition: all 0.3s ease;
-        z-index: 999;
     }
 
-    #card-overlay.active {
-        opacity: 1;
-        visibility: visible;
+    .accordion-item:hover {
+         border-color: #3FA110;
     }
 
-    .expanded-card-container {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) scale(0.5);
-        width: 90%;
-        max-width: 800px;
-        max-height: 85vh;
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 30px 60px rgba(0,0,0,0.3);
-        z-index: 1000;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        overflow-y: auto;
-        padding: 40px;
+    .accordion-header {
+        padding: 20px 25px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background-color 0.3s ease;
+    }
+    
+    .accordion-item.active .accordion-header {
+        background-color: #f0f5e9;
+    }
+
+    .accordion-header-title {
+        display: flex;
+        align-items: center;
+        text-align: left;
+    }
+
+    .accordion-icon {
+        font-size: 1.8em;
+        margin-right: 20px;
+    }
+
+    .accordion-title {
+        font-size: 1.3em;
+        font-weight: 600;
+        color: #146E37;
+    }
+
+    .accordion-chevron {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #3FA110;
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .accordion-item.active .accordion-chevron {
+        transform: rotate(90deg);
+    }
+
+    .accordion-panel {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease-in-out;
+        background-color: #f0f5e9;
+        color: #146E37;
         text-align: left;
     }
     
-    #card-overlay.active .expanded-card-container {
-         transform: translate(-50%, -50%) scale(1);
-         opacity: 1;
-         visibility: visible;
+    .accordion-panel-content {
+        padding: 0 30px 25px 30px;
     }
-
-    .close-btn {
-        position: absolute;
-        top: 15px;
-        right: 20px;
-        font-size: 2em;
-        color: #aaa;
-        cursor: pointer;
-        transition: color 0.3s ease;
-    }
-
-    .close-btn:hover {
+    
+    .accordion-panel-content h4 {
         color: #146E37;
-    }
-
-    .expanded-card-content h3 {
-        font-size: 2em;
-        color: #146E37;
-        margin-bottom: 20px;
-    }
-
-    .expanded-card-content h4 {
-        color: #3FA110;
-        margin-top: 20px;
+        margin-top: 15px;
         margin-bottom: 10px;
     }
-    .expanded-card-content p, .expanded-card-content li {
-        color: #146E37;
-        font-size: 1.1em;
-        line-height: 1.7;
+    .accordion-panel-content ul {
+        padding-left: 25px;
     }
-    .expanded-card-content ul {
-        list-style-position: inside;
-        padding-left: 10px;
-    }
-     .expanded-card-content li {
+    .accordion-panel-content li {
         margin-bottom: 8px;
     }
+    .accordion-panel-content p.example {
+        font-style: italic;
+        background: white;
+        padding: 15px;
+        border-left: 3px solid #3FA110;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+
     .quiz-screen-container {
         max-width: 800px;
         background: white;
@@ -373,18 +329,29 @@
         font-size: 1.1em;
         color: #146E37;
     }
-    
+
     .options label:hover {
         background-color: #c8d9b9;
     }
     
+    .options label.selected {
+        background-color: #c8d9b9;
+        font-weight: bold;
+    }
+    
+    .options label.correct {
+        background: #D7E6C8;
+        border: 2px solid #3FA110;
+    }
+
+    .options label.incorrect {
+        background: #f8d7da;
+        border: 2px solid #721c24;
+    }
+
     .options input[type="radio"] {
         display: none;
     }
-
-    .options label.selected { background-color: #c8d9b9; font-weight: bold; }
-    .options label.correct { background: #D7E6C8; border: 2px solid #3FA110; }
-    .options label.incorrect { background: #f8d7da; border: 2px solid #721c24; }
 
     #quiz-results {
         margin-top: 40px;
@@ -393,9 +360,9 @@
         font-weight: 600;
         display: none;
     }
-
+    
     .welcome-footer {
-        position: fixed; 
+        position: fixed;
         bottom: 0;
         left: 0;
         width: 100%;
@@ -413,4 +380,4 @@
         width: auto;
         margin-left: 20px;
     }
-                </style>
+        </style>
