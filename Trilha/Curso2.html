@@ -80,7 +80,7 @@
         margin-bottom: 40px;
     }
 
-    .start-btn, .navigation-btn, .quiz-btn, .demo-btn, .back-btn {
+    .start-btn, .navigation-btn, .quiz-btn, .back-btn {
         background: linear-gradient(135deg, #3fa110, #146e37);
         color: white;
         border: none;
@@ -98,11 +98,11 @@
         margin-top: 10px;
     }
 
-    .start-btn:hover, .navigation-btn:hover, .quiz-btn:hover, .demo-btn:hover, .back-btn:hover {
+    .start-btn:hover, .navigation-btn:hover, .quiz-btn:hover, .back-btn:hover {
         transform: translateY(-3px);
         box-shadow: 0 12px 25px rgba(63, 161, 16, 0.4);
     }
-    
+
     .back-btn {
         background: transparent;
         color: #3FA110;
@@ -121,12 +121,7 @@
         gap: 20px;
         flex-wrap: wrap;
         margin-top: 30px;
-    }
-
-    .demo-btn {
-        padding: 12px 28px;
-        font-size: 1em;
-        margin: 10px 5px 0 5px;
+        width: 100%;
     }
 
     .highlight-box {
@@ -139,151 +134,96 @@
         text-align: justify;
     }
 
-    .interactive-demo {
-        background: #f0f5e9;
-        border: 1px solid #D7E6C8;
-        border-radius: 15px;
-        padding: 25px;
-        margin: 30px 0;
-        text-align: center;
-    }
-
-    .interactive-demo h3 {
-        color: #146E37;
-        font-size: 1.4em;
-        margin-bottom: 10px;
-    }
-
-    .interactive-demo p {
-        font-size: 1.1em !important;
-        margin-bottom: 20px;
-        color: #146E37 !important;
-    }
-    
-    .demo-output {
-        background: #D7E6C8;
-        color: #146E37;
-        padding: 20px;
-        border-radius: 10px;
-        margin-top: 20px;
-        font-family: 'Courier New', monospace;
-        min-height: 60px;
-        display: none;
-        white-space: pre-wrap;
-        text-align: left;
-        border-left: 4px solid #146e37;
-    }
-
-    .accordion-screen-container {
+    .tab-section-container {
         width: 100%;
         max-width: 900px;
         margin: 0 auto;
         padding: 40px 20px;
     }
-    
-    .accordion-header-main {
-        text-align: center;
-        margin-bottom: 50px;
-    }
 
-    .accordion-header-main h2 {
+    .tab-header-main {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    
+    .tab-header-main h2 {
         font-size: 2.5em;
         color: #146E37;
         margin-bottom: 15px;
     }
 
-    .accordion-header-main p {
+    .tab-header-main p {
         font-size: 1.2em;
         color: #146E37;
-        text-align: center;
-    }
-    
-    .accordion-item {
-        background-color: white;
-        margin-bottom: 15px;
-        border-radius: 15px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.07);
-        overflow: hidden;
-        border: 2px solid #D7E6C8;
-        transition: all 0.3s ease;
     }
 
-    .accordion-item:hover {
-         border-color: #3FA110;
+    .tab-container {
+        display: flex;
+        border-bottom: 2px solid #D7E6C8;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
     }
 
-    .accordion-header {
-        padding: 20px 25px;
+    .tab-button {
+        padding: 15px 25px;
         cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        transition: background-color 0.3s ease;
-    }
-    
-    .accordion-item.active .accordion-header {
-        background-color: #f0f5e9;
-    }
-
-    .accordion-header-title {
-        display: flex;
-        align-items: center;
-        text-align: left;
-    }
-
-    .accordion-icon {
-        font-size: 1.8em;
-        margin-right: 20px;
-    }
-
-    .accordion-title {
-        font-size: 1.3em;
+        border: none;
+        background-color: transparent;
+        font-size: 1.1em;
         font-weight: 600;
         color: #146E37;
-    }
-
-    .accordion-chevron {
-        font-size: 1.5em;
-        font-weight: bold;
-        color: #3FA110;
-        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transition: all 0.3s ease;
+        border-bottom: 4px solid transparent;
+        margin-bottom: -2px;
     }
     
-    .accordion-item.active .accordion-chevron {
-        transform: rotate(90deg);
-    }
-
-    .accordion-panel {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.4s ease-in-out;
+    .tab-button:hover {
         background-color: #f0f5e9;
         color: #146E37;
+    }
+
+    .tab-button.active {
+        color: #146E37;
+        border-bottom-color: #3FA110;
+    }
+    
+    .tab-button .tab-icon {
+        margin-right: 8px;
+    }
+    
+    .tab-panel {
+        display: none;
+        padding: 20px;
+        background-color: white;
+        border-radius: 15px;
+        border: 1px solid #D7E6C8;
+        animation: fadeInPanel 0.5s ease;
         text-align: left;
     }
-    
-    .accordion-panel-content {
-        padding: 0 30px 25px 30px;
+
+    .tab-panel.active {
+        display: block;
     }
-    
-    .accordion-panel-content h4 {
+
+    @keyframes fadeInPanel {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .tab-panel h4 {
         color: #146E37;
         margin-top: 15px;
         margin-bottom: 10px;
+        font-size: 1.2em;
     }
-    .accordion-panel-content ul {
+
+    .tab-panel ul {
         padding-left: 25px;
     }
-    .accordion-panel-content li {
-        margin-bottom: 8px;
-    }
-    .accordion-panel-content p.example {
-        font-style: italic;
-        background: white;
-        padding: 15px;
-        border-left: 3px solid #3FA110;
-        border-radius: 5px;
-        margin-top: 10px;
+
+    .tab-panel li {
+        margin-bottom: 10px;
+        color: #146E37;
     }
 
     .quiz-screen-container {
@@ -333,25 +273,14 @@
     .options label:hover {
         background-color: #c8d9b9;
     }
-    
-    .options label.selected {
-        background-color: #c8d9b9;
-        font-weight: bold;
-    }
-    
-    .options label.correct {
-        background: #D7E6C8;
-        border: 2px solid #3FA110;
-    }
-
-    .options label.incorrect {
-        background: #f8d7da;
-        border: 2px solid #721c24;
-    }
 
     .options input[type="radio"] {
         display: none;
     }
+    
+    .options label.selected { background-color: #c8d9b9; font-weight: bold; }
+    .options label.correct { background: #D7E6C8; border: 2px solid #3FA110; }
+    .options label.incorrect { background: #f8d7da; border: 2px solid #721c24; }
 
     #quiz-results {
         margin-top: 40px;
@@ -380,4 +309,4 @@
         width: auto;
         margin-left: 20px;
     }
-        </style>
+</style>
