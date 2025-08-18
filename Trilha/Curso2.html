@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curso de IA Generativa e LLMs</title>
-    <script src="SCORM_API_wrapper.js"></script>
-    <style>
+<style>
+        @font-face {
+            font-family: 'Exo 2';
+            src: url('fonts/Exo2.0-Regular.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,8 +13,8 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Exo 2', sans-serif;
+            background: linear-gradient(135deg, #f7f9f5 0%, #D7E6C8 100%);
             min-height: 100vh;
             line-height: 1.6;
         }
@@ -46,12 +46,12 @@
             padding: 60px 40px;
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            border: 3px solid #2d5a27;
+            border: 3px solid #146E37;
         }
 
         .content-screen h1 {
             font-size: 3.5em;
-            color: #2d5a27;
+            color: #146E37;
             margin-bottom: 30px;
             font-weight: 700;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
@@ -59,14 +59,14 @@
 
         .content-screen h2 {
             font-size: 3em;
-            color: #2d5a27;
+            color: #146E37;
             margin-bottom: 40px;
             font-weight: 700;
         }
 
         .content-screen p {
             font-size: 1.3em;
-            color: #4a6741;
+            color: #146E37;
             margin-bottom: 20px;
             line-height: 1.8;
             text-align: justify;
@@ -75,13 +75,13 @@
         .content-screen .main-text-content {
              text-align: justify;
             font-size: 1.2em;
-            color: #4a6741;
+            color: #146E37;
             line-height: 1.8;
             margin-bottom: 40px;
         }
 
         .start-btn, .navigation-btn, .quiz-btn, .demo-btn, .back-btn {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
+            background: linear-gradient(135deg, #3fa110, #146e37);
             color: white;
             border: none;
             padding: 18px 40px;
@@ -92,7 +92,7 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
-            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+            box-shadow: 0 8px 20px rgba(63, 161, 16, 0.3);
             text-decoration: none;
             display: inline-block;
             margin-top: 10px;
@@ -100,19 +100,19 @@
 
         .start-btn:hover, .navigation-btn:hover, .quiz-btn:hover, .demo-btn:hover, .back-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(76, 175, 80, 0.4);
+            box-shadow: 0 12px 25px rgba(63, 161, 16, 0.4);
         }
 
         .back-btn {
             background: transparent;
-            color: #4CAF50;
-            border: 2px solid #4CAF50;
+            color: #3FA110;
+            border: 2px solid #3FA110;
             box-shadow: none;
         }
         
         .back-btn:hover {
-            background: #e8f5e8;
-            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.2);
+            background: #D7E6C8;
+            box-shadow: 0 8px 20px rgba(63, 161, 16, 0.2);
         }
 
         .navigation-buttons {
@@ -129,18 +129,18 @@
         }
 
         .highlight-box {
-            background: linear-gradient(135deg, #e8f5e8, #d4edda);
+            background: linear-gradient(135deg, #eaf2e3, #D7E6C8);
             padding: 25px;
             border-radius: 15px;
-            border-left: 5px solid #4CAF50;
+            border-left: 5px solid #3FA110;
             margin: 25px 0;
             font-style: italic;
             text-align: justify;
         }
         
         .interactive-demo {
-            background: #f8fdf8;
-            border: 1px solid #d4edda;
+            background: #f0f5e9;
+            border: 1px solid #D7E6C8;
             border-radius: 15px;
             padding: 25px;
             margin: 30px 0;
@@ -148,7 +148,7 @@
         }
 
         .interactive-demo h3 {
-            color: #2d5a27;
+            color: #146E37;
             font-size: 1.4em;
             margin-bottom: 10px;
             text-align: center;
@@ -158,6 +158,7 @@
             font-size: 1.1em !important;
             text-align: center !important;
             margin-bottom: 20px;
+            color: #146E37 !important;
         }
 
         .demo-input, .demo-select {
@@ -172,12 +173,12 @@
         
         .demo-input:focus, .demo-select:focus {
             outline: none;
-            border-color: #4CAF50;
+            border-color: #3FA110;
         }
 
         .demo-output {
-            background: #e8f5e8;
-            color: #2d5a27;
+            background: #D7E6C8;
+            color: #146E37;
             padding: 20px;
             border-radius: 10px;
             margin-top: 20px;
@@ -186,7 +187,7 @@
             display: none;
             white-space: pre-wrap;
             text-align: left;
-            border-left: 4px solid #45a049;
+            border-left: 4px solid #146e37;
         }
         
         .card-screen-container {
@@ -203,13 +204,13 @@
 
         .card-screen-header h2 {
             font-size: 2.5em;
-            color: #2d5a27;
+            color: #146E37;
             margin-bottom: 15px;
         }
 
         .card-screen-header p {
             font-size: 1.2em;
-            color: #4a6741;
+            color: #146E37;
         }
 
         .card-grid {
@@ -232,8 +233,8 @@
 
         .info-card:hover {
             transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 20px 40px rgba(45, 90, 39, 0.2);
-            border-color: #4CAF50;
+            box-shadow: 0 20px 40px rgba(20, 110, 55, 0.2);
+            border-color: #3FA110;
         }
 
         .card-icon {
@@ -244,7 +245,7 @@
 
         .info-card h3 {
             font-size: 1.5em;
-            color: #2d5a27;
+            color: #146E37;
         }
         
         #card-overlay {
@@ -302,22 +303,22 @@
         }
 
         .close-btn:hover {
-            color: #2d5a27;
+            color: #146E37;
         }
 
         .expanded-card-content h3 {
             font-size: 2em;
-            color: #2d5a27;
+            color: #146E37;
             margin-bottom: 20px;
         }
 
         .expanded-card-content h4 {
-            color: #4CAF50;
+            color: #3FA110;
             margin-top: 20px;
             margin-bottom: 10px;
         }
         .expanded-card-content p, .expanded-card-content li {
-            color: #4a6741;
+            color: #146E37;
             font-size: 1.1em;
             line-height: 1.7;
         }
@@ -334,21 +335,21 @@
             padding: 50px 40px;
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            border: 3px solid #2d5a27;
+            border: 3px solid #146E37;
             text-align: center;
         }
 
         .quiz-screen-container h2 {
             font-size: 2.5em;
-            color: #2d5a27;
+            color: #146E37;
             margin-bottom: 30px;
         }
 
         .question-container {
-            background: #f8fdf8;
+            background: #f0f5e9;
             padding: 30px;
             border-radius: 15px;
-            border: 1px solid #d4edda;
+            border: 1px solid #D7E6C8;
             margin-bottom: 30px;
             text-align: left;
         }
@@ -362,24 +363,24 @@
 
         .options label {
             display: block;
-            background: #e8f5e8;
+            background: #D7E6C8;
             padding: 15px 20px;
             margin-bottom: 10px;
             border-radius: 10px;
             cursor: pointer;
             transition: background-color 0.2s ease;
             font-size: 1.1em;
-            color: #4a6741;
+            color: #146E37;
         }
         
         .options label.selected {
-            background-color: #d4edda;
+            background-color: #c8d9b9;
             font-weight: bold;
         }
         
         .options label.correct {
-            background: #d4edda;
-            border: 2px solid #4CAF50;
+            background: #D7E6C8;
+            border: 2px solid #3FA110;
         }
 
         .options label.incorrect {
@@ -388,8 +389,10 @@
         }
 
         .options label:hover {
-            background-color: #d4edda;
+            background-color: #c8d9b9;
         }
+
+
 
         .options input[type="radio"] {
             display: none;
@@ -398,7 +401,7 @@
         #quiz-results {
             margin-top: 40px;
             font-size: 1.5em;
-            color: #2d5a27;
+            color: #146E37;
             font-weight: 600;
             display: none;
         }
@@ -408,7 +411,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background: linear-gradient(135deg, #4CAF50, #45a049);
+            background: linear-gradient(135deg, #3fa110, #146e37);
             padding: 10px 40px;
             display: flex;
             align-items: center;
@@ -423,480 +426,4 @@
             margin-left: 20px;
         }
 
-    </style>
-</head>
-<body>
-
-    <div class="screen active" id="welcome-screen">
-        <div class="content-screen">
-            <h1>🤖 IA Generativa e LLMs</h1>
-            <p>Seja bem-vindo ao curso que vai desvendar as tecnologias que estão revolucionando o mundo digital. Aqui, você entenderá não apenas o que é a Inteligência Artificial Generativa, mas também como ela funciona e de que forma está moldando o futuro da tecnologia, da criatividade e do trabalho.</p>
-            <p>Prepare-se para explorar os conceitos por trás de ferramentas como ChatGPT, Midjourney e muitas outras, de uma maneira clara e prática.</p>
-            <button class="start-btn" onclick="showScreen('definition-screen')">Clique aqui para iniciar</button>
-        </div>
-    </div>
-    
-    <footer class="welcome-footer" id="main-footer">
-        <img src="images/sicredi-logo.png" alt="Logo Sicredi" class="footer-logo">
-        <img src="images/inovacao-logo.png" alt="Logo Inovação" class="footer-logo">
-    </footer>
-
-    <div class="screen" id="definition-screen">
-        <div class="content-screen">
-            <h2>O que é IA Generativa?</h2>
-            <div class="main-text-content">
-                <p>A <strong>Inteligência Artificial Generativa</strong> é um ramo avançado da IA focado em <strong>criar conteúdo completamente novo e original</strong>. Em vez de apenas analisar ou classificar informações existentes — como faz a IA tradicional — a IA Generativa, como o próprio nome diz, <i>gera</i>.</p>
-                <p>Ela pode criar textos, imagens, músicas, códigos de programação e muito mais, tudo a partir de um comando (ou "prompt"). O segredo está em seu treinamento: ela aprende a partir de uma quantidade gigantesca de dados (como textos e imagens da internet) e, com base nisso, identifica padrões complexos que a permitem criar algo inédito, mas coerente com o que aprendeu.</p>
-                <div class="highlight-box">
-                    Pense na diferença: uma IA tradicional vê mil fotos de gatos e aprende a identificar um gato em uma nova foto. Uma IA Generativa vê as mesmas mil fotos e aprende a criar uma imagem de um gato que nunca existiu antes.
-                </div>
-                
-                <div class="interactive-demo">
-                    <h3>🔬 Demonstração Interativa</h3>
-                    <p>Simule como uma IA generativa responde a um prompt. Tente pedir um poema, um código ou uma pequena história.</p>
-                    <input type="text" class="demo-input" id="promptInput" placeholder="Ex: 'Escreva um haicai sobre a lua'">
-                    <div style="text-align: center;">
-                        <button class="demo-btn" onclick="generateResponse()">Gerar Resposta</button>
-                    </div>
-                    <div class="demo-output" id="demoOutput"></div>
-                </div>
-
-            </div>
-            <div class="navigation-buttons">
-                <button class="back-btn" onclick="showScreen('welcome-screen')">Voltar</button>
-                <button class="navigation-btn" onclick="showScreen('creations-screen')">O que ela pode criar?</button>
-            </div>
-        </div>
-    </div>
-    
-    <div class="screen" id="creations-screen">
-        <div class="card-screen-container">
-            <div class="card-screen-header">
-                <h2>O Mundo de Criações da IA Generativa</h2>
-                <p>A capacidade de criação da IA Generativa abrange diversas mídias. Clique nos cards para explorar:</p>
-            </div>
-            <div class="card-grid" id="creations-grid">
-            </div>
-            <div class="navigation-buttons">
-                <button class="back-btn" onclick="showScreen('definition-screen')">Voltar</button>
-                <button class="navigation-btn" onclick="showScreen('llm-screen')">Conheça os LLMs</button>
-            </div>
-        </div>
-    </div>
-    
-    <div class="screen" id="llm-screen">
-        <div class="content-screen">
-            <h2>🧠 Entendendo os LLMs</h2>
-            <div class="main-text-content">
-                <p>Os <strong>Large Language Models (LLMs)</strong>, ou Grandes Modelos de Linguagem, são o motor por trás de muitas das aplicações de IA Generativa que vimos, especialmente as de texto. Eles são um tipo de IA treinado em vastas quantidades de dados textuais para entender e gerar linguagem humana de forma sofisticada.</p>
-                 <div class="highlight-box">
-                    A "mágica" dos LLMs está na <strong>arquitetura Transformer</strong>, introduzida em 2017. Ela permite que o modelo pese a importância de diferentes palavras em uma frase (um conceito chamado de "atenção"), compreendendo o contexto de forma muito mais eficaz do que as tecnologias anteriores.
-                </div>
-                <p>O poder de um LLM é frequentemente medido em <strong>parâmetros</strong>. De forma simplificada, parâmetros são as variáveis internas que o modelo ajusta durante o treinamento. São como os "neurônios" e "sinapses" de um cérebro artificial. Quanto mais parâmetros, maior a capacidade do modelo de aprender nuances, contextos e padrões complexos, resultando em respostas mais coerentes e sofisticadas.</p>
-                
-                <div class="interactive-demo">
-                    <h3>⚙️ Simulador de Parâmetros</h3>
-                    <p>Veja uma simulação de como o número de parâmetros pode afetar a qualidade das respostas para o prompt: "Explique a importância da fotossíntese".</p>
-                    <select id="modelSelect" class="demo-select" onchange="updateModelDemo()">
-                        <option value="">Selecione um tamanho de modelo...</option>
-                        <option value="small">Pequeno (~100M parâmetros)</option>
-                        <option value="medium">Médio (~1B parâmetros)</option>
-                        <option value="large">Grande (~100B parâmetros)</option>
-                    </select>
-                    <div class="demo-output" id="modelDemo"></div>
-                </div>
-            </div>
-            <div class="navigation-buttons">
-                <button class="back-btn" onclick="showScreen('creations-screen')">Voltar</button>
-                <button class="navigation-btn" onclick="showScreen('applications-screen')">Veja as aplicações práticas</button>
-            </div>
-        </div>
-    </div>
-    
-    <div class="screen" id="applications-screen">
-        <div class="card-screen-container">
-            <div class="card-screen-header">
-                <h2>Aplicações Práticas e Desafios Éticos</h2>
-                <p>A IA Generativa já está transformando indústrias e criando novas possibilidades. Explore algumas áreas e reflita sobre seus desafios.</p>
-            </div>
-            <div class="card-grid" id="applications-grid">
-            </div>
-            <div class="navigation-buttons">
-                <button class="back-btn" onclick="showScreen('llm-screen')">Voltar</button>
-                <button class="navigation-btn" onclick="showScreen('quiz-screen')">Testar meus conhecimentos</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="screen" id="quiz-screen">
-        <div class="quiz-screen-container">
-            <h2>Quiz: Teste Seus Conhecimentos</h2>
-            
-            <div class="question-container">
-                <p>1. Qual das seguintes opções melhor descreve a principal diferença entre a IA tradicional e a IA Generativa?</p>
-                <div class="options" data-answer="c">
-                    <label><input type="radio" name="q1" value="a"> A) IA Generativa é mais rápida, mas menos precisa.</label>
-                    <label><input type="radio" name="q1" value="b"> B) IA Tradicional cria conteúdo, enquanto a Generativa o analisa.</label>
-                    <label><input type="radio" name="q1" value="c"> C) IA Generativa cria conteúdo novo, enquanto a tradicional foca em analisar ou classificar dados existentes.</label>
-                    <label><input type="radio" name="q1" value="d"> D) Não há diferença fundamental entre elas.</label>
-                </div>
-            </div>
-
-            <div class="question-container">
-                <p>2. O que são "parâmetros" no contexto de um LLM?</p>
-                <div class="options" data-answer="b">
-                    <label><input type="radio" name="q2" value="a"> A) O número de usuários que o modelo suporta.</label>
-                    <label><input type="radio" name="q2" value="b"> B) As variáveis internas que o modelo ajusta durante o treinamento para aprender padrões.</label>
-                    <label><input type="radio" name="q2" value="c"> C) A velocidade de processamento do modelo em gigabytes.</label>
-                    <label><input type="radio" name="q2" value="d"> D) As regras de programação fixas inseridas no modelo.</label>
-                </div>
-            </div>
-
-            <div class="question-container">
-                <p>3. Qual arquitetura de rede neural foi um marco fundamental para o desenvolvimento dos LLMs modernos como o GPT?</p>
-                <div class="options" data-answer="c">
-                    <label><input type="radio" name="q3" value="a"> A) Redes Neurais Convolucionais (CNNs)</label>
-                    <label><input type="radio" name="q3" value="b"> B) Redes Neurais Recorrentes (RNNs)</label>
-                    <label><input type="radio" name="q3" value="c"> C) Transformer</label>
-                    <label><input type="radio" name="q3" value="d"> D) Perceptron</label>
-                </div>
-            </div>
-
-            <div class="question-container">
-                <p>4. Gerar uma imagem fotorrealista a partir do comando "um robô lendo um livro em uma biblioteca em Marte" é uma tarefa típica de qual área da IA Generativa?</p>
-                <div class="options" data-answer="c">
-                    <label><input type="radio" name="q4" value="a"> A) Geração de Áudio</label>
-                    <label><input type="radio" name="q4" value="b"> B) Geração de Vídeo</label>
-                    <label><input type="radio" name="q4" value="c"> C) Geração de Imagens</label>
-                    <label><input type="radio" name="q4" value="d"> D) Geração de Código</label>
-                </div>
-            </div>
-            
-            <div class="question-container">
-                <p>5. Qual dos seguintes é considerado um dos maiores desafios éticos da IA Generativa?</p>
-                <div class="options" data-answer="d">
-                    <label><input type="radio" name="q5" value="a"> A) O alto custo dos computadores necessários para treiná-la.</label>
-                    <label><input type="radio" name="q5" value="b"> B) A dificuldade de criar interfaces amigáveis para os usuários.</label>
-                    <label><input type="radio" name="q5" value="c"> C) A compatibilidade com sistemas operacionais antigos.</label>
-                    <label><input type="radio" name="q5" value="d"> D) O potencial para criar desinformação (fake news) e deepfakes em larga escala.</label>
-                </div>
-            </div>
-
-            <div class="navigation-buttons" id="quiz-nav-buttons">
-                <button class="back-btn" onclick="showScreen('applications-screen')">Voltar</button>
-                <button class="navigation-btn" id="show-results-btn" onclick="showQuizResults()">Ver Resultados</button>
-            </div>
-            <p id="quiz-results"></p>
-            <button class="navigation-btn" id="finish-module-btn" style="display: none;" onclick="showScreen('final-screen')">Finalizar Módulo</button>
-        </div>
-    </div>
-
-    <div class="screen" id="final-screen">
-        <div class="content-screen">
-            <h2>🎉 Parabéns!</h2>
-            <div class="main-text-content">
-                <p>Você concluiu o módulo sobre IA Generativa e LLMs com sucesso!</p>
-                <p>Agora você tem uma compreensão sólida sobre o que é essa tecnologia revolucionária, como ela funciona por trás das câmeras e o imenso potencial que ela carrega, tanto em aplicações práticas quanto em desafios que precisamos enfrentar como sociedade.</p>
-                <div class="highlight-box">
-                    Continue explorando, seja curioso e pense em como você pode usar esse conhecimento para inovar em seu dia a dia. O futuro está sendo gerado agora.
-                </div>
-            </div>
-            <div class="navigation-buttons">
-                <button class="back-btn" onclick="showScreen('quiz-screen')">Voltar ao Quiz</button>
-                <button class="navigation-btn" onclick="showScreen('welcome-screen')">Refazer Módulo</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="card-overlay">
-        <div class="expanded-card-container">
-            <span class="close-btn" onclick="closeExpandedCard()">&times;</span>
-            <div class="expanded-card-content" id="expanded-card-content">
-            </div>
-        </div>
-    </div>
-
-
-    <script>
-        const creationsData = [
-            {
-                icon: "✍️",
-                title: "Geração de Texto",
-                content: `
-                    <h3>✍️ Geração de Texto</h3>
-                    <h4>Como funciona:</h4>
-                    <p>Modelos como o GPT-4 analisam bilhões de textos (livros, artigos, sites) para aprender gramática, estilos, fatos e raciocínio. Ao receber um prompt, eles preveem a sequência de palavras mais provável para formar uma resposta coerente.</p>
-                    <h4>Exemplos Práticos:</h4>
-                    <ul>
-                        <li><strong>Criação de Conteúdo:</strong> Artigos de blog, posts para redes sociais e roteiros de vídeo.</li>
-                        <li><strong>Comunicação:</strong> Escrita e resposta de e-mails, criação de apresentações e discursos.</li>
-                        <li><strong>Desenvolvimento:</strong> Geração de código em várias linguagens, depuração (debugging) e criação de documentação técnica.</li>
-                        <li><strong>Criatividade:</strong> Escrita de poemas, contos, letras de música e diálogos para jogos.</li>
-                    </ul>
-                `
-            },
-            {
-                icon: "🎨",
-                title: "Geração de Imagens",
-                content: `
-                    <h3>🎨 Geração de Imagens</h3>
-                    <h4>Como funciona:</h4>
-                    <p>Modelos como Midjourney e DALL-E usam uma técnica chamada "difusão". Eles aprendem a remover "ruído" de imagens aleatórias, guiando esse processo com a descrição textual do usuário até que uma imagem coerente e detalhada se forme.</p>
-                    <h4>Exemplos Práticos:</h4>
-                    <ul>
-                        <li><strong>Design e Publicidade:</strong> Criação de logos, banners, e-books e materiais de campanha.</li>
-                        <li><strong>Arte e Entretenimento:</strong> Geração de arte conceitual para filmes e jogos, ilustrações personalizadas e capas de álbuns.</li>
-                        <li><strong>Produto:</strong> Visualização de produtos (mockups), prototipagem de designs e criação de texturas.</li>
-                    </ul>
-                `
-            },
-            {
-                icon: "🎵",
-                title: "Geração de Áudio",
-                content: `
-                    <h3>🎵 Geração de Áudio</h3>
-                    <h4>Como funciona:</h4>
-                    <p>As IAs de áudio analisam padrões em ondas sonoras, timbres, melodias e ritmos. Elas podem clonar uma voz a partir de uma pequena amostra (text-to-speech) ou compor músicas originais com base em um gênero ou humor descrito.</p>
-                    <h4>Exemplos Práticos:</h4>
-                    <ul>
-                        <li><strong>Narração:</strong> Criação de vozes para audiobooks, vídeos e podcasts com realismo impressionante.</li>
-                        <li><strong>Música:</strong> Composição de trilhas sonoras para filmes, jogos e conteúdo de marketing.</li>
-                        <li><strong>Acessibilidade:</strong> Ferramentas que leem textos em voz alta para pessoas com deficiência visual.</li>
-                    </ul>
-                `
-            },
-             {
-                icon: "🎬",
-                title: "Geração de Vídeo",
-                content: `
-                    <h3>🎬 Geração de Vídeo</h3>
-                    <h4>Como funciona:</h4>
-                    <p>Esta é uma das fronteiras mais recentes. Ferramentas como Sora e Pika Labs estendem os princípios da geração de imagens ao longo do tempo, gerando sequências de frames consistentes a partir de um prompt de texto ou de uma imagem inicial.</p>
-                    <h4>Exemplos Práticos:</h4>
-                    <ul>
-                        <li><strong>Marketing:</strong> Criação de vídeos curtos e animações para campanhas em redes sociais.</li>
-                        <li><strong>Prototipagem:</strong> Visualização rápida de cenas para filmes e comerciais antes da gravação.</li>
-                        <li><strong>Educação:</strong> Geração de vídeos explicativos e tutoriais animados.</li>
-                    </ul>
-                `
-            }
-        ];
-        
-        const applicationsData = [
-            {
-                icon: "💼",
-                title: "Negócios e Produtividade",
-                content: `
-                    <h3>💼 Negócios e Produtividade</h3>
-                    <p>A IA Generativa atua como um "copiloto" inteligente, automatizando tarefas e analisando dados. Ela pode gerar relatórios a partir de planilhas, criar rascunhos de propostas comerciais, analisar o sentimento de feedbacks de clientes em grande escala e alimentar chatbots de atendimento que resolvem problemas complexos.</p>
-                `
-            },
-            {
-                icon: "🎨",
-                title: "Criatividade e Mídia",
-                content: `
-                    <h3>🎨 Criatividade e Mídia</h3>
-                    <p>Para artistas, designers e escritores, a IA Generativa é uma ferramenta para expandir a criatividade. Ela ajuda a gerar mood boards, esboçar conceitos visuais, escrever rascunhos de roteiros, compor trilhas sonoras e superar o bloqueio criativo, permitindo que o profissional foque na curadoria e no refinamento das melhores ideias.</p>
-                `
-            },
-            {
-                icon: "🏫",
-                title: "Educação e Aprendizado",
-                content: `
-                    <h3>🏫 Educação e Aprendizado</h3>
-                    <p>Na educação, a IA Generativa possibilita a criação de tutores virtuais personalizados que se adaptam ao ritmo de cada aluno. Professores podem usá-la para gerar planos de aula, exercícios variados e materiais didáticos, liberando tempo para se dedicarem mais à interação direta com os estudantes.</p>
-                `
-            },
-             {
-                icon: "⚖️",
-                title: "Desafios Éticos",
-                content: `
-                    <h3>⚖️ Desafios Éticos</h3>
-                    <h4>O outro lado da moeda</h4>
-                    <p>O poder da IA Generativa traz responsabilidades e desafios significativos:</p>
-                    <ul>
-                        <li><strong>Desinformação e Deepfakes:</strong> A facilidade em criar textos, imagens e vídeos realistas pode ser usada para espalhar notícias falsas e criar conteúdo enganoso.</li>
-                        <li><strong>Viés (Bias):</strong> Como os modelos são treinados com dados da internet, eles podem herdar e amplificar preconceitos existentes na sociedade.</li>
-                        <li><strong>Propriedade Intelectual:</strong> Há um debate intenso sobre os direitos autorais de obras usadas no treinamento e do conteúdo gerado pela IA.</li>
-                         <li><strong>Impacto no Emprego:</strong> A automação de tarefas criativas e intelectuais pode transformar mercados de trabalho.</li>
-                    </ul>
-                `
-            }
-        ];
-
-        function showScreen(screenId) {
-            const footer = document.getElementById('main-footer');
-            
-            document.querySelectorAll('.screen').forEach(screen => {
-                screen.classList.remove('active');
-            });
-            
-            const activeScreen = document.getElementById(screenId);
-            if (activeScreen) {
-                activeScreen.classList.add('active');
-            }
-
-            if (screenId === 'welcome-screen') {
-                footer.style.display = 'flex';
-                // Reseta o quiz
-                document.getElementById('quiz-results').style.display = 'none';
-                document.getElementById('finish-module-btn').style.display = 'none';
-                document.getElementById('quiz-nav-buttons').style.display = 'flex';
-                 document.querySelectorAll('.options label').forEach(label => {
-                    label.classList.remove('selected', 'correct', 'incorrect');
-                 });
-                 document.querySelectorAll('input[type="radio"]').forEach(radio => {
-                    radio.checked = false;
-                 });
-            } else {
-                footer.style.display = 'none';
-            }
-            
-            window.scrollTo(0, 0);
-        }
-        
-        function buildInteractiveCards(containerId, data) {
-            const grid = document.getElementById(containerId);
-            if (!grid) return;
-            grid.innerHTML = '';
-            
-            data.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'info-card';
-                
-                card.innerHTML = `
-                    <div class="card-icon">${item.icon}</div>
-                    <h3>${item.title}</h3>
-                `;
-                
-                card.addEventListener('click', () => openExpandedCard(item.content));
-                grid.appendChild(card);
-            });
-        }
-
-        function openExpandedCard(content) {
-            const overlay = document.getElementById('card-overlay');
-            const contentHolder = document.getElementById('expanded-card-content');
-            
-            contentHolder.innerHTML = content;
-            overlay.classList.add('active');
-        }
-
-        function closeExpandedCard() {
-             const overlay = document.getElementById('card-overlay');
-             overlay.classList.remove('active');
-        }
-
-        function generateResponse() {
-            const prompt = document.getElementById('promptInput').value;
-            const output = document.getElementById('demoOutput');
-            
-            if (!prompt.trim()) {
-                output.style.display = 'block';
-                output.textContent = 'Por favor, digite algo no campo acima.';
-                return;
-            }
-            
-            output.style.display = 'block';
-            output.innerHTML = 'Gerando resposta...';
-            
-            setTimeout(() => {
-                const responses = {
-                    'poema': 'Céu estrelado brilha,\nSilêncio na imensidão,\nA noite é poesia.',
-                    'haicai': 'Vento de outono,\nFolhas dançam no jardim,\nVida se renova.',
-                    'código': 'def saudar(nome):\n    return f"Olá, {nome}! Bem-vindo ao mundo da IA."',
-                    'história': 'Era uma vez, em um reino digital, um algoritmo que sonhava em ser poeta...',
-                    'default': `Processando o prompt: "${prompt}"...\nComo uma IA, eu geraria uma resposta criativa e coerente baseada no seu pedido.`
-                };
-                
-                let response = responses.default;
-                const lowerPrompt = prompt.toLowerCase();
-                
-                if (lowerPrompt.includes('poema')) response = responses.poema;
-                else if (lowerPrompt.includes('haicai')) response = responses.haicai;
-                else if (lowerPrompt.includes('código') || lowerPrompt.includes('python')) response = responses.código;
-                else if (lowerPrompt.includes('história') || lowerPrompt.includes('conto')) response = responses.história;
-                
-                output.textContent = response;
-            }, 1000);
-        }
-
-        function updateModelDemo() {
-            const model = document.getElementById('modelSelect').value;
-            const demo = document.getElementById('modelDemo');
-            demo.style.display = 'block';
-            
-            const responses = {
-                'small': 'Resposta básica: "Fotossíntese é como as plantas comem. Elas usam luz do sol."',
-                'medium': 'Resposta intermediária: "A fotossíntese é o processo pelo qual as plantas convertem luz solar, água e dióxido de carbono em glicose (energia) e oxigênio."',
-                'large': 'Resposta sofisticada: "A fotossíntese é um processo bioquímico fundamental para a vida na Terra, no qual organismos fotossintetizantes capturam energia luminosa para converter dióxido de carbono e água em compostos orgânicos ricos em energia (glicose), liberando oxigênio como subproduto essencial."'
-            };
-            
-            demo.textContent = responses[model] || 'Selecione um modelo para ver a simulação.';
-        }
-
-
-        function showQuizResults() {
-            let correctCount = 0;
-            const answers = { q1: 'c', q2: 'b', q3: 'c', q4: 'c', q5: 'd' };
-            const questions = Object.keys(answers);
-            
-            questions.forEach(q => {
-                const optionsDiv = document.querySelector(`input[name="${q}"]`).closest('.options');
-                optionsDiv.querySelectorAll('label').forEach(l => l.classList.remove('correct', 'incorrect'));
-                
-                const selected = document.querySelector(`input[name="${q}"]:checked`);
-                if (selected) {
-                    const selectedLabel = selected.parentElement;
-                    if (selected.value === answers[q]) {
-                        correctCount++;
-                        selectedLabel.classList.add('correct');
-                    } else {
-                        selectedLabel.classList.add('incorrect');
-                        optionsDiv.querySelector(`input[value="${answers[q]}"]`).parentElement.classList.add('correct');
-                    }
-                }
-            });
-
-            const percentage = (correctCount / questions.length) * 100;
-            document.getElementById('quiz-results').textContent = `Você acertou ${correctCount} de ${questions.length} perguntas (${percentage.toFixed(0)}%).`;
-            document.getElementById('quiz-results').style.display = 'block';
-            document.getElementById('quiz-nav-buttons').style.display = 'none';
-            document.getElementById('finish-module-btn').style.display = 'inline-block';
-            
-            // *** AQUI É A MÁGICA DO SCORM ***
-            // Chama a função para completar o curso no AVA, passando a nota.
-            scorm.complete(percentage.toFixed(0));
-        }
-        
-
-        document.addEventListener('DOMContentLoaded', () => {
-            showScreen('welcome-screen');
-
-            scorm.init();
-
-            buildInteractiveCards('creations-grid', creationsData);
-            buildInteractiveCards('applications-grid', applicationsData);
-
-            document.getElementById('card-overlay').addEventListener('click', function(event) {
-                if(event.target === this) {
-                    closeExpandedCard();
-                }
-            });
-
-            document.querySelectorAll('.options label').forEach(label => {
-                label.addEventListener('click', function() {
-                    this.closest('.options').querySelectorAll('label').forEach(otherLabel => {
-                        otherLabel.classList.remove('selected');
-                    });
-                    this.classList.add('selected');
-                });
-            });
-        });
-
-        window.addEventListener('unload', scorm.exit);
-
-    </script>
-</body>
-</html>
-
+</style>
