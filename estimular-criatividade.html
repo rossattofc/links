@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 2: Como Estimular a Criatividade</title>
+    <style>
+        /* ESTILOS GERAIS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .screen {
+            display: none;
+            min-height: 100vh;
+            padding: 20px 20px 100px 20px;
+            animation: fadeIn 0.5s ease-in-out;
+            position: relative; 
+        }
+
+        .screen.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-screen {
+            text-align: center;
+            max-width: 900px;
+            background: white;
+            padding: 60px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 3px solid #2d5a27;
+        }
+        
+        .card-screen-container {
+             text-align: center;
+             max-width: 900px;
+        }
+
+        .content-screen h1 {
+            font-size: 3.2em;
+            color: #2d5a27;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .content-screen h2 {
+            font-size: 2.8em;
+            color: #2d5a27;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        .content-screen p {
+            font-size: 1.2em;
+            color: #4a6741;
+            margin-bottom: 20px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+        
+        .content-screen .main-text-content {
+             text-align: justify;
+            font-size: 1.2em;
+            color: #4a6741;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+        
+        .content-screen .barrier-list {
+            text-align: left;
+            margin-top: 30px;
+        }
+        .content-screen .barrier-item {
+            margin-bottom: 20px;
+        }
+         .content-screen .barrier-item h4 {
+            color: #2d5a27;
+            font-size: 1.3em;
+        }
+
+        .start-btn, .navigation-btn, .quiz-btn, .back-btn {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .start-btn:hover, .navigation-btn:hover, .quiz-btn:hover, .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(76, 175, 80, 0.4);
+        }
+
+        .back-btn {
+            background: transparent;
+            color: #4CAF50;
+            border: 2px solid #4CAF50;
+            box-shadow: none;
+        }
+        
+        .back-btn:hover {
+            background: #e8f5e8;
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.2);
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #e8f5e8, #d4edda);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #4CAF50;
+            margin: 25px 0;
+            font-style: italic;
+            text-align: justify;
+            font-size: 1.1em;
+            color: #4a6741;
+        }
+
+        /* ESTILOS DOS QUIZZES E FOOTER */
+        .quiz-screen-container { max-width: 800px; background: white; padding: 50px 40px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 3px solid #2d5a27; text-align: center; }
+        .quiz-screen-container h2 { font-size: 2.5em; color: #2d5a27; margin-bottom: 30px; }
+        .question-container { background: #f8fdf8; padding: 30px; border-radius: 15px; border: 1px solid #d4edda; margin-bottom: 30px; text-align: left; }
+        .question-container p { font-size: 1.2em; color: #333; margin-bottom: 20px; font-weight: 500; }
+        .options label { display: block; background: #e8f5e8; padding: 15px 20px; margin-bottom: 10px; border-radius: 10px; cursor: pointer; transition: background-color 0.2s ease; font-size: 1.1em; color: #4a6741; }
+        .options label:hover { background-color: #d4edda; }
+        .options input[type="radio"] { display: none; }
+        .options label.selected { background-color: #d4edda; font-weight: bold; }
+        .options label.correct { background: #d4edda; border: 2px solid #4CAF50; }
+        .options label.incorrect { background: #f8d7da; border: 2px solid #721c24; }
+        #quiz-results { margin-top: 40px; font-size: 1.5em; color: #2d5a27; font-weight: 600; display: none; }
+        .page-footer { position: fixed; bottom: 0; left: 0; width: 100%; background: linear-gradient(135deg, #4CAF50, #45a049); padding: 10px 40px; display: flex; align-items: center; justify-content: flex-end; box-shadow: 0 -5px 15px rgba(0,0,0,0.1); z-index: 100; }
+        .footer-logo { height: 40px;  width: auto; margin-left: 20px; }
+        
+        /********************************************/
+        /* ESTILOS DA TIMELINE                      */
+        /********************************************/
+        .timeline-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 40px auto;
+            position: relative;
+        }
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: #4CAF50;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 4px;
+        }
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background-color: white;
+            border: 4px solid #4CAF50;
+            top: 25px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .timeline-item.left { left: 0; }
+        .timeline-item.right { left: 50%; }
+        .timeline-item.right::after { left: -16px; }
+        .timeline-header {
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #d4edda;
+        }
+        .timeline-header:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 25px rgba(45, 90, 39, 0.15);
+        }
+        .timeline-header h3 { font-size: 1.6em; color: #2d5a27; }
+        .timeline-icon { font-size: 1.5em; margin-right: 10px; }
+        
+        .timeline-content {
+            background-color: #f8fdf8;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            border-radius: 0 0 12px 12px;
+            text-align: left;
+            border-left: 1px solid #d4edda;
+            border-right: 1px solid #d4edda;
+            border-bottom: 1px solid #d4edda;
+        }
+        .timeline-content-inner {
+            padding: 20px;
+        }
+        .timeline-content-inner h4 { color: #4CAF50; margin-bottom: 10px; }
+        .timeline-content-inner p, .timeline-content-inner li { color: #4a6741; font-size: 1.05em; line-height: 1.7; }
+        .timeline-content-inner ul { list-style-position: inside; padding-left: 0px; }
+        .timeline-content-inner li { margin-bottom: 8px; }
+        
+        .timeline-item.active .timeline-header {
+            border-color: #4CAF50;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        
+        @media screen and (max-width: 600px) {
+            .timeline-container::after { left: 31px; }
+            .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-item.left, .timeline-item.right { left: 0%; }
+            .timeline-item.left::after, .timeline-item.right::after { left: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="screen active" id="welcome-screen">
+        <div class="content-screen">
+            <h1>Módulo 2: Estímulo à Criatividade</h1>
+            <p>A criatividade é uma competência fundamental para a inovação e a solução de problemas. Ela permite que indivíduos e equipes enxerguem cenários sob novas perspectivas, gerando valor e melhoria contínua.</p>
+            <p>Neste módulo, serão apresentados conceitos sobre o pensamento criativo e técnicas para exercitá-lo. O objetivo é fornecer ferramentas práticas para identificar oportunidades e gerar ideias no ambiente de trabalho.</p>
+            <button class="start-btn" data-navigate-to="what-is-creativity-screen">Iniciar Módulo</button>
+        </div>
+    </div>
+    
+    <footer class="page-footer" id="main-footer">
+        <img src="https://i.imgur.com/3LOW6zy.png" alt="Logo IFRS" class="footer-logo">
+        <img src="https://i.imgur.com/7ZOZb7V.png" alt="Logo NEPI Azul" class="footer-logo">
+    </footer>
+
+    <div class="screen" id="what-is-creativity-screen">
+        <div class="content-screen">
+            <h2>O Que é Criatividade na Prática?</h2>
+            <div class="main-text-content">
+                <p>Frequentemente, a criatividade é vista como um talento inato. No entanto, ela é, acima de tudo, uma habilidade que pode ser sistematicamente desenvolvida. Em essência, <strong>ser criativo é a capacidade de fazer novas conexões a partir de elementos que já existem</strong>.</p>
+                <p>No dia a dia, a criatividade se manifesta de formas simples e práticas: um colaborador que otimiza uma planilha, uma equipe que encontra uma forma mais eficiente de atender um associado ou um gestor que propõe um novo fluxo para um processo interno. Todos esses são atos criativos que geram valor.</p>
+                 <p>É útil diferenciar a "criatividade de impacto" (grandes invenções) da "criatividade cotidiana". Nosso foco é nesta última: a habilidade de resolver pequenos e médios problemas de forma original e eficiente.</p>
+                <div class="highlight-box">
+                    A criatividade não exige a invenção de algo totalmente novo. Ela floresce na recombinação de ideias, processos e ferramentas existentes para gerar um resultado útil e original.
+                </div>
+            </div>
+            <div class="navigation-buttons">
+                <button class="back-btn" data-navigate-to="welcome-screen">Voltar</button>
+                <button class="navigation-btn" data-navigate-to="barriers-screen">Barreiras à Criatividade</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="screen" id="barriers-screen">
+        <div class="content-screen">
+            <h2>Barreiras Comuns à Criatividade</h2>
+            <div class="main-text-content">
+                <p>Identificar os obstáculos que inibem o pensamento criativo é o primeiro passo para superá-los. Muitas dessas barreiras são hábitos ou pressões do ambiente de trabalho que podem ser conscientemente gerenciados.</p>
+                
+                <div class="barrier-list">
+                    <div class="barrier-item">
+                        <h4>Medo do Julgamento e da Falha</h4>
+                        <p>O receio de que uma ideia seja criticada ou de cometer um erro é um dos maiores inibidores. A criatividade exige experimentação, e a experimentação implica em possíveis falhas.</p>
+                    </div>
+                    <div class="barrier-item">
+                        <h4>Excesso de Rotina e Pensamento Rígido</h4>
+                        <p>Fazer as coisas "do mesmo jeito de sempre" é eficiente, mas limita a exploração de novas abordagens. A rigidez mental nos impede de ver conexões alternativas.</p>
+                    </div>
+                    <div class="barrier-item">
+                        <h4>Falta de Tempo e Pressão por Resultados Imediatos</h4>
+                        <p>A criatividade precisa de um período de incubação. Agendas sobrecarregadas e a pressão por produtividade constante podem sufocar o tempo necessário para refletir e conectar ideias.</p>
+                    </div>
+                     <div class="barrier-item">
+                        <h4>Falta de Estímulo e Ambiente Inadequado</h4>
+                        <p>Um ambiente que não valoriza novas ideias, que não oferece diversidade de pensamento ou que não provê segurança psicológica desestimula a participação e a colaboração criativa.</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="navigation-buttons">
+                <button class="back-btn" data-navigate-to="what-is-creativity-screen">Voltar</button>
+                <button class="navigation-btn" data-navigate-to="techniques-screen">Conhecer as Técnicas</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="screen" id="techniques-screen">
+        <div class="card-screen-container">
+            <h2 style="font-size: 2.5em; color: #2d5a27; margin-bottom: 15px;">Técnicas para Geração de Ideias</h2>
+            <p style="font-size: 1.2em; color: #4a6741; max-width: 800px; margin: 0 auto 40px auto;">A criatividade pode ser estimulada com métodos estruturados. Clique em cada etapa para explorar algumas técnicas.</p>
+            
+            <div class="timeline-container" id="techniques-timeline">
+                </div>
+
+            <div class="navigation-buttons">
+                <button class="back-btn" data-navigate-to="barriers-screen">Voltar</button>
+                <button class="navigation-btn" data-navigate-to="quiz-screen">Testar meu Conhecimento</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="screen" id="quiz-screen">
+        <div class="quiz-screen-container">
+            <h2>Quiz: Teste Seus Conhecimentos</h2>
+            
+            <div class="question-container">
+                <p><strong>1. Qual é o princípio fundamental de uma sessão de Brainstorming eficaz?</strong></p>
+                <div class="options" data-answer="b">
+                    <label><input type="radio" name="q1" value="a"> A) Criticar cada ideia para garantir a qualidade.</label>
+                    <label><input type="radio" name="q1" value="b"> B) Adiar o julgamento para focar na quantidade de ideias.</label>
+                    <label><input type="radio" name="q1" value="c"> C) Convidar apenas especialistas no assunto.</label>
+                    <label><input type="radio" name="q1" value="d"> D) Chegar a uma solução final na mesma reunião.</label>
+                </div>
+            </div>
+
+            <div class="question-container">
+                <p><strong>2. A técnica dos "5 Porquês" é mais útil para:</strong></p>
+                <div class="options" data-answer="d">
+                    <label><input type="radio" name="q2" value="a"> A) Gerar o maior número possível de soluções.</label>
+                    <label><input type="radio" name="q2" value="b"> B) Organizar visualmente as ideias.</label>
+                    <label><input type="radio" name="q2" value="c"> C) Escolher a ideia mais barata para implementar.</label>
+                    <label><input type="radio" name="q2" value="d"> D) Identificar a causa-raiz de um problema.</label>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <p><strong>3. Um Mapa Mental é uma ferramenta que se destaca por ser:</strong></p>
+                <div class="options" data-answer="a">
+                    <label><input type="radio" name="q3" value="a"> A) Visual e não linear, conectando ideias a partir de um ponto central.</label>
+                    <label><input type="radio" name="q3" value="b"> B) Uma lista de tarefas sequencial e organizada.</label>
+                    <label><input type="radio" name="q3" value="c"> C) Um método para testar a viabilidade financeira de um projeto.</label>
+                    <label><input type="radio" name="q3" value="d"> D) Um formulário para documentar o problema.</label>
+                </div>
+            </div>
+
+            <div class="question-container">
+                <p><strong>4. Qual dos seguintes elementos é crucial para criar um ambiente favorável à criatividade?</strong></p>
+                <div class="options" data-answer="c">
+                    <label><input type="radio" name="q4" value="a"> A) Pressionar a equipe por resultados imediatos.</label>
+                    <label><input type="radio" name="q4" value="b"> B) Garantir que todos pensem da mesma forma.</label>
+                    <label><input type="radio" name="q4" value="c"> C) Promover a segurança psicológica, onde errar é visto como aprendizado.</label>
+                    <label><input type="radio" name="q4" value="d"> D) Limitar o acesso a novas informações para manter o foco.</label>
+                </div>
+            </div>
+
+            <div class="navigation-buttons" id="quiz-nav-buttons">
+                <button class="back-btn" data-navigate-to="techniques-screen">Voltar</button>
+                <button class="navigation-btn" id="show-results-btn">Ver Resultados</button>
+            </div>
+            <p id="quiz-results"></p>
+            <button class="navigation-btn" id="finish-module-btn" style="display: none;" data-navigate-to="final-screen">Finalizar Módulo</button>
+        </div>
+    </div>
+    
+    <div class="screen" id="final-screen">
+        <div class="content-screen">
+            <h2>Módulo Concluído</h2>
+            <div class="main-text-content">
+                <p>Você concluiu o módulo sobre estímulo à criatividade e agora possui ferramentas e conceitos para aplicar o pensamento criativo no seu trabalho.</p>
+                <p>Lembre-se que a criatividade é uma habilidade que se fortalece com a prática. Utilize as técnicas apresentadas, mantenha a curiosidade e incentive a colaboração para gerar novas ideias.</p>
+                <div class="highlight-box">
+                   As ideias raramente surgem prontas. Elas são o resultado da curiosidade, da observação atenta e da coragem de conectar pontos que antes pareciam não relacionados.
+                </div>
+            </div>
+            <div class="navigation-buttons">
+                <button class="back-btn" data-navigate-to="quiz-screen">Voltar ao Quiz</button>
+                <button class="navigation-btn" data-navigate-to="welcome-screen">Refazer Módulo</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const techniquesData = [
+                {
+                    icon: "⚡️",
+                    title: "1. Brainstorming",
+                    content: `<h4>Objetivo</h4><p>Gerar um grande volume de ideias rapidamente, estimulando associações livres e suspendendo julgamentos na fase de divergência.</p><h4>Quando usar</h4><ul><li>Fase inicial de ideação ou sempre que houver bloqueio criativo.</li><li>Quando for necessário explorar alternativas diversas antes de decidir.</li><li>Com equipes multidisciplinares para ampliar repertórios.</li></ul><h4>Como aplicar</h4><ol><li>Defina um desafio claro (ex.: “Como poderíamos <em>X</em> para <em>Y</em>?”).</li><li>Estabeleça regras: adiar julgamento, construir sobre ideias, buscar quantidade, tempo cronometrado.</li><li>Faça um aquecimento rápido (2–3 min) para destravar.</li><li>Rodadas cronometradas (time-box de 5–10 min) com registro visível (post-its, quadro digital).</li><li>Use técnicas de estímulo: SCAMPER, prompts visuais, <em>brainwriting</em> (ideias silenciosas).</li><li>Encerramento: agrupe por temas e, em outro momento, convergência (ex.: <em>dot voting</em>).</li></ol><h4>Exemplo prático</h4><ul><li><strong>Desafio:</strong> Melhorar a experiência do usuário no site.</li><li><strong>Ideias:</strong> Chat de ajuda, tour guiado, busca inteligente, microinterações, tutoriais em vídeo, testes A/B, CTA dinâmico, FAQ contextual.</li></ul><h4>Dicas e cuidados</h4><ul><li>Evite “dominância de voz”; use rodadas ou <em>brainwriting</em>.</li><li>Grupo ideal: 4–8 pessoas; sessões de 30–45 min por rodada.</li><li>Registre tudo e nomeie um facilitador.</li><li>Experimente o <strong>brainstorming reverso</strong>: “Como piorar o problema?” para revelar riscos.</li></ul>`
+                },
+                {
+                     icon: "🗺️",
+                    title: "2. Mapa Mental",
+                    content: `<h4>Objetivo</h4><p>Organizar informações e ideias de forma visual e associativa, facilitando a visão do todo e a geração de conexões.</p><h4>Quando usar</h4><ul><li>Exploração inicial de um tema ou problema complexo.</li><li>Planejamento de projetos, estudos e apresentações.</li><li>Estruturar conteúdos e decompor tarefas.</li></ul><h4>Como aplicar</h4><ol><li>Coloque o conceito central no meio (palavra-chave ou frase curta).</li><li>Crie ramificações principais (subtemas) saindo do centro.</li><li>Adicione ramificações secundárias com palavras-chave e exemplos.</li><li>Use cores, ícones e setas para destacar e mostrar relações cruzadas.</li><li>Revise: agrupe, renomeie e simplifique onde possível.</li></ol><h4>Exemplo prático</h4><ul><li><strong>Tema:</strong> Planejamento de workshop.</li><li><strong>Ramos:</strong> Objetivos, Público, Agenda, Materiais, Dinâmicas, Divulgação, Riscos/Planos B.</li></ul><h4>Dicas e cuidados</h4><ul><li>Prefira 1 palavra por ramo para manter fluidez.</li><li>Evite virar um sumário linear; preserve a natureza visual.</li><li>Ferramentas digitais ajudam (camadas, links, imagens), mas papel funciona muito bem no início.</li><li>Finalize com um <em>outline</em> de ações prioritárias.</li></ul>`
+                },
+                {
+                    icon: "🤔",
+                    title: "3. Os 5 Porquês",
+                    content: `<h4>Objetivo</h4><p>Identificar a causa-raiz de um problema por meio de perguntas sucessivas “Por quê?”, indo além dos sintomas aparentes.</p><h4>Quando usar</h4><ul><li>Incidentes recorrentes, retrabalho, atrasos e falhas de processo.</li><li>Quando métricas pioram sem motivo óbvio.</li><li>Investigações rápidas antes de soluções mais complexas.</li></ul><h4>Como aplicar</h4><ol><li>Defina com precisão o problema (quem, o que, onde, quando, impacto).</li><li>Pergunte “Por quê?” e registre a resposta com base em evidências, não apenas opiniões.</li><li>Repita de 3 a 5 vezes (ou até chegar a uma causa sistêmica e acionável).</li><li>Valide cada resposta com dados, registros ou observações.</li><li>Converta a causa-raiz em contramedidas (plano de ação com responsável e prazo).</li></ol><h4>Exemplo prático</h4><ul><li><strong>Problema:</strong> O prazo de entrega de um projeto atrasou.</li><li><strong>1. Por quê?</strong> Porque algumas tarefas não foram concluídas no tempo previsto.</li><li><strong>2. Por quê?</strong> Porque a equipe não tinha todas as informações necessárias para iniciar as atividades.</li><li><strong>3. Por quê?</strong> Porque a comunicação entre os departamentos foi falha.</li><li><strong>4. Por quê?</strong> Porque não existe um processo padronizado para troca de informações.</li><li><strong>5. Por quê?</strong> Porque a empresa ainda não implementou uma política clara de gestão de projetos. <strong>(Possível causa-raiz)</strong></li></ul><p><strong>Observação:</strong> O quinto “porquê” é um guia, não uma regra. Pare quando a causa for clara e passível de ação.</p><h4>Dicas e cuidados</h4><ul><li>Evite viés de confirmação; envolva pessoas de áreas diferentes.</li><li>Se houver múltiplas cadeias de causa, explore cada uma separadamente.</li><li>Combine com Diagrama de Ishikawa para mapear categorias de causas.</li><li>Documente o raciocínio e monitore se as contramedidas realmente eliminam o problema.</li></ul>`
+                },
+                {
+                    icon: "🌱",
+                    title: "4. Ambiente Criativo",
+                    content: `<h4>Objetivo</h4><p>Construir condições sociais e físicas que favoreçam a segurança psicológica, a experimentação e a colaboração, aumentando a qualidade e a frequência de ideias.</p><h4>Quando usar</h4><ul><li>Times que precisam inovar continuamente ou destravar bloqueios.</li><li>Momentos de mudança organizacional, novos produtos ou melhoria de processos.</li></ul><h4>Como aplicar</h4><ol><li>Estabeleça <strong>segurança psicológica</strong>: regras de respeito, check-ins, feedback sem punição por erro honesto.</li><li>Implemente <strong>rituais criativos</strong>: <em>demo days</em>, murais de ideias, <em>design critique</em> estruturado.</li><li>Ajuste o <strong>espaço</strong>: quadros, áreas para prototipagem, materiais visuais, ferramentas digitais colaborativas.</li><li>Dê <strong>tempo de incubação</strong>: blocos sem interrupção e sprints de exploração.</li><li>Defina <strong>métricas de aprendizado</strong>: ideias testadas, protótipos, experimentos concluídos.</li></ol><h4>Exemplo prático</h4><ul><li><strong>Semana de Ideação:</strong> 1) <em>Kickoff</em> com problemas prioritários; 2) Dias com blocos de brainstorming e prototipagem; 3) <em>Demo day</em> para compartilhar aprendizados e próximos passos.</li></ul><h4>Dicas e cuidados</h4><ul><li>Evite “teatro da inovação”: ritual sem autonomia real e sem orçamento.</li><li>Promova diversidade de perfis; diferentes repertórios aumentam originalidade.</li><li>Celebre experimentos bem-sucedidos <em>e</em> aprendizados de falhas.</li><li>Use a regra 70–20–10: foco no core (70), melhorias (20), apostas (10).</li></ul>`
+                }
+            ];
+
+
+
+            function showScreen(screenId) {
+                const footer = document.getElementById('main-footer');
+                
+                document.querySelectorAll('.screen').forEach(screen => {
+                    screen.classList.remove('active');
+                });
+                
+                const activeScreen = document.getElementById(screenId);
+                if (activeScreen) {
+                    activeScreen.classList.add('active');
+                }
+
+                if (screenId === 'welcome-screen') {
+                    footer.style.display = 'flex';
+                    if (document.getElementById('quiz-results')) {
+                        document.getElementById('quiz-results').style.display = 'none';
+                    }
+                    if(document.getElementById('finish-module-btn')) {
+                        document.getElementById('finish-module-btn').style.display = 'none';
+                    }
+                    if(document.getElementById('quiz-nav-buttons')) {
+                        document.getElementById('quiz-nav-buttons').style.display = 'flex';
+                    }
+                    document.querySelectorAll('.options label').forEach(label => {
+                        label.classList.remove('selected', 'correct', 'incorrect');
+                    });
+                    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                        radio.checked = false;
+                    });
+                } else {
+                    footer.style.display = 'none';
+                }
+                
+                window.scrollTo(0, 0);
+            }
+            
+            function buildTimeline(containerId, data) {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+                container.innerHTML = '';
+                
+                data.forEach((item, index) => {
+                    const positionClass = index % 2 === 0 ? 'left' : 'right';
+                    const timelineItem = document.createElement('div');
+                    timelineItem.className = `timeline-item ${positionClass}`;
+                    
+                    timelineItem.innerHTML = `
+                        <div class="timeline-header">
+                            <h3><span class="timeline-icon">${item.icon}</span>${item.title}</h3>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-content-inner">
+                                ${item.content}
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(timelineItem);
+                });
+            }
+
+            function toggleTimelineItem(header) {
+                const timelineItem = header.closest('.timeline-item');
+                const content = timelineItem.querySelector('.timeline-content');
+                const isAlreadyActive = timelineItem.classList.contains('active');
+
+                document.querySelectorAll('.timeline-item.active').forEach(activeItem => {
+                    if (activeItem !== timelineItem) {
+                        activeItem.classList.remove('active');
+                        activeItem.querySelector('.timeline-content').style.maxHeight = null;
+                    }
+                });
+
+                if (!isAlreadyActive) {
+                    timelineItem.classList.add('active');
+                    content.style.maxHeight = content.scrollHeight + "px";
+                } else {
+                    timelineItem.classList.remove('active');
+                    content.style.maxHeight = null;
+                }
+            }
+
+            function showQuizResults() {
+                let correctCount = 0;
+                const questions = document.querySelectorAll('.question-container');
+                
+                questions.forEach(question => {
+                    const optionsDiv = question.querySelector('.options');
+                    const correctAnswer = optionsDiv.getAttribute('data-answer');
+                    const selectedRadio = question.querySelector('input[type="radio"]:checked');
+                    
+                    optionsDiv.querySelectorAll('label').forEach(l => {
+                        l.classList.remove('correct', 'incorrect');
+                    });
+
+                    if (selectedRadio) {
+                        const selectedLabel = selectedRadio.parentElement;
+                        if (selectedRadio.value === correctAnswer) {
+                            correctCount++;
+                            selectedLabel.classList.add('correct');
+                        } else {
+                            selectedLabel.classList.add('incorrect');
+                            optionsDiv.querySelector(`input[value="${correctAnswer}"]`).parentElement.classList.add('correct');
+                        }
+                    }
+                });
+
+                const totalQuestions = questions.length;
+                const percentage = (correctCount / totalQuestions) * 100;
+                const resultsEl = document.getElementById('quiz-results');
+                resultsEl.textContent = `Você acertou ${correctCount} de ${totalQuestions} perguntas (${percentage.toFixed(0)}%).`;
+                resultsEl.style.display = 'block';
+                
+                document.getElementById('quiz-nav-buttons').style.display = 'none';
+                document.getElementById('finish-module-btn').style.display = 'inline-block';
+            }
+
+            // --- INICIALIZAÇÃO E EVENT LISTENERS ---
+            
+            // Navegação principal entre telas
+            document.body.addEventListener('click', (e) => {
+                if (e.target.matches('[data-navigate-to]')) {
+                    showScreen(e.target.getAttribute('data-navigate-to'));
+                }
+            });
+
+            // Botão de resultados do Quiz
+            const resultsBtn = document.getElementById('show-results-btn');
+            if(resultsBtn) {
+                resultsBtn.addEventListener('click', showQuizResults);
+            }
+
+            // Funcionalidade da Timeline (via delegação de eventos)
+            const timelineContainer = document.getElementById('techniques-timeline');
+            if (timelineContainer) {
+                timelineContainer.addEventListener('click', (e) => {
+                    const header = e.target.closest('.timeline-header');
+                    if (header) {
+                        toggleTimelineItem(header);
+                    }
+                });
+            }
+            
+            // Seleção de opções do Quiz
+            document.querySelectorAll('.options label').forEach(label => {
+                label.addEventListener('click', function() {
+                    this.closest('.options').querySelectorAll('label').forEach(otherLabel => {
+                        otherLabel.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                });
+            });
+
+            // Construir conteúdo dinâmico
+            buildTimeline('techniques-timeline', techniquesData);
+            
+            // Mostrar a primeira tela
+            showScreen('welcome-screen');
+        });
+    </script>
+</body>
+</html>
