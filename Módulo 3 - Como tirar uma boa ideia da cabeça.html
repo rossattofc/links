@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo de Inovação: Como tirar uma boa ideia da cabeça?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .screen {
+            display: none;
+            min-height: 100vh;
+            padding: 20px 20px 100px 20px;
+            animation: fadeIn 0.5s ease-in-out;
+            position: relative; 
+        }
+
+        .screen.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-screen {
+            text-align: center;
+            max-width: 900px;
+            background: white;
+            padding: 60px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 3px solid #2d5a27;
+        }
+
+        .content-screen h1 {
+            font-size: 3.5em;
+            color: #2d5a27;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .content-screen h2 {
+            font-size: 3em;
+            color: #2d5a27;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        .content-screen p {
+            font-size: 1.3em;
+            color: #4a6741;
+            margin-bottom: 20px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+        
+        .content-screen .main-text-content {
+             text-align: justify;
+            font-size: 1.2em;
+            color: #4a6741;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .start-btn, .navigation-btn, .quiz-btn, .back-btn {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .start-btn:hover, .navigation-btn:hover, .quiz-btn:hover, .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(76, 175, 80, 0.4);
+        }
+
+        .back-btn {
+            background: transparent;
+            color: #4CAF50;
+            border: 2px solid #4CAF50;
+            box-shadow: none;
+        }
+        
+        .back-btn:hover {
+            background: #e8f5e8;
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.2);
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #e8f5e8, #d4edda);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #4CAF50;
+            margin: 25px 0;
+            font-style: italic;
+            text-align: justify;
+            font-size: 1.1em;
+            color: #4a6741;
+        }
+        
+        .card-screen-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .card-screen-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .card-screen-header h2 {
+            font-size: 2.5em;
+            color: #2d5a27;
+            margin-bottom: 15px;
+        }
+
+        .card-screen-header p {
+            font-size: 1.2em;
+            color: #4a6741;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            perspective: 1000px;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 2px solid transparent;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(45, 90, 39, 0.2);
+            border-color: #4CAF50;
+        }
+
+        .card-icon {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            line-height: 1;
+        }
+
+        .info-card h3 {
+            font-size: 1.5em;
+            color: #2d5a27;
+        }
+        
+        #card-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        #card-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .expanded-card-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.5);
+            width: 90%;
+            max-width: 800px;
+            max-height: 85vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow-y: auto;
+            padding: 40px;
+            text-align: left;
+        }
+        
+        #card-overlay.active .expanded-card-container {
+             transform: translate(-50%, -50%) scale(1);
+             opacity: 1;
+             visibility: visible;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2em;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #2d5a27;
+        }
+
+        .expanded-card-content h3 {
+            font-size: 2em;
+            color: #2d5a27;
+            margin-bottom: 20px;
+        }
+
+        .expanded-card-content h4 {
+            color: #4CAF50;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .expanded-card-content p, .expanded-card-content li {
+            color: #4a6741;
+            font-size: 1.1em;
+            line-height: 1.7;
+        }
+        .expanded-card-content ul {
+            list-style-position: inside;
+            padding-left: 10px;
+        }
+        .expanded-card-content li {
+            margin-bottom: 8px;
+        }
+        .expanded-card-content code {
+            background-color: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        .quiz-screen-container {
+            max-width: 800px;
+            background: white;
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 3px solid #2d5a27;
+            text-align: center;
+        }
+
+        .quiz-screen-container h2 {
+            font-size: 2.5em;
+            color: #2d5a27;
+            margin-bottom: 30px;
+        }
+
+        .question-container {
+            background: #f8fdf8;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #d4edda;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .question-container p {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .options label {
+            display: block;
+            background: #e8f5e8;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 1.1em;
+            color: #4a6741;
+        }
+
+        .options label:hover {
+            background-color: #d4edda;
+        }
+
+        .options input[type="radio"] {
+            display: none;
+        }
+
+        .options label.selected {
+            background-color: #d4edda;
+            font-weight: bold;
+        }
+
+        .options label.correct {
+            background: #d4edda;
+            border: 2px solid #4CAF50;
+        }
+
+        .options label.incorrect {
+            background: #f8d7da;
+            border: 2px solid #721c24;
+        }
+
+        #quiz-results {
+            margin-top: 40px;
+            font-size: 1.5em;
+            color: #2d5a27;
+            font-weight: 600;
+            display: none;
+        }
+
+        .page-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            padding: 10px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .footer-logo {
+            height: 40px; 
+            width: auto;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="screen active" id="welcome-screen">
+        <div class="content-screen">
+            <h1>📝 Como Tirar uma Boa Ideia da Cabeça?</h1>
+            <p>Nem sempre é fácil colocar uma ideia no papel, não é? Muitas vezes, uma percepção brilhante pode se perder por falta de estrutura para desenvolvê-la.</p>
+            <p>Neste módulo, vamos te ajudar a transformar suas ideias em propostas claras e de impacto. Você vai aprender a identificar oportunidades e organizar seu raciocínio de forma objetiva. Prepare-se para ver que toda boa ideia pode sair da cabeça — e ganhar vida!</p>
+            <button class="start-btn" onclick="showScreen('start-point-screen')">Começar a Estruturar</button>
+        </div>
+    </div>
+    
+    <footer class="page-footer" id="main-footer">
+        <img src="https://i.imgur.com/3LOW6zy.png" alt="Logo IFRS" class="footer-logo">
+        <img src="https://i.imgur.com/7ZOZb7V.png" alt="Logo NEPI Azul" class="footer-logo">
+    </footer>
+
+    <div class="screen" id="start-point-screen">
+        <div class="content-screen">
+            <h2>De Onde Nascem as Boas Ideias?</h2>
+            <div class="main-text-content">
+                <p>Boas ideias raramente surgem do nada. Elas são, na maioria das vezes, respostas criativas a problemas, frustrações ou oportunidades que observamos no nosso dia a dia.</p>
+                <p>O primeiro passo para inovar é treinar o seu olhar. Preste atenção nos processos que parecem complicados demais, nas tarefas repetitivas que poderiam ser automatizadas, ou nos comentários e reclamações de clientes e colegas. É nesse terreno que as sementes da inovação estão plantadas.</p>
+                <div class="highlight-box">
+                    "Inovação é, muitas vezes, a arte de resolver uma irritação de forma elegante. Se algo te incomoda em um processo, você provavelmente encontrou uma oportunidade de melhoria."
+                </div>
+            </div>
+            <div class="navigation-buttons">
+                <button class="back-btn" onclick="showScreen('welcome-screen')">Voltar</button>
+                <button class="navigation-btn" onclick="showScreen('tools-screen')">Conhecer o Processo</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="screen" id="tools-screen">
+        <div class="card-screen-container">
+            <div class="card-screen-header">
+                <h2>Ferramentas para Estruturar sua Ideia</h2>
+                <p>Clique nos cards abaixo para explorar cada etapa do processo de estruturação de uma ideia. Cada passo te ajudará a construir uma proposta sólida e convincente.</p>
+            </div>
+            <div class="card-grid" id="tools-grid">
+            </div>
+            <div class="navigation-buttons">
+                <button class="back-btn" onclick="showScreen('start-point-screen')">Voltar</button>
+                <button class="navigation-btn" onclick="showScreen('quiz-screen')">Testar meu Conhecimento</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="screen" id="quiz-screen">
+        <div class="quiz-screen-container">
+            <h2>Quiz: Teste Seus Conhecimentos</h2>
+            
+            <div class="question-container">
+                <p><strong>1. Qual é o primeiro e mais crucial passo ao estruturar uma nova ideia?</strong></p>
+                <div class="options" data-answer="b">
+                    <label><input type="radio" name="q1" value="a"> A) Pensar no nome da ideia.</label>
+                    <label><input type="radio" name="q1" value="b"> B) Definir claramente qual problema ela resolve.</label>
+                    <label><input type="radio" name="q1" value="c"> C) Calcular o custo exato da implementação.</label>
+                    <label><input type="radio" name="q1" value="d"> D) Montar a equipe que vai executá-la.</label>
+                </div>
+            </div>
+
+            <div class="question-container">
+                <p><strong>2. Ao pensar na 'Viabilidade' de uma ideia, qual pergunta é essencial se fazer?</strong></p>
+                <div class="options" data-answer="c">
+                    <label><input type="radio" name="q2" value="a"> A) A ideia é popular?</label>
+                    <label><input type="radio" name="q2" value="b"> B) Qual será o nome do projeto?</label>
+                    <label><input type="radio" name="q2" value="c"> C) Quais recursos (tempo, pessoas, dinheiro) são necessários para começar?</label>
+                    <label><input type="radio" name="q2" value="d"> D) A ideia é perfeita como está?</label>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <p><strong>3. Ao apresentar o "Impacto" da sua ideia, o que é mais eficaz?</strong></p>
+                <div class="options" data-answer="d">
+                    <label><input type="radio" name="q3" value="a"> A) Usar termos técnicos e complexos.</label>
+                    <label><input type="radio" name="q3" value="b"> B) Dizer apenas que a ideia é "inovadora".</label>
+                    <label><input type="radio" name="q3" value="c"> C) Focar apenas nos benefícios para você mesmo.</label>
+                    <label><input type="radio" name="q3" value="d"> D) Quantificar os benefícios (ex: "reduzir o tempo em 20%").</label>
+                </div>
+            </div>
+
+            <div class="question-container">
+                <p><strong>4. Qual ferramenta é ideal para consolidar todas as informações da sua ideia em um único lugar?</strong></p>
+                <div class="options" data-answer="b">
+                    <label><input type="radio" name="q4" value="a"> A) Uma longa apresentação de slides.</label>
+                    <label><input type="radio" name="q4" value="b"> B) Um "Idea Canvas" ou um resumo visual de uma página.</label>
+                    <label><input type="radio" name="q4" value="c"> C) Um e-mail informal para um colega.</label>
+                    <label><input type="radio" name="q4" value="d"> D) Um fluxograma complexo.</label>
+                </div>
+            </div>
+
+            <div class="navigation-buttons" id="quiz-nav-buttons">
+                <button class="back-btn" onclick="showScreen('tools-screen')">Voltar</button>
+                <button class="navigation-btn" id="show-results-btn" onclick="showQuizResults()">Ver Resultados</button>
+            </div>
+            <p id="quiz-results"></p>
+            <button class="navigation-btn" id="finish-module-btn" style="display: none;" onclick="showScreen('final-screen')">Finalizar Módulo</button>
+        </div>
+    </div>
+    
+    <div class="screen" id="final-screen">
+        <div class="content-screen">
+            <h2>🎉 Parabéns!</h2>
+            <div class="main-text-content">
+                <p>Você concluiu o módulo e agora tem as ferramentas necessárias para transformar uma simples percepção em uma proposta de valor clara e estruturada.</p>
+                <p>Lembre-se: estruturar uma ideia é uma habilidade que melhora com a prática. Não tenha medo de rascunhar, revisar e refinar suas propostas. O passo mais importante você já deu: tirá-la da cabeça e começar a dar vida a ela.</p>
+                <div class="highlight-box">
+                   Uma ideia guardada na cabeça tem o mesmo valor de uma que nunca existiu. O poder está em tirá-la do papel e colocá-la no mundo.
+                </div>
+            </div>
+            <div class="navigation-buttons">
+                <button class="back-btn" onclick="showScreen('quiz-screen')">Voltar ao Quiz</button>
+                <button class="navigation-btn" onclick="showScreen('welcome-screen')">Refazer Módulo</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="card-overlay">
+        <div class="expanded-card-container">
+            <span class="close-btn" onclick="closeExpandedCard()">&times;</span>
+            <div class="expanded-card-content" id="expanded-card-content">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const toolsData = [
+            {
+                icon: "🎯",
+                title: "1. Defina o Problema",
+                content: `
+                    <h3>🎯 1. Defina o Problema</h3>
+                    <h4>Um problema bem definido é metade da solução.</h4>
+                    <p>Uma solução só tem valor se resolve um problema real. Antes de detalhar sua ideia, responda:</p>
+                    <ul>
+                        <li><strong>Qual é exatamente o problema?</strong> Descreva a dor, a dificuldade ou a ineficiência que você observou.</li>
+                        <li><strong>Quem é afetado por ele?</strong> (Ex: clientes, uma equipe específica, a cooperativa inteira).</li>
+                        <li><strong>Por que isso é um problema?</strong> Quais são as consequências negativas? (Ex: perda de tempo, custo extra, insatisfação do associado).</li>
+                    </ul>
+                    <h4>Dica de Ouro:</h4>
+                    <p>Tente resumir o problema em uma única frase. Exemplo: <code>"A equipe de atendimento gasta muito tempo procurando informações em diferentes sistemas, o que atrasa a resposta ao associado."</code></p>
+                `
+            },
+            {
+                icon: "💡",
+                title: "2. Descreva a Solução",
+                content: `
+                    <h3>💡 2. Descreva a Solução</h3>
+                    <h4>Seja claro e direto.</h4>
+                    <p>Agora sim, é hora de apresentar sua ideia! Descreva sua solução de forma simples e direta. Evite jargões e foque no "o quê".</p>
+                    <ul>
+                        <li><strong>O que sua ideia faz?</strong> Explique a função principal.</li>
+                        <li><strong>Como ela funciona, em linhas gerais?</strong> É um novo processo, uma ferramenta, uma mudança de procedimento?</li>
+                    </ul>
+                    <h4>Dica de Ouro (Elevator Pitch):</h4>
+                    <p>Imagine que você tem 30 segundos para explicar sua ideia para um diretor no elevador. Como você a descreveria de forma rápida e clara? Exemplo: <code>"Minha ideia é criar um painel central (dashboard) que unifica as informações chave dos principais sistemas."</code></p>
+                `
+            },
+            {
+                icon: "🚀",
+                title: "3. Mostre o Impacto",
+                content: `
+                    <h3>🚀 3. Mostre o Impacto</h3>
+                    <h4>Qual o valor que sua ideia gera?</h4>
+                    <p>Aqui você conecta a sua solução ao problema. Este é o "porquê" sua ideia é importante. Tente quantificar os benefícios:</p>
+                    <ul>
+                        <li><strong>Redução de tempo:</strong> "Estimo que podemos reduzir o tempo de cada atendimento em 30%."</li>
+                        <li><strong>Redução de custos:</strong> "Isso pode gerar uma economia de X reais por ano em retrabalho."</li>
+                        <li><strong>Aumento da satisfação:</strong> "Aumentará o índice de satisfação do associado (NPS)."</li>
+                        <li><strong>Melhora na qualidade ou segurança:</strong> "Reduzirá em 50% os erros de digitação."</li>
+                    </ul>
+                     <h4>Dica de Ouro:</h4>
+                    <p>Use a fórmula "Ao implementar [sua solução], nós conseguiremos [o impacto quantificado], o que resolve [o problema inicial]."</p>
+                `
+            },
+             {
+                icon: "✅",
+                title: "4. Analise a Viabilidade",
+                content: `
+                    <h3>✅ 4. Analise a Viabilidade</h3>
+                    <h4>Sua ideia é realizável?</h4>
+                    <p>Uma grande ideia também precisa ser realizável. Pensar sobre a viabilidade mostra maturidade e pensamento crítico. Faça perguntas honestas:</p>
+                     <ul>
+                        <li><strong>O que é necessário para começar?</strong> (Ex: acesso a um software, tempo de um desenvolvedor, aprovação de um gestor).</li>
+                        <li><strong>Quais são os principais desafios ou obstáculos?</strong> (Ex: custo, complexidade técnica, resistência à mudança).</li>
+                        <li><strong>Como poderíamos testar essa ideia em pequena escala?</strong> (Um projeto piloto com uma equipe, por exemplo).</li>
+                    </ul>
+                    <h4>Dica de Ouro:</h4>
+                    <p>Você não precisa ter todas as respostas, mas mostrar que pensou sobre as dificuldades torna sua proposta muito mais crível e profissional.</p>
+                `
+            },
+            {
+                icon: "📄",
+                title: "5. Crie um Resumo",
+                content: `
+                    <h3>📄 5. Crie um Resumo (Idea Canvas)</h3>
+                    <h4>Junte tudo em uma só página.</h4>
+                    <p>Excelente! Agora, vamos juntar tudo em um formato visual. Um "Idea Canvas" de uma página é a ferramenta perfeita para apresentar sua proposta de forma completa e rápida.</p>
+                     <p>Ele deve conter campos para:</p>
+                    <ul>
+                        <li><strong>Problema:</strong> A dor ou necessidade principal.</li>
+                        <li><strong>Solução:</strong> Sua ideia de forma resumida.</li>
+                        <li><strong>Impacto Esperado:</strong> Os principais benefícios.</li>
+                        <li><strong>Recursos Necessários:</strong> O que é preciso para começar.</li>
+                        <li><strong>Primeiro Passo:</strong> Qual a ação mais simples para validar a ideia?</li>
+                    </ul>
+                     <h4>Dica de Ouro:</h4>
+                    <p>Ter sua ideia neste formato facilita a comunicação, ajuda a obter feedback e serve como um guia claro para os próximos passos.</p>
+                `
+            }
+        ];
+
+        function showScreen(screenId) {
+            const footer = document.getElementById('main-footer');
+            
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            
+            const activeScreen = document.getElementById(screenId);
+            if (activeScreen) {
+                activeScreen.classList.add('active');
+            }
+
+            if (screenId === 'welcome-screen') {
+                footer.style.display = 'flex';
+                // Reseta o quiz se o usuário voltar ao início
+                document.getElementById('quiz-results').style.display = 'none';
+                document.getElementById('finish-module-btn').style.display = 'none';
+                document.getElementById('quiz-nav-buttons').style.display = 'flex';
+                document.querySelectorAll('.options label').forEach(label => {
+                    label.classList.remove('selected', 'correct', 'incorrect');
+                });
+                document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    radio.checked = false;
+                });
+            } else {
+                footer.style.display = 'none';
+            }
+            
+            window.scrollTo(0, 0);
+        }
+        
+        function buildInteractiveCards(containerId, data) {
+            const grid = document.getElementById(containerId);
+            if (!grid) return;
+            grid.innerHTML = '';
+            
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'info-card';
+                
+                card.innerHTML = `
+                    <div class="card-icon">${item.icon}</div>
+                    <h3>${item.title}</h3>
+                `;
+                
+                card.addEventListener('click', () => openExpandedCard(item.content));
+                grid.appendChild(card);
+            });
+        }
+
+        function openExpandedCard(content) {
+            const overlay = document.getElementById('card-overlay');
+            const contentHolder = document.getElementById('expanded-card-content');
+            
+            contentHolder.innerHTML = content;
+            overlay.classList.add('active');
+        }
+
+        function closeExpandedCard() {
+             const overlay = document.getElementById('card-overlay');
+             overlay.classList.remove('active');
+        }
+
+        function showQuizResults() {
+            let correctCount = 0;
+            const questions = document.querySelectorAll('.question-container');
+            
+            questions.forEach(question => {
+                const optionsDiv = question.querySelector('.options');
+                const correctAnswer = optionsDiv.getAttribute('data-answer');
+                const selectedRadio = question.querySelector('input[type="radio"]:checked');
+                
+                optionsDiv.querySelectorAll('label').forEach(l => {
+                    l.classList.remove('correct', 'incorrect');
+                });
+
+                if (selectedRadio) {
+                    const selectedLabel = selectedRadio.parentElement;
+                    if (selectedRadio.value === correctAnswer) {
+                        correctCount++;
+                        selectedLabel.classList.add('correct');
+                    } else {
+                        selectedLabel.classList.add('incorrect');
+                        optionsDiv.querySelector(`input[value="${correctAnswer}"]`).parentElement.classList.add('correct');
+                    }
+                } else {
+                    // Mark correct answer if none is selected
+                    optionsDiv.querySelector(`input[value="${correctAnswer}"]`).parentElement.classList.add('correct');
+                }
+            });
+
+            const totalQuestions = questions.length;
+            const percentage = (correctCount / totalQuestions) * 100;
+            const resultsEl = document.getElementById('quiz-results');
+            resultsEl.textContent = `Você acertou ${correctCount} de ${totalQuestions} perguntas (${percentage.toFixed(0)}%).`;
+            resultsEl.style.display = 'block';
+
+            document.getElementById('quiz-nav-buttons').style.display = 'none';
+            document.getElementById('finish-module-btn').style.display = 'inline-block';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showScreen('welcome-screen');
+            buildInteractiveCards('tools-grid', toolsData);
+
+            document.getElementById('card-overlay').addEventListener('click', function(event) {
+                if(event.target === this) {
+                    closeExpandedCard();
+                }
+            });
+
+            document.querySelectorAll('.options label').forEach(label => {
+                label.addEventListener('click', function() {
+                    this.closest('.options').querySelectorAll('label').forEach(otherLabel => {
+                        otherLabel.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
