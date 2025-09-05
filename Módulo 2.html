@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avaliação - Módulo 2.4</title>
+    <title>Avaliação - Módulo 2.5</title>
     <script src="SCORM_API_wrapper.js"></script>
 <style>
     /* Estilos de Fonte e Corpo da Página */
@@ -199,7 +199,7 @@
 
     <div class="quiz-screen-container">
         <div id="quiz-header">
-            <h2>Avaliação - Módulo 2.4</h2>
+            <h2>Avaliação - Módulo 2.5</h2>
         </div>
 
         <div id="quiz-container">
@@ -232,33 +232,15 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     if (typeof pipwerks !== 'undefined') scorm.init();
 
-    // --- DADOS DAS QUESTÕES DO MÓDULO 2.4 ---
+    // --- DADOS DAS QUESTÕES DO MÓDULO 2.5 ---
     const quizData = [
         {
-            question: "Qual critério define se um associado é considerado <strong>ativo</strong> no indicador de % de Associados Ativos?",
+            question: "O e-NPS é apurado <strong>anualmente</strong> e é baseado na metodologia de promotores (notas 9 e 10) e detratores (notas menores que 6), sendo um importante termômetro do clima organizacional. O que representa a pontuação obtida no indicador <strong>e-NPS (Pesquisa de Clima)</strong> utilizado na cooperativa?",
             answers: [
-                { text: "Ter contratado pelo menos um produto ou serviço nos últimos 12 meses.", correct: false },
-                { text: "Ter realizado transações online via app ou internet banking nos últimos 30 dias.", correct: false },
-                { text: "Ter participado de uma pesquisa de satisfação ou clima organizacional no último semestre.", correct: false },
-                { text: "Ter realizado movimentações espontâneas em conta corrente nos últimos 180 dias.", correct: true }
-            ]
-        },
-        {
-            question: "O indicador de <strong>Market Share de Crédito</strong> é utilizado para avaliar a participação da cooperativa no mercado financeiro. Qual é a forma correta de calcular esse indicador?",
-            answers: [
-                { text: "Pela soma do volume de crédito concedido aos associados com o total de depósitos captados pela cooperativa.", correct: false },
-                { text: "Pela razão entre o volume de crédito do Sicredi na área de abrangência da cooperativa e o volume total de crédito do mercado (Sicredi + ESTBAN), refletindo a participação da cooperativa no mercado de crédito.", correct: true },
-                { text: "Pela média da margem de contribuição dos associados nos últimos 6 meses.", correct: false },
-                { text: "Pela divisão entre o número de associados ativos e o total de associados correntistas.", correct: false }
-            ]
-        },
-        {
-            question: "O indicador de <strong>Share of Wallet de Crédito</strong> é utilizado para avaliar a participação da Cooperativa no total de crédito tomado pelos seus associados. Nesse contexto assinale a alternativa correta referente como esse indicador é calculado?",
-            answers: [
-                { text: "Pela soma do volume de crédito do Sicredi com o total de depósitos captados na área de abrangência da cooperativa.", correct: false },
-                { text: "Pela média da margem de contribuição dos associados nos últimos 6 meses.", correct: false },
-                { text: "Pela divisão entre o número de associados ativos e o total de associados correntistas.", correct: false },
-                { text: "Pela divisão entre o saldo de crédito do associado na Cooperativa e o volume total de crédito do associado registrado no SCR, refletindo o quanto do total de crédito do associado está alocado na Cooperativa.", correct: true }
+                { text: "Que os colaboradores estão utilizando poucas soluções financeiras da cooperativa.", correct: false },
+                { text: "Medir o quanto os colaboradores recomendariam o Sicredi para alguém como um bom lugar para se trabalhar.", correct: true },
+                { text: "Que houve aumento na margem de contribuição dos colaboradores nos últimos meses.", correct: false },
+                { text: "Identificar o nível de utilização de produtos e serviços pelos associados.", correct: false }
             ]
         }
     ];
@@ -336,6 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateProgressBar() {
+        // Como há apenas uma questão, a barra irá de 0% para 100% de uma vez.
         const progress = ((currentQuestionIndex) / questions.length) * 100;
         progressBar.style.width = `${progress}%`;
     }
