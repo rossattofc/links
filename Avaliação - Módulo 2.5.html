@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliação - Módulo 2.5</title>
+    <script src="SCORM_API_wrapper.js"></script>
+<style>
+    /* Estilos de Fonte e Corpo da Página */
+    @font-face {
+        font-family: 'Exo 2';
+        src: url('fonts/Exo2.0-Regular.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Exo 2', sans-serif;
+        background: linear-gradient(135deg, #f7f9f5 0%, #D7E6C8 100%);
+        min-height: 100vh;
+        line-height: 1.6;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+    
+    /* Container principal do Quiz */
+    .quiz-screen-container {
+        width: 100%;
+        max-width: 800px;
+        background: white;
+        padding: 40px 40px 50px 40px;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        border: 3px solid #146E37;
+        text-align: center;
+        overflow: hidden; /* Garante a transição suave */
+    }
+
+    .quiz-screen-container h2 {
+        font-size: 2.5em;
+        color: #146E37;
+        margin-bottom: 30px;
+    }
+
+    /* Estilo para cada questão */
+    .question {
+        display: none; /* Esconde todas as questões por padrão */
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .question.active {
+        display: block; /* Mostra apenas a questão ativa */
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .question p.question-title {
+        font-size: 1.3em;
+        color: #333;
+        margin-bottom: 25px;
+        font-weight: 500;
+        text-align: left;
+    }
+
+    .options label {
+        display: block;
+        background: #f0f5e9;
+        padding: 15px 20px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-size: 1.1em;
+        color: #146E37;
+        border: 2px solid #D7E6C8;
+        text-align: left;
+    }
+
+    .options label:hover {
+        background-color: #D7E6C8;
+        border-color: #3FA110;
+    }
+    
+    .options input[type="radio"]:checked + label {
+        background-color: #c8d9b9;
+        border-color: #146E37;
+        font-weight: bold;
+    }
+
+    .options input[type="radio"] {
+        display: none;
+    }
+
+    /* Tela de Resultados */
+    #results-screen {
+        text-align: center;
+    }
+    
+    #results-screen h3 {
+        font-size: 2.2em;
+        margin-bottom: 15px;
+    }
+
+    #results-screen .result-pass {
+        color: #146E37;
+    }
+
+    #results-screen .result-fail {
+        color: #721c24;
+    }
+
+    #results-screen p {
+        font-size: 1.3em;
+        color: #333;
+        margin-bottom: 40px;
+    }
+    
+    /* Barra de progresso e Botões */
+    #progress-bar-container {
+        width: 100%;
+        background-color: #e0e0e0;
+        border-radius: 10px;
+        margin-top: 40px;
+        margin-bottom: 30px;
+    }
+
+    #progress-bar {
+        width: 0%;
+        height: 10px;
+        background: linear-gradient(135deg, #3fa110, #146e37);
+        border-radius: 10px;
+        transition: width 0.4s ease-in-out;
+    }
+
+    .navigation-btn {
+        background: linear-gradient(135deg, #3fa110, #146e37);
+        color: white;
+        border: none;
+        padding: 16px 40px;
+        font-size: 1.1em;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 8px 20px rgba(63, 161, 16, 0.3);
+        margin-top: 10px;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .navigation-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 25px rgba(63, 161, 16, 0.4);
+    }
+    
+    .navigation-btn:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+        box-shadow: none;
+        transform: none;
+    }
+
+    /* --- ESTILOS ADICIONADOS PARA O BOTÃO FECHAR --- */
+    .result-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .secondary-btn {
+        background: transparent;
+        color: #3FA110;
+        border: 2px solid #3FA110;
+        box-shadow: none;
+    }
+
+    .secondary-btn:hover {
+        background: #D7E6C8;
+        box-shadow: 0 8px 20px rgba(63, 161, 16, 0.2);
+        transform: translateY(-3px);
+    }
+    /* --- FIM DOS ESTILOS ADICIONADOS --- */
+
+</style>
+</head>
+<body>
+
+    <div class="quiz-screen-container">
+        <div id="quiz-header">
+            <h2>Avaliação - Módulo 2.5</h2>
+        </div>
+
+        <div id="quiz-container">
+            <div class="question" data-answer="b">
+                <p class="question-title" style="text-align: justify;">1. O e-NPS é apurado <strong>anualmente</strong> e é baseado na metodologia de promotores (notas 9 e 10) e detratores (notas menores que 6), sendo um importante termômetro do clima organizacional. O que representa a pontuação obtida no indicador <strong>e-NPS (Pesquisa de Clima)</strong> utilizado na cooperativa?</p>
+                <div class="options">
+                    <input type="radio" id="q1a" name="q1" value="a"><label for="q1a">a) Que os colaboradores estão utilizando poucas soluções financeiras da cooperativa.</label>
+                    <input type="radio" id="q1b" name="q1" value="b"><label for="q1b">b) Medir o quanto os colaboradores recomendariam o Sicredi para alguém como um bom lugar para se trabalhar.</label>
+                    <input type="radio" id="q1c" name="q1" value="c"><label for="q1c">c) Que houve aumento na margem de contribuição dos colaboradores nos últimos meses.</label>
+                    <input type="radio" id="q1d" name="q1" value="d"><label for="q1d">d) Identificar o nível de utilização de produtos e serviços pelos associados.</label>
+                </div>
+            </div>
+
+            <div id="quiz-navigation">
+                <div id="progress-bar-container">
+                    <div id="progress-bar"></div>
+                </div>
+                <button class="navigation-btn" id="next-btn" disabled>Próxima Questão</button>
+            </div>
+        </div>
+
+        <div id="results-screen" style="display: none;">
+            <h3 id="result-title"></h3>
+            <p id="result-message"></p>
+            <div class="result-buttons">
+                <button class="navigation-btn" id="retry-btn">Tentar Novamente</button>
+                <button class="navigation-btn secondary-btn" id="close-btn">Finalizar Avaliação</button>
+            </div>
+            </div>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const scorm = {
+        init: () => console.log("SCORM init."),
+        complete: (score) => console.log(`SCORM complete. Score: ${score}`),
+        exit: () => console.log("SCORM exit.")
+    };
+    if (typeof pipwerks !== 'undefined') scorm.init();
+
+    const questions = document.querySelectorAll('.question');
+    const quizContainer = document.getElementById('quiz-container');
+    const resultsScreen = document.getElementById('results-screen');
+    const nextBtn = document.getElementById('next-btn');
+    const retryBtn = document.getElementById('retry-btn');
+    const closeBtn = document.getElementById('close-btn'); // --- BOTÃO ADICIONADO ---
+    const progressBar = document.getElementById('progress-bar');
+
+    let currentQuestionIndex = 0;
+    let userAnswers = new Array(questions.length);
+
+    function startQuiz() {
+        currentQuestionIndex = 0;
+        userAnswers.fill(null);
+        resultsScreen.style.display = 'none';
+        quizContainer.style.display = 'block';
+        document.getElementById('quiz-header').style.display = 'block';
+        showQuestion(currentQuestionIndex);
+    }
+
+    function showQuestion(index) {
+        questions.forEach((question, i) => {
+            question.classList.toggle('active', i === index);
+        });
+
+        updateProgressBar();
+        updateNextButtonState();
+        
+        nextBtn.textContent = (index === questions.length - 1) ? 'Ver Resultado' : 'Próxima Questão';
+    }
+
+    function updateProgressBar() {
+        const progress = ((currentQuestionIndex) / questions.length) * 100;
+        progressBar.style.width = `${progress}%`;
+    }
+
+    function updateNextButtonState() {
+        const currentQuestionElement = questions[currentQuestionIndex];
+        const selectedOption = currentQuestionElement.querySelector('input[type="radio"]:checked');
+        nextBtn.disabled = !selectedOption;
+    }
+
+    function handleNextClick() {
+        const currentQuestionElement = questions[currentQuestionIndex];
+        const selectedOption = currentQuestionElement.querySelector('input[type="radio"]:checked');
+        
+        if (selectedOption) {
+            userAnswers[currentQuestionIndex] = selectedOption.value;
+        }
+
+        currentQuestionIndex++;
+
+        if (currentQuestionIndex < questions.length) {
+            showQuestion(currentQuestionIndex);
+        } else {
+            showResults();
+        }
+    }
+    
+    function showResults() {
+        quizContainer.style.display = 'none';
+        document.getElementById('quiz-header').style.display = 'none';
+        resultsScreen.style.display = 'block';
+
+        let score = 0;
+        questions.forEach((question, index) => {
+            if (userAnswers[index] === question.dataset.answer) {
+                score++;
+            }
+        });
+
+        const percentage = Math.round((score / questions.length) * 100);
+        const passingScore = 60; // Nota de corte: 60%
+
+        const resultTitle = document.getElementById('result-title');
+        const resultMessage = document.getElementById('result-message');
+
+        if (percentage >= passingScore) {
+            resultTitle.textContent = '🎉 Parabéns, você foi aprovado!';
+            resultTitle.className = 'result-pass';
+        } else {
+            resultTitle.textContent = '🤔 Quase lá, tente novamente!';
+            resultTitle.className = 'result-fail';
+        }
+        
+        resultMessage.textContent = `Você acertou ${score} de ${questions.length} perguntas (${percentage}%).`;
+        
+        scorm.complete(percentage);
+    }
+    
+    // --- LÓGICA DO NOVO BOTÃO ---
+    function handleCloseClick() {
+        scorm.exit();
+        window.close();
+    }
+    // --- FIM DA LÓGICA ---
+
+    // Adiciona o listener a todo o container para habilitar o botão
+    quizContainer.addEventListener('change', updateNextButtonState);
+    nextBtn.addEventListener('click', handleNextClick);
+    retryBtn.addEventListener('click', startQuiz);
+    closeBtn.addEventListener('click', handleCloseClick); // --- EVENT LISTENER ADICIONADO ---
+    window.addEventListener('unload', scorm.exit);
+
+    // Inicia o quiz
+    startQuiz();
+});
+</script>
+
+</body>
+</html>
