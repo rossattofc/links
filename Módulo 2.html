@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avaliação - Módulo 2.3</title>
+    <title>Avaliação - Módulo 2.4</title>
     <script src="SCORM_API_wrapper.js"></script>
 <style>
     /* Estilos de Fonte e Corpo da Página */
@@ -199,7 +199,7 @@
 
     <div class="quiz-screen-container">
         <div id="quiz-header">
-            <h2>Avaliação - Módulo 2.3</h2>
+            <h2>Avaliação - Módulo 2.4</h2>
         </div>
 
         <div id="quiz-container">
@@ -232,33 +232,33 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     if (typeof pipwerks !== 'undefined') scorm.init();
 
-    // --- DADOS DAS QUESTÕES DO MÓDULO 2.3 ---
+    // --- DADOS DAS QUESTÕES DO MÓDULO 2.4 ---
     const quizData = [
         {
-            question: "Como é composto o indicador de <strong>Resultado Líquido</strong> na cooperativa?",
+            question: "Qual critério define se um associado é considerado <strong>ativo</strong> no indicador de % de Associados Ativos?",
             answers: [
-                { text: "Pela soma da Sobra Líquida com a Despesa de Juros ao Capital, refletindo o valor total de resultado gerado para os associados.", correct: true },
-                { text: "Pela diferença entre receitas de produtos e serviços e despesas administrativas, excluindo tributos.", correct: false },
+                { text: "Ter contratado pelo menos um produto ou serviço nos últimos 12 meses.", correct: false },
+                { text: "Ter realizado transações online via app ou internet banking nos últimos 30 dias.", correct: false },
+                { text: "Ter participado de uma pesquisa de satisfação ou clima organizacional no último semestre.", correct: false },
+                { text: "Ter realizado movimentações espontâneas em conta corrente nos últimos 180 dias.", correct: true }
+            ]
+        },
+        {
+            question: "O indicador de <strong>Market Share de Crédito</strong> é utilizado para avaliar a participação da cooperativa no mercado financeiro. Qual é a forma correta de calcular esse indicador?",
+            answers: [
+                { text: "Pela soma do volume de crédito concedido aos associados com o total de depósitos captados pela cooperativa.", correct: false },
+                { text: "Pela razão entre o volume de crédito do Sicredi na área de abrangência da cooperativa e o volume total de crédito do mercado (Sicredi + ESTBAN), refletindo a participação da cooperativa no mercado de crédito.", correct: true },
                 { text: "Pela média da margem de contribuição dos associados nos últimos 6 meses.", correct: false },
-                { text: "Pela divisão entre o capital disponível e o total de exposição ponderada pelo risco (RWA)", correct: false }
+                { text: "Pela divisão entre o número de associados ativos e o total de associados correntistas.", correct: false }
             ]
         },
         {
-            question: "Considerando as boas práticas de gestão financeira, quais das ações abaixo contribuem diretamente para a melhoria do indicador de Margem de Capital por RWA?",
+            question: "O indicador de <strong>Share of Wallet de Crédito</strong> é utilizado para avaliar a participação da Cooperativa no total de crédito tomado pelos seus associados. Nesse contexto assinale a alternativa correta referente como esse indicador é calculado?",
             answers: [
-                { text: "Aumentar a concessão de crédito sem incremento proporcional de capital.", correct: false },
-                { text: "Realizar aumento de Capital Social por meio da integralização de novos recursos pelos associados.", correct: true },
-                { text: "Reduzir as Despesas Administrativas.", correct: false },
-                { text: "Ampliar a base de associados não correntistas, sem aumento imediato de operações de crédito.", correct: false }
-            ]
-        },
-        {
-            question: "O que o indicador <strong>ROE</strong> mede na análise de desempenho da cooperativa?",
-            answers: [
-                { text: "O grau de retorno gerado da Sobra Líquida Ajustada sobre o Patrimônio Líquido, indicando quanto valor a Cooperativa gera valor a partir dos recursos próprios.", correct: true },
-                { text: "A proporção de receitas de produtos e serviços que cobrem as despesas administrativas e tributárias.", correct: false },
-                { text: "A média do resultado operacional dos associados nos últimos 6 meses.", correct: false },
-                { text: "O percentual de associados que consideram a cooperativa como sua principal instituição financeira.", correct: false }
+                { text: "Pela soma do volume de crédito do Sicredi com o total de depósitos captados na área de abrangência da cooperativa.", correct: false },
+                { text: "Pela média da margem de contribuição dos associados nos últimos 6 meses.", correct: false },
+                { text: "Pela divisão entre o número de associados ativos e o total de associados correntistas.", correct: false },
+                { text: "Pela divisão entre o saldo de crédito do associado na Cooperativa e o volume total de crédito do associado registrado no SCR, refletindo o quanto do total de crédito do associado está alocado na Cooperativa.", correct: true }
             ]
         }
     ];
