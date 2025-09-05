@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Interativo: A Arte dos Prompts</title>
+    <title>Avaliação - Módulo 1</title>
     <script src="SCORM_API_wrapper.js"></script>
 <style>
     /* Estilos de Fonte e Corpo da Página */
@@ -71,7 +71,7 @@
         color: #333;
         margin-bottom: 25px;
         font-weight: 500;
-        text-align: left;
+        text-align: justify;
     }
 
     .options label {
@@ -199,7 +199,7 @@
 
     <div class="quiz-screen-container">
         <div id="quiz-header">
-            <h2>Quiz: A Arte dos Prompts</h2>
+            <h2>Avaliação - Módulo 1 - Norteadores Estratégicos</h2>
         </div>
 
         <div id="quiz-container">
@@ -217,7 +217,7 @@
             <p id="result-message"></p>
             <div class="result-buttons">
                 <button class="navigation-btn" id="retry-btn">Tentar Novamente</button>
-                <button class="navigation-btn secondary-btn" id="close-btn">Fechar Curso</button>
+                <button class="navigation-btn secondary-btn" id="close-btn">Finalizar Avaliação</button>
             </div>
         </div>
     </div>
@@ -232,52 +232,24 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     if (typeof pipwerks !== 'undefined') scorm.init();
 
-    // --- NOVA ESTRUTURA DE DADOS DAS QUESTÕES ---
-    // Agora as perguntas e respostas vivem aqui para podermos embaralhá-las.
+    // --- DADOS DAS QUESTÕES DO MÓDULO 1 ---
     const quizData = [
         {
-            question: "Quando você especifica \"Crie uma lista com marcadores\", qual pilar de um prompt eficaz você está usando?",
+            question: "Um dos elementos do nosso Mapa Estratégico são os <strong>Norteadores Estratégicos</strong>. São eles que norteiam nossa atuação e escolhas estratégias. Como Norteadores Estratégicos temos o <strong>Propósito, Missão, Visão e os Valores</strong>. Neste sentido, selecione a opção que reflete os nossos <strong>VALORES</strong>.",
             answers: [
-                { text: "Objetivo", correct: false },
-                { text: "Contexto", correct: false },
-                { text: "Formato", correct: true },
-                { text: "Tom", correct: false }
+                { text: "Construir juntos uma sociedade mais próspera.", correct: false },
+                { text: "Cooperação; Pessoas no centro; Evolução constante; Atuação sistêmica; Desenvolvimento local; Ética; Transparência.", correct: true },
+                { text: "Ser reconhecida como instituição que valoriza as pessoas e promove o desenvolvimento local de forma sustentável.", correct: false },
+                { text: "Garantir o Resultado Líquido da Cooperativa.", correct: false }
             ]
         },
         {
-            question: "Qual dos seguintes seria o prompt MAIS EFICAZ para iniciar um documento no Word?",
+            question: "Selecione a composição correta das nossas Ambições Estratégicas presentes no nosso <strong>Mapa Estratégico.</strong>",
             answers: [
-                { text: "\"fazer um relatório de vendas\"", correct: false },
-                { text: "\"Crie um relatório de vendas do último trimestre para a diretoria, com seções de destaques, desafios e próximos passos.\"", correct: true },
-                { text: "\"informações sobre vendas\"", correct: false },
-                { text: "\"Quais foram as vendas do último trimestre?\"", correct: false }
-            ]
-        },
-        {
-            question: "A técnica de pedir ao Copilot \"Aja como um especialista em finanças e analise estes dados\" é chamada de:",
-            answers: [
-                { text: "Prompt em Cadeia", correct: false },
-                { text: "Definição de Persona", correct: true },
-                { text: "Iteração", correct: false },
-                { text: "Formatação", correct: false }
-            ]
-        },
-        {
-            question: "Se o primeiro resultado do Copilot não for exatamente o que você queria, qual é a melhor atitude?",
-            answers: [
-                { text: "Desistir e fazer manualmente.", correct: false },
-                { text: "Começar um novo chat com o mesmo prompt vago.", correct: false },
-                { text: "Continuar a conversa, pedindo ajustes e refinamentos no resultado.", correct: true },
-                { text: "Copiar e colar o prompt várias vezes.", correct: false }
-            ]
-        },
-        {
-            question: "Qual a principal vantagem de dar um bom CONTEXTO ao seu prompt?",
-            answers: [
-                { text: "A resposta fica mais longa.", correct: false },
-                { text: "A IA responde mais rápido.", correct: false },
-                { text: "A resposta se torna muito mais relevante e útil para a sua necessidade específica.", correct: true },
-                { text: "Garante que a IA não cometerá erros.", correct: false }
+                { text: "Eficiência, Cobertura e IEAR.", correct: false },
+                { text: "Relevância e Experiência, Eficiência, Cooperativismo e Sustentabilidade, Crescimento e Pessoas e Cultura.", correct: true },
+                { text: "Resultado Líquido", correct: false },
+                { text: "Relacionamento, Sustentabilidade, Crescimento e Expansão e Cultura.", correct: false }
             ]
         }
     ];
@@ -294,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let userAnswers = [];
     let questions = [];
 
-    // --- NOVA FUNÇÃO PARA EMBARALHAR AS ALTERNATIVAS ---
+    // --- Função para embaralhar as alternativas ---
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -302,25 +274,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // --- NOVA FUNÇÃO PARA CONSTRUIR O QUIZ DINAMICAMENTE ---
+    // --- Função para construir o quiz dinamicamente ---
     function buildQuiz() {
         quizContainer.innerHTML = ''; // Limpa o container
         quizData.forEach((qData, index) => {
             const questionElement = document.createElement('div');
             questionElement.className = 'question';
             
-            // Embaralha as respostas para esta pergunta
             let shuffledAnswers = [...qData.answers];
             shuffleArray(shuffledAnswers);
             
-            // Encontra o novo índice da resposta correta
             const correctAnwerIndex = shuffledAnswers.findIndex(answer => answer.correct);
             questionElement.dataset.answer = correctAnwerIndex;
 
-            const optionsHTML = shuffledAnswers.map((answer, i) => `
-                <input type="radio" id="q${index}a${i}" name="q${index}" value="${i}">
-                <label for="q${index}a${i}">${answer.text}</label>
-            `).join('');
+            const optionsHTML = shuffledAnswers.map((answer, i) => {
+                const optionLetter = String.fromCharCode(97 + i); // a, b, c, d...
+                return `
+                    <input type="radio" id="q${index}a${i}" name="q${index}" value="${i}">
+                    <label for="q${index}a${i}">${optionLetter}) ${answer.text}</label>
+                `;
+            }).join('');
 
             questionElement.innerHTML = `
                 <p class="question-title">${index + 1}. ${qData.question}</p>
@@ -328,7 +301,6 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             quizContainer.appendChild(questionElement);
         });
-        // Atualiza a referência aos elementos de questão recém-criados
         questions = document.querySelectorAll('.question');
     }
 
@@ -378,7 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // --- FUNÇÃO DE RESULTADOS ATUALIZADA ---
+    // --- Função de resultados com a lógica condicional do botão ---
     function showResults() {
         quizContainer.style.display = 'none';
         quizNavigation.style.display = 'none';
@@ -387,19 +359,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let score = 0;
         questions.forEach((question, index) => {
-            // Compara a resposta do usuário com o índice correto armazenado
             if (userAnswers[index] === question.dataset.answer) {
                 score++;
             }
         });
 
         const percentage = Math.round((score / questions.length) * 100);
-        const passingScore = 60; 
+        const passingScore = 100; // NOTA DE CORTE: 100% PARA ESTA AVALIAÇÃO
 
         const resultTitle = document.getElementById('result-title');
         const resultMessage = document.getElementById('result-message');
         
-        // LÓGICA CONDICIONAL PARA O BOTÃO "TENTAR NOVAMENTE"
         if (percentage >= passingScore) {
             resultTitle.textContent = '🎉 Parabéns, você foi aprovado!';
             resultTitle.className = 'result-pass';
