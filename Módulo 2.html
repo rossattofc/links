@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avaliação - Módulo 2.2</title>
+    <title>Avaliação - Módulo 2.3</title>
     <script src="SCORM_API_wrapper.js"></script>
 <style>
     /* Estilos de Fonte e Corpo da Página */
@@ -199,7 +199,7 @@
 
     <div class="quiz-screen-container">
         <div id="quiz-header">
-            <h2>Avaliação - Módulo 2.2</h2>
+            <h2>Avaliação - Módulo 2.3</h2>
         </div>
 
         <div id="quiz-container">
@@ -232,42 +232,33 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     if (typeof pipwerks !== 'undefined') scorm.init();
 
-    // --- DADOS DAS QUESTÕES DO MÓDULO 2.2 ---
+    // --- DADOS DAS QUESTÕES DO MÓDULO 2.3 ---
     const quizData = [
         {
-            question: "Qual ação abaixo contribui para a melhora o indicador de <strong>Eficiência?</strong>",
+            question: "Como é composto o indicador de <strong>Resultado Líquido</strong> na cooperativa?",
             answers: [
-                { text: "Gerir a inadimplência, reduzindo o Over 14.", correct: false },
-                { text: "Conceder créditos com segurança.", correct: true },
-                { text: "Atuar no clima organizacional.", correct: false },
-                { text: "Recuperar operações em prejuízo.", correct: false }
+                { text: "Pela soma da Sobra Líquida com a Despesa de Juros ao Capital, refletindo o valor total de resultado gerado para os associados.", correct: true },
+                { text: "Pela diferença entre receitas de produtos e serviços e despesas administrativas, excluindo tributos.", correct: false },
+                { text: "Pela média da margem de contribuição dos associados nos últimos 6 meses.", correct: false },
+                { text: "Pela divisão entre o capital disponível e o total de exposição ponderada pelo risco (RWA)", correct: false }
             ]
         },
         {
-            question: "Considerando que, em um determinado período, todas as contas do DSP se mantêm constantes, exceto a conta de <strong>Despesas PCLD e Recuperação de Prejuízo</strong>, que apresenta aumento. Qual será o impacto no indicador <strong>IEAR?</strong>",
+            question: "Considerando as boas práticas de gestão financeira, quais das ações abaixo contribuem diretamente para a melhoria do indicador de Margem de Capital por RWA?",
             answers: [
-                { text: "Haverá aumento no indicador de Eficiência no período.", correct: false },
-                { text: "Haverá redução no indicador de IEAR no período.", correct: false },
-                { text: "Haverá aumento no indicador de IEAR no período.", correct: true },
-                { text: "Haverá redução no indicador de Eficiência no período.", correct: false }
+                { text: "Aumentar a concessão de crédito sem incremento proporcional de capital.", correct: false },
+                { text: "Realizar aumento de Capital Social por meio da integralização de novos recursos pelos associados.", correct: true },
+                { text: "Reduzir as Despesas Administrativas.", correct: false },
+                { text: "Ampliar a base de associados não correntistas, sem aumento imediato de operações de crédito.", correct: false }
             ]
         },
         {
-            question: "O Indicador de <strong>Cobertura</strong> é o cálculo que demonstra o quanto das nossas despesas administrativas estão sendo pagas pelas receitas dos Produtos e Serviços. É de extrema importância buscar novas formas e amenizar a dependência das Receitas de Crédito. Sabendo que o indicador é composto por 3 contas, a Receita de Prestação de Serviços, a Despesa Administrativa e Despesas com tributos e Contribuições, que tipo de ações podem ser realizadas para melhorar o Indicador de Cobertura da agência?",
+            question: "O que o indicador <strong>ROE</strong> mede na análise de desempenho da cooperativa?",
             answers: [
-                { text: "Aumentar a concessão de crédito.", correct: false },
-                { text: "Aumentar o número e a utilização de cartões múltiplos pelos associados da agência.", correct: true },
-                { text: "Reduzir as Despesas PCLD.", correct: false },
-                { text: "Trazer mais associados não correntistas para a Cooperativa.", correct: false }
-            ]
-        },
-        {
-            question: "Um dos Indicadores para acompanhamento de Inadimplência é o de Inadimplência Over, ele nos diz o % da carteira de crédito que está inadimplente a determinado tempo. O que indicador de Inadimplência Over 60 nos aponta?",
-            answers: [
-                { text: "Que 60% da carteira está inadimplente.", correct: false },
-                { text: "O percentual da carteira que tem menos de 60 dias de inadimplência.", correct: false },
-                { text: "O percentual da carteira que tem 60 dias ou mais de inadimplência.", correct: true },
-                { text: "O percentual de provisão da carteira.", correct: false }
+                { text: "O grau de retorno gerado da Sobra Líquida Ajustada sobre o Patrimônio Líquido, indicando quanto valor a Cooperativa gera valor a partir dos recursos próprios.", correct: true },
+                { text: "A proporção de receitas de produtos e serviços que cobrem as despesas administrativas e tributárias.", correct: false },
+                { text: "A média do resultado operacional dos associados nos últimos 6 meses.", correct: false },
+                { text: "O percentual de associados que consideram a cooperativa como sua principal instituição financeira.", correct: false }
             ]
         }
     ];
