@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avaliação - Módulo 1</title>
+    <title>Avaliação - Módulo 2.1</title>
     <script src="SCORM_API_wrapper.js"></script>
 <style>
     /* Estilos de Fonte e Corpo da Página */
@@ -199,7 +199,7 @@
 
     <div class="quiz-screen-container">
         <div id="quiz-header">
-            <h2>Avaliação - Módulo 1 - Norteadores Estratégicos</h2>
+            <h2>Avaliação - Módulo 2.1</h2>
         </div>
 
         <div id="quiz-container">
@@ -232,24 +232,33 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     if (typeof pipwerks !== 'undefined') scorm.init();
 
-    // --- DADOS DAS QUESTÕES DO MÓDULO 1 ---
+    // --- DADOS DAS QUESTÕES DO MÓDULO 2.1 ---
     const quizData = [
         {
-            question: "Um dos elementos do nosso Mapa Estratégico são os <strong>Norteadores Estratégicos</strong>. São eles que norteiam nossa atuação e escolhas estratégias. Como Norteadores Estratégicos temos o <strong>Propósito, Missão, Visão e os Valores</strong>. Neste sentido, selecione a opção que reflete os nossos <strong>VALORES</strong>.",
+            question: "O que o indicador de <strong>Principalidade</strong> busca mensurar dentro da Cooperativa?",
             answers: [
-                { text: "Construir juntos uma sociedade mais próspera.", correct: false },
-                { text: "Cooperação; Pessoas no centro; Evolução constante; Atuação sistêmica; Desenvolvimento local; Ética; Transparência.", correct: true },
-                { text: "Ser reconhecida como instituição que valoriza as pessoas e promove o desenvolvimento local de forma sustentável.", correct: false },
-                { text: "Garantir o Resultado Líquido da Cooperativa.", correct: false }
+                { text: "Se o associado tem a Cooperativa como sua principal instituição financeira, com base em um modelo de pontuação que considera o uso de produtos e serviços.", correct: true },
+                { text: "O percentual de associados que realizaram transações online nos últimos 30 dias, como consultas de saldo e pagamentos.", correct: false },
+                { text: "A média de soluções distintas utilizadas por todos os associados correntistas da cooperativa.", correct: false },
+                { text: "O grau de retorno financeiro gerado a partir do patrimônio líquido da cooperativa.", correct: false }
             ]
         },
         {
-            question: "Selecione a composição correta das nossas Ambições Estratégicas presentes no nosso <strong>Mapa Estratégico.</strong>",
+            question: "O que o indicador <strong>ISA Médio</strong> busca mensurar na Cooperativa?",
             answers: [
-                { text: "Eficiência, Cobertura e IEAR.", correct: false },
-                { text: "Relevância e Experiência, Eficiência, Cooperativismo e Sustentabilidade, Crescimento e Pessoas e Cultura.", correct: true },
-                { text: "Resultado Líquido", correct: false },
-                { text: "Relacionamento, Sustentabilidade, Crescimento e Expansão e Cultura.", correct: false }
+                { text: "O percentual de associados que consideram a cooperativa como sua principal instituição financeira.", correct: false },
+                { text: "A proporção de receitas de produtos e serviços que cobrem as despesas administrativas e tributárias.", correct: false },
+                { text: "A média da quantidade de soluções distintas utilizadas pelos associados correntistas, refletindo o nível de produtos e serviços médio que cada associado detém com a cooperativa.", correct: true },
+                { text: "O número total de associados que realizaram movimentações espontâneas em conta corrente nos últimos 180 dias.", correct: false }
+            ]
+        },
+        {
+            question: "O que o indicador <strong>Margem de Contribuição (média 6 meses)</strong> representa na análise da carteira de associados?",
+            answers: [
+                { text: "A média de soluções distintas utilizadas pelos associados correntistas da cooperativa.", correct: false },
+                { text: "A média do resultado operacional dos associados nos últimos 6 meses, considerando operações de crédito, captação e produtos/serviços, sem incluir despesas administrativas.", correct: true },
+                { text: "O percentual de associados que realizaram transações online nos últimos 30 dias.", correct: false },
+                { text: "A proporção de receitas de prestação de serviços que cobrem as despesas administrativas e tributárias.", correct: false }
             ]
         }
     ];
@@ -365,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const percentage = Math.round((score / questions.length) * 100);
-        const passingScore = 100; // NOTA DE CORTE: 100% PARA ESTA AVALIAÇÃO
+        const passingScore = 100; // NOTA DE CORTE: 100% PARA ESTA AVALIAÇÃO (Altere aqui se necessário)
 
         const resultTitle = document.getElementById('result-title');
         const resultMessage = document.getElementById('result-message');
