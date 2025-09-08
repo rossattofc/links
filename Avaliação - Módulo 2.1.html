@@ -257,19 +257,17 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
-    const scorm = {
-        init: () => console.log("SCORM init."),
-        complete: (score) => console.log(`SCORM complete. Score: ${score}`),
-        exit: () => console.log("SCORM exit.")
-    };
-    if (typeof pipwerks !== 'undefined') scorm.init();
+    // CORRIGIDO: Inicia a comunicação real com a plataforma SCORM, se disponível.
+    if (typeof scorm !== 'undefined') {
+        scorm.init();
+    }
 
     const questions = document.querySelectorAll('.question');
     const quizContainer = document.getElementById('quiz-container');
     const resultsScreen = document.getElementById('results-screen');
     const nextBtn = document.getElementById('next-btn');
     const retryBtn = document.getElementById('retry-btn');
-    const closeBtn = document.getElementById('close-btn'); // --- BOTÃO ADICIONADO ---
+    const closeBtn = document.getElementById('close-btn');
     const progressBar = document.getElementById('progress-bar');
 
     let currentQuestionIndex = 0;
@@ -351,22 +349,32 @@ document.addEventListener('DOMContentLoaded', () => {
         
         resultMessage.textContent = `Você acertou ${score} de ${questions.length} perguntas (${percentage}%).`;
         
-        scorm.complete(percentage);
+        // CORRIGIDO: Envia o resultado para a plataforma SCORM real, se disponível.
+        if (typeof scorm !== 'undefined') {
+            scorm.complete(percentage);
+        }
     }
     
-    // --- LÓGICA DO NOVO BOTÃO ---
     function handleCloseClick() {
-        scorm.exit();
+        // CORRIGIDO: Encerra a comunicação SCORM real, se disponível.
+        if (typeof scorm !== 'undefined') {
+            scorm.exit();
+        }
         window.close();
     }
-    // --- FIM DA LÓGICA ---
 
-    // Adiciona o listener a todo o container para habilitar o botão
+    // Adiciona os listeners de eventos
     quizContainer.addEventListener('change', updateNextButtonState);
     nextBtn.addEventListener('click', handleNextClick);
     retryBtn.addEventListener('click', startQuiz);
-    closeBtn.addEventListener('click', handleCloseClick); // --- EVENT LISTENER ADICIONADO ---
-    window.addEventListener('unload', scorm.exit);
+    closeBtn.addEventListener('click', handleCloseClick); 
+    
+    // CORRIGIDO: Garante que a sessão SCORM seja encerrada ao fechar a janela.
+    window.addEventListener('unload', () => {
+        if (typeof scorm !== 'undefined') {
+            scorm.exit();
+        }
+    });
 
     // Inicia o quiz
     startQuiz();
