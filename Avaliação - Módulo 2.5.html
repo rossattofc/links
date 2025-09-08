@@ -174,27 +174,12 @@
         transform: none;
     }
 
-    /* --- ESTILOS ADICIONADOS PARA O BOTÃO FECHAR --- */
     .result-buttons {
         display: flex;
         justify-content: center;
         gap: 20px;
         flex-wrap: wrap;
     }
-
-    .secondary-btn {
-        background: transparent;
-        color: #3FA110;
-        border: 2px solid #3FA110;
-        box-shadow: none;
-    }
-
-    .secondary-btn:hover {
-        background: #D7E6C8;
-        box-shadow: 0 8px 20px rgba(63, 161, 16, 0.2);
-        transform: translateY(-3px);
-    }
-    /* --- FIM DOS ESTILOS ADICIONADOS --- */
 
 </style>
 </head>
@@ -229,8 +214,7 @@
             <p id="result-message"></p>
             <div class="result-buttons">
                 <button class="navigation-btn" id="retry-btn">Tentar Novamente</button>
-                <button class="navigation-btn secondary-btn" id="close-btn">Finalizar Avaliação</button>
-            </div>
+                </div>
             </div>
     </div>
 
@@ -247,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultsScreen = document.getElementById('results-screen');
     const nextBtn = document.getElementById('next-btn');
     const retryBtn = document.getElementById('retry-btn');
-    const closeBtn = document.getElementById('close-btn');
+    // A CONSTANTE 'closeBtn' FOI REMOVIDA
     const progressBar = document.getElementById('progress-bar');
 
     let currentQuestionIndex = 0;
@@ -301,6 +285,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
+    // ==========================================================
+    // INÍCIO DA ÁREA MODIFICADA
+    // ==========================================================
     function showResults() {
         quizContainer.style.display = 'none';
         document.getElementById('quiz-header').style.display = 'none';
@@ -322,32 +309,36 @@ document.addEventListener('DOMContentLoaded', () => {
         if (percentage >= passingScore) {
             resultTitle.textContent = '🎉 Parabéns, você foi aprovado!';
             resultTitle.className = 'result-pass';
+            // Mensagem de resultado com a nova instrução
+            resultMessage.innerHTML = `Você acertou ${score} de ${questions.length} perguntas (${percentage}%).<br><br>Você pode fechar a avaliação clicando no [X] no canto superior direito.`;
+            
+            // Esconde o botão "Tentar Novamente"
+            retryBtn.style.display = 'none';
         } else {
             resultTitle.textContent = '🤔 Quase lá, tente novamente!';
             resultTitle.className = 'result-fail';
+            resultMessage.textContent = `Você acertou ${score} de ${questions.length} perguntas (${percentage}%).`;
+
+            // Garante que o botão "Tentar Novamente" esteja visível
+            retryBtn.style.display = 'inline-block';
         }
-        
-        resultMessage.textContent = `Você acertou ${score} de ${questions.length} perguntas (${percentage}%).`;
         
         // CORRIGIDO: Envia o resultado para a plataforma SCORM real, se disponível.
         if (typeof scorm !== 'undefined') {
             scorm.complete(percentage);
         }
     }
+    // ==========================================================
+    // FIM DA ÁREA MODIFICADA
+    // ==========================================================
     
-    function handleCloseClick() {
-        // CORRIGIDO: Encerra a comunicação SCORM real, se disponível.
-        if (typeof scorm !== 'undefined') {
-            scorm.exit();
-        }
-        window.close();
-    }
+    // A FUNÇÃO 'handleCloseClick' FOI REMOVIDA
 
     // Adiciona os listeners de eventos
     quizContainer.addEventListener('change', updateNextButtonState);
     nextBtn.addEventListener('click', handleNextClick);
     retryBtn.addEventListener('click', startQuiz);
-    closeBtn.addEventListener('click', handleCloseClick); 
+    // O LISTENER DO 'closeBtn' FOI REMOVIDO
     
     // CORRIGIDO: Garante que a sessão SCORM seja encerrada ao fechar a janela.
     window.addEventListener('unload', () => {
