@@ -101,6 +101,20 @@
             transform: translateY(-3px);
             box-shadow: 0 12px 25px rgba(63, 161, 16, 0.4);
         }
+        
+        /* NOVO ESTILO PARA BOTÃO DESABILITADO */
+        .navigation-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .navigation-btn:disabled:hover {
+            background: #cccccc;
+            box-shadow: none;
+            transform: none;
+        }
 
         .back-btn {
             background: transparent;
@@ -622,12 +636,12 @@
         <div class="timeline-container">
             <div class="timeline-header">
                 <h2>Linha do Tempo da Inteligência Artificial</h2>
-                <p>Clique nos eventos para saber mais detalhes sobre cada marco histórico</p>
+                <p>Clique em todos os eventos para saber mais detalhes e liberar o botão de avanço</p>
             </div>
             <div class="timeline" id="timeline"></div>
             <div class="navigation-buttons">
                 <button class="back-btn" onclick="showScreen('definition-screen')">Voltar</button>
-                <button class="navigation-btn" onclick="showScreen('types-screen')">Conheça os Tipos de IA</button>
+                <button id="btn-to-types" class="navigation-btn" onclick="showScreen('types-screen')" disabled>Conheça os Tipos de IA</button>
             </div>
         </div>
     </div>
@@ -701,7 +715,7 @@
             </div>
             <div class="navigation-buttons" id="quiz-nav-buttons">
                 <button class="back-btn" onclick="showScreen('types-screen')">Voltar</button>
-                <button class="navigation-btn" id="show-results-btn" onclick="showQuizResults()">Ver Resultados</button>
+                <button class="navigation-btn" id="show-results-btn" onclick="showQuizResults()" disabled>Ver Resultados</button>
             </div>
             <p id="quiz-results"></p>
             <button class="navigation-btn" id="finish-module-btn" style="display: none;" onclick="showScreen('final-screen')">Finalizar Módulo</button>
@@ -797,6 +811,8 @@
         ];
 
         let expandedCards = new Set();
+        // NOVA VARIÁVEL para rastrear cliques na timeline
+        let clickedTimelineItems = new Set();
 
         function showScreen(screenId) {
             const footer = document.getElementById('main-footer');
@@ -816,6 +832,7 @@
                 document.getElementById('quiz-results').style.display = 'none';
                 document.getElementById('finish-module-btn').style.display = 'none';
                 document.getElementById('quiz-nav-buttons').style.display = 'flex';
+                document.getElementById('show-results-btn').disabled = true; // Desabilita o botão do quiz ao resetar
                 document.querySelectorAll('.options label').forEach(label => {
                     label.classList.remove('selected', 'correct', 'incorrect');
                  });
@@ -909,15 +926,28 @@
                 document.getElementById('completion-message').style.display = 'none';
             }
         }
-
+        
+        // FUNÇÃO generateTimeline MODIFICADA
         function generateTimeline(data) {
             const timeline = document.getElementById('timeline');
+            const btnToTypes = document.getElementById('btn-to-types');
             timeline.innerHTML = '';
             
             data.forEach((item, index) => {
                 const timelineItem = document.createElement('div');
                 timelineItem.className = `timeline-item ${index % 2 === 0 ? 'left' : 'right'}`;
-                timelineItem.onclick = () => openModal(item.title, item.content);
+                const itemId = `timeline-${index}`;
+                timelineItem.setAttribute('data-id', itemId);
+
+                timelineItem.onclick = () => {
+                    openModal(item.title, item.content);
+                    // Adiciona o item clicado ao nosso rastreador
+                    clickedTimelineItems.add(itemId);
+                    // Verifica se todos foram clicados
+                    if (clickedTimelineItems.size === data.length) {
+                        btnToTypes.disabled = false; // Habilita o botão
+                    }
+                };
 
                 const imageHtml=item.image ? `<img src="${item.image}" alt="${item.title}" class="timeline-image">`:'';
                 
@@ -965,37 +995,53 @@
             document.getElementById('quiz-nav-buttons').style.display = 'none';
             document.getElementById('finish-module-btn').style.display = 'inline-block';
             
-            // *** AQUI É A MÁGICA DO SCORM ***
-            // Chama a função para completar o curso no AVA, passando a nota.
             if(typeof scorm !== 'undefined') {
                 scorm.complete(percentage.toFixed(0));
+            }
+        }
+
+        // NOVA FUNÇÃO para verificar a conclusão do quiz
+        function checkQuizCompletion() {
+            const totalQuestions = document.querySelectorAll('.question-container').length;
+            let answeredQuestions = 0;
+
+            for (let i = 1; i <= totalQuestions; i++) {
+                if (document.querySelector(`input[name="q${i}"]:checked`)) {
+                    answeredQuestions++;
+                }
+            }
+
+            if (answeredQuestions === totalQuestions) {
+                document.getElementById('show-results-btn').disabled = false;
             }
         }
 
         window.onclick = (event) => { if (event.target == document.getElementById('modal')) closeModal(); };
         document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeModal(); });
         
+        // EVENT LISTENER MODIFICADO
          document.addEventListener('DOMContentLoaded', () => {
-             // Inicia a aplicação
             showScreen('welcome-screen');
             
-            // ADICIONE ESTA LINHA PARA INICIAR O SCORM
             if(typeof scorm !== 'undefined') {
                 scorm.init();
             }
 
-            // Adiciona listener para os botões de opção do quiz para feedback visual
-            document.querySelectorAll('.options label').forEach(label => {
-                label.addEventListener('click', function() {
+            // Adiciona listener para os botões de opção do quiz
+            document.querySelectorAll('.options input[type="radio"]').forEach(radio => {
+                radio.addEventListener('click', function() {
+                    // Remove a classe 'selected' de outras opções na mesma pergunta
                     this.closest('.options').querySelectorAll('label').forEach(otherLabel => {
                         otherLabel.classList.remove('selected');
                     });
-                    this.classList.add('selected');
+                    // Adiciona a classe 'selected' na label do input clicado
+                    this.parentElement.classList.add('selected');
+                    // Chama a função para verificar se o quiz está completo
+                    checkQuizCompletion();
                 });
             });
         });
 
-        // ADICIONE ESTA LINHA PARA FINALIZAR O SCORM AO FECHAR A PÁGINA
         window.addEventListener('unload', () => {
             if(typeof scorm !== 'undefined') {
                 scorm.exit();
