@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>História da Inteligência Artificial</title>
+    <script src="SCORM_API_wrapper.js"></script>
+    <style>
+        @font-face {
+            font-family: 'Exo 2';
+            src: url('fonts/Exo2.0-Regular.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: linear-gradient(135deg, #f7f9f5 0%, #D7E6C8 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .screen {
+            display: none;
+            min-height: 100vh;
+            padding: 20px 20px 100px 20px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .screen.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-screen {
+            text-align: center; 
+            max-width: 900px;
+            background: white;
+            padding: 60px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 3px solid #146E37;
+        }
+
+        .content-screen h1 {
+            font-size: 3.5em;
+            color: #146E37;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .content-screen p {
+            font-size: 1.3em;
+            color: #146E37;
+            margin-bottom: 20px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+        
+         .content-screen .main-text-content {
+             text-align: justify;
+            font-size: 1.2em;
+            color: #146E37;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .start-btn, .navigation-btn, .quiz-btn, .back-btn {
+            background: linear-gradient(135deg, #3fa110, #146e37);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 20px rgba(63, 161, 16, 0.3);
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .start-btn:hover, .navigation-btn:hover, .quiz-btn:hover, .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(63, 161, 16, 0.4);
+        }
+
+        .back-btn {
+            background: transparent;
+            color: #3FA110;
+            border: 2px solid #3FA110;
+            box-shadow: none;
+        }
+        
+        .back-btn:hover {
+            background: #D7E6C8;
+            box-shadow: 0 8px 20px rgba(63, 161, 16, 0.2);
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+            width: 100%;
+        }
+
+        .content-screen h2 {
+            font-size: 3em;
+            color: #146E37;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #eaf2e3, #D7E6C8);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #3FA110;
+            margin: 25px 0;
+            font-style: italic;
+        }
+
+        .timeline-container, .types-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .timeline-header, .types-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .timeline-header h2, .types-header h2 {
+            font-size: 2.5em;
+            color: #146E37;
+            margin-bottom: 15px;
+        }
+
+        .timeline-header p, .types-header p {
+            font-size: 1.2em;
+            color: #146E37;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #3FA110, #146E37);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin: 40px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: scale(1.02);
+        }
+
+        .timeline-item.left {
+            text-align: right;
+            padding-right: calc(50% + 30px);
+        }
+
+        .timeline-item.right {
+            text-align: left;
+            padding-left: calc(50% + 30px);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background: #3FA110;
+            border: 4px solid white;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover .timeline-dot {
+            width: 30px;
+            height: 30px;
+            background: #146E37;
+            top: 15px;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border: 2px solid #D7E6C8;
+            transition: all 0.3s ease;
+            max-width: 500px;
+        }
+
+        .timeline-item:hover .timeline-content {
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border-color: #3FA110;
+            transform: translateY(-5px);
+        }
+
+        .timeline-item.left .timeline-content {
+            margin-left: auto;
+        }
+
+        .timeline-year {
+            background: linear-gradient(135deg, #3fa110, #146e37);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1em;
+            display: inline-block;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(63, 161, 16, 0.3);
+        }
+
+        .timeline-text {
+            color: #333;
+            font-size: 1em;
+            line-height: 1.6;
+        }
+
+        .timeline-text strong {
+            color: #146E37;
+        }
+
+        .timeline-image {
+            width:100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            border: 3px solid #3FA110;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #146E37;
+        }
+
+        .modal h3 {
+            color: #146E37;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .modal p {
+            line-height: 1.8;
+            color: #333;
+            font-size: 1.1em;
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before { left: 20px; }
+            .timeline-item.left, .timeline-item.right { text-align: left; padding-left: 50px; padding-right: 20px; }
+            .timeline-dot, .timeline-item:hover .timeline-dot { left: 20px; }
+            .timeline-content { max-width: none; }
+            .content-screen h1, .content-screen h2 { font-size: 2.5em; }
+        }
+
+        .types-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .type-category {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 3px solid #D7E6C8;
+            transition: all 0.3s ease;
+        }
+
+        .type-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-color: #3FA110;
+        }
+
+        .category-header {
+            background: linear-gradient(135deg, #3fa110, #146e37);
+            color: white;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .category-header:hover {
+            background: linear-gradient(135deg, #146e37, #3fa110);
+        }
+
+        .category-header h3 {
+            font-size: 1.4em;
+            margin-bottom: 8px;
+        }
+
+        .category-header p {
+            font-size: 0.95em;
+            opacity: 0.9;
+            margin: 0;
+            color: white;
+        }
+
+        .category-header::after {
+            content: '+';
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2em;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .category-header.active::after {
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        .category-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            min-height: 0; 
+        }
+
+        .category-content.active {
+            max-height: fit-content;
+        }
+        
+        .ai-type-card {
+            padding: 25px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: block;
+            width: 100%;
+        }
+
+        .ai-type-card:last-child {
+            border-bottom: none;
+        }
+
+        .ai-type-card:hover {
+            background: #f0f5e9;
+            transform: translateX(10px);
+        }
+
+        .ai-type-card.expanded {
+            background: #eaf2e3;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #146E37;
+            margin: 0;
+        }
+
+        .card-icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        .card-summary {
+            color: #146E37;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .card-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            margin-top: 15px;
+        }
+
+        .card-details.active {
+            max-height: 500px;
+        }
+
+        .card-details-content {
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            border-left: 4px solid #3FA110;
+            margin-top: 15px;
+        }
+
+        .card-details h4 {
+            color: #146E37;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .card-details p {
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .card-details .example {
+            background: #D7E6C8;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-style: italic;
+        }
+
+        .card-details .characteristic {
+            color: #3FA110;
+            font-weight: 600;
+        }
+
+        .expand-indicator {
+            color: #3FA110;
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+        }
+
+        .ai-type-card.expanded .expand-indicator {
+            transform: rotate(180deg);
+        }
+
+        .completion-box {
+            margin-top: 40px;
+            display: none;
+        }
+        
+        .completion-box h2 { font-size: 1.8em; }
+
+        .quiz-screen {
+            max-width: 800px;
+            background: white;
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 3px solid #146E37;
+            text-align: center;
+        }
+
+        .quiz-screen h2 {
+            font-size: 2.5em;
+        }
+
+        .question-container {
+            background: #f0f5e9;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #D7E6C8;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .question-container p {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .options label {
+            display: block;
+            background: #D7E6C8;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 1.1em;
+            color: #146E37;
+        }
+        .options label:hover {
+            background-color: #c8d9b9;
+        }
+
+        .options input[type="radio"] {
+            display: none;
+        }
+        
+        .options label.selected { background-color: #c8d9b9; font-weight: bold; }
+        .options label.correct { background: #D7E6C8; border: 2px solid #3FA110; }
+        .options label.incorrect { background: #f8d7da; border: 2px solid #721c24; }
+
+        #quiz-results {
+            margin-top: 40px;
+            font-size: 1.5em;
+            color: #146E37;
+            font-weight: 600;
+            display: none;
+        }
+
+        .welcome-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, #3fa110, #146e37);
+            padding: 10px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .footer-logo {
+            height: 40px; 
+            width: auto;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="screen active" id="welcome-screen">
+        <div class="content-screen">
+            <h1>O que é Inteligência Artificial?</h1>
+            <p>Neste primeiro módulo, você conhecerá os fundamentos da inteligência artificial: o que ela é, quais são seus principais tipos e como evoluiu até alcançar o estágio atual.</p>
+            <p>O objetivo é oferecer uma base sólida sobre o tema, que será aprofundada nos módulos seguintes.</p>
+            <button class="start-btn" onclick="showScreen('definition-screen')">Clique aqui para iniciar</button>
+        </div>
+    </div>
+
+    <div class="screen" id="definition-screen">
+        <div class="content-screen">
+            <h2>O que é Inteligência Artificial?</h2>
+            <div class="main-text-content">
+                <p><strong>Inteligência Artificial</strong>, ou simplesmente <strong>IA</strong>, é o nome que damos para sistemas e programas de computador que conseguem "imitar" certas capacidades humanas, como aprender, resolver problemas, reconhecer padrões, tomar decisões e até conversar.</p>
+                <div class="highlight-box">
+                    Sabe quando você pede uma música para a Alexa, recebe uma sugestão de filme na Netflix ou usa um corretor automático no celular? Pois é, tudo isso tem IA envolvida!
+                </div>
+                <p>A ideia da IA é fazer com que as máquinas possam realizar tarefas que normalmente exigiriam inteligência humana. Mas vale lembrar: apesar do nome, elas não "pensam" como a gente. Elas seguem padrões, aprendem com dados e usam regras programadas por pessoas.</p>
+            </div>
+            <div class="navigation-buttons">
+                <button class="back-btn" onclick="showScreen('welcome-screen')">Voltar</button>
+                <button class="navigation-btn" onclick="showScreen('timeline-screen')">Conhecer a história da IA!</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="screen" id="timeline-screen">
+        <div class="timeline-container">
+            <div class="timeline-header">
+                <h2>Linha do Tempo da Inteligência Artificial</h2>
+                <p>Clique nos eventos para saber mais detalhes sobre cada marco histórico</p>
+            </div>
+            <div class="timeline" id="timeline"></div>
+            <div class="navigation-buttons">
+                <button class="back-btn" onclick="showScreen('definition-screen')">Voltar</button>
+                <button class="navigation-btn" onclick="showScreen('types-screen')">Conheça os Tipos de IA</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="screen" id="types-screen">
+        <div class="types-container">
+            <div class="types-header">
+                <h2>Tipos de Inteligência Artificial</h2>
+                <p>Explore as diferentes classificações da IA clicando nos cards abaixo. Veja todo o conteúdo para avançar!</p>
+            </div>
+            <div class="types-grid"></div>
+            <div id="completion-message" class="content-screen completion-box">
+                <h2>Parabéns por explorar todos os tipos de IA!</h2>
+                <p>Neste curso, você deu os primeiros passos no mundo da Inteligência artificial: entendeu o que ela é, quais são seus tipos e como evoluiu ao longo do tempo. Esse conhecimento é a base para ir ainda mais longe.</p>
+                <p>Clique no botão abaixo para testar o quanto você aprendeu nesse curso!</p>
+                <button class="quiz-btn" onclick="showScreen('quiz-screen')">Iniciar Quiz</button>
+            </div>
+            <div class="navigation-buttons">
+                <button class="back-btn" onclick="showScreen('timeline-screen')">Voltar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="screen" id="quiz-screen">
+        <div class="quiz-screen">
+            <h2>Quiz: Teste seus Conhecimentos em IA</h2>
+            <div class="question-container">
+                <p>1. Qual dos seguintes exemplos representa melhor uma "IA Fraca" (Narrow AI)?</p>
+                <div class="options" data-answer="b">
+                    <label><input type="radio" name="q1" value="a"> A) Um robô capaz de aprender e realizar qualquer tarefa humana.</label>
+                    <label><input type="radio" name="q1" value="b"> B) Um sistema de navegação GPS que encontra a melhor rota.</label>
+                    <label><input type="radio" name="q1" value="c"> C) Uma IA que possui autoconsciência e emoções.</label>
+                    <label><input type="radio" name="q1" value="d"> D) Uma rede neural capaz de criar novas formas de arte de forma original.</label>
+                </div>
+            </div>
+            <div class="question-container">
+                <p>2. Em que ano o termo "inteligência artificial" foi usado oficialmente pela primeira vez?</p>
+                <div class="options" data-answer="c">
+                    <label><input type="radio" name="q2" value="a"> A) 1948</label>
+                    <label><input type="radio" name="q2" value="b"> B) 1950</label>
+                    <label><input type="radio" name="q2" value="c"> C) 1956</label>
+                    <label><input type="radio" name="q2" value="d"> D) 1965</label>
+                </div>
+            </div>
+            <div class="question-container">
+                <p>3. Qual tipo de IA é capaz de usar experiências passadas recentes para melhorar decisões, mas com armazenamento limitado?</p>
+                <div class="options" data-answer="c">
+                    <label><input type="radio" name="q3" value="a"> A) IA Reativa</label>
+                    <label><input type="radio" name="q3" value="b"> B) IA com Teoria da Mente</label>
+                    <label><input type="radio" name="q3" value="c"> C) IA com Memória Limitada</label>
+                    <label><input type="radio" name="q3" value="d"> D) IA Autoconsciente</label>
+                </div>
+            </div>
+            <div class="question-container">
+                <p>4. Qual evento marcou a primeira vez que um sistema de IA derrotou um campeão mundial de xadrez?</p>
+                <div class="options" data-answer="c">
+                    <label><input type="radio" name="q4" value="a"> A) O Teste de Turing</label>
+                    <label><input type="radio" name="q4" value="b"> B) A Revolução AlexNet</label>
+                    <label><input type="radio" name="q4" value="c"> C) Deep Blue vs. Kasparov</label>
+                    <label><input type="radio" name="q4" value="d"> D) Lançamento do ChatGPT</label>
+                </div>
+            </div>
+            <div class="question-container">
+                <p>5. O que a "IA Superinteligente" representa?</p>
+                <div class="options" data-answer="c">
+                    <label><input type="radio" name="q5" value="a"> A) Sistemas especializados em uma única tarefa.</label>
+                    <label><input type="radio" name="q5" value="b"> B) IA com capacidade cognitiva similar à humana.</label>
+                    <label><input type="radio" name="q5" value="c"> C) Um nível hipotético que supera toda inteligência humana.</label>
+                    <label><input type="radio" name="q5" value="d"> D) IA que compreende emoções e interações sociais humanas.</label>
+                </div>
+            </div>
+            <div class="navigation-buttons" id="quiz-nav-buttons">
+                <button class="back-btn" onclick="showScreen('types-screen')">Voltar</button>
+                <button class="navigation-btn" id="show-results-btn" onclick="showQuizResults()">Ver Resultados</button>
+            </div>
+            <p id="quiz-results"></p>
+            <button class="navigation-btn" id="finish-module-btn" style="display: none;" onclick="showScreen('final-screen')">Finalizar Módulo</button>
+        </div>
+    </div>
+    
+    <div class="screen" id="final-screen">
+        <div class="content-screen">
+            <h2>🎉 Parabéns!</h2>
+            <div class="main-text-content">
+                <p>Você concluiu o módulo introdutório sobre Inteligência Artificial. Agora você entende os conceitos fundamentais, conhece os marcos históricos mais importantes e sabe diferenciar os principais tipos de IA.</p>
+                <p>Esta base de conhecimento é essencial para explorar as ferramentas mais avançadas que veremos nos próximos módulos.</p>
+                <div class="highlight-box">
+                    O primeiro passo na jornada do conhecimento foi dado. Continue aprendendo e descobrindo como a IA pode transformar o seu dia a dia!
+                </div>
+            </div>
+            <div class="navigation-buttons">
+                <button class="back-btn" onclick="showScreen('quiz-screen')">Voltar ao Quiz</button>
+                <button class="navigation-btn" onclick="showScreen('welcome-screen')">Refazer Módulo</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="welcome-footer" id="main-footer">
+        <img src="images/sicredi-logo.png" alt="Logo Sicredi" class="footer-logo">
+        <img src="images/inovacao-logo.png" alt="Logo Inovação" class="footer-logo">
+    </footer>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3 id="modal-title"></h3>
+            <p id="modal-text"></p>
+        </div>
+    </div>
+
+    <script>
+        const typesData = [
+            {
+                category: "Por Nível de Capacidade",
+                description: "Classificação baseada no quanto a IA pode imitar a inteligência humana",
+                types: [
+                    { title: "IA Fraca (Narrow AI)", icon: "🎯", summary: "Sistemas especializados em uma única tarefa", details: { description: "São sistemas projetados para realizar uma tarefa específica com alta eficiência.", examples: "Assistentes virtuais (Alexa, Siri), sistemas de recomendação (Netflix, Spotify), reconhecimento facial", characteristic: "Especialista em apenas uma função, sem capacidade de transferir conhecimento" } },
+                    { title: "IA Geral (AGI)", icon: "🧠", summary: "IA com capacidade cognitiva similar à humana", details: { description: "Refere-se a uma IA com capacidade de aprender, entender e realizar diferentes tipos de tarefas.", examples: "Ainda não existe na prática - é um objetivo futuro da pesquisa em IA", characteristic: "Raciocínio, criatividade e senso comum equivalentes aos humanos" } },
+                    { title: "IA Superinteligente", icon: "⚡", summary: "Nível hipotético que supera toda inteligência humana", details: { description: "Um nível onde a IA supera a inteligência humana em todos os aspectos.", examples: "Conceito teórico discutido em ficção científica e pesquisa futurista", characteristic: "Tema de debates éticos sobre riscos existenciais para a humanidade" } }
+                ]
+            },
+            {
+                category: "Por Tipo de Funcionalidade",
+                description: "Classificação baseada em como a IA funciona e reage ao ambiente",
+                types: [
+                    { title: "IA Reativa", icon: "⚡", summary: "Responde a situações específicas sem memória", details: { description: "Atua com base em respostas diretas a situações, sem aprender ou guardar experiências.", examples: "Deep Blue da IBM (xadrez), sistemas de recomendação básicos", characteristic: "Não possui memória de experiências passadas" } },
+                    { title: "IA com Memória Limitada", icon: "💾", summary: "Usa experiências passadas para decisões futuras", details: { description: "Consegue usar experiências recentes para melhorar decisões, mas com armazenamento limitado.", examples: "Carros autônomos, sistemas de navegação GPS, chatbots avançados", characteristic: "Memória de curto prazo, sem aprendizado contínuo profundo" } },
+                    { title: "IA com Teoria da Mente", icon: "🤝", summary: "Capaz de entender emoções e intenções humanas", details: { description: "IA que compreende emoções, crenças e interações sociais humanas.", examples: "Ainda em desenvolvimento - robôs sociais experimentais", characteristic: "Potencial para interações mais empáticas e naturais" } },
+                    { title: "IA Autoconsciente", icon: "🪞", summary: "IA com autoconsciência (conceito futurista)", details: { description: "Uma IA que entende a si mesma como entidade independente, com autoconsciência.", examples: "Apenas conceito teórico na ficção científica", characteristic: "Status puramente especulativo e filosófico" } }
+                ]
+            },
+            {
+                category: "Por Tipo de Tecnologia",
+                description: "Classificação baseada na técnica e abordagem utilizada",
+                types: [
+                    { title: "IA baseada em Regras", icon: "📋", summary: "Sistemas especialistas com regras pré-programadas", details: { description: "Usa conjunto fixo de regras lógicas para tomar decisões determinísticas.", examples: "Sistemas de diagnóstico médico, calculadoras de impostos, chatbots simples", characteristic: "Previsível, mas limitada a cenários pré-definidos" } },
+                    { title: "Machine Learning", icon: "📊", summary: "Aprende padrões a partir de dados históricos", details: { description: "Algoritmos que identificam padrões em dados e fazem previsões.", examples: "Classificação de spam, sistemas de recomendação, análise de crédito", characteristic: "Melhora performance com mais dados de treinamento" } },
+                    { title: "Deep Learning", icon: "🕸️", summary: "Redes neurais complexas inspiradas no cérebro", details: { description: "Usa redes neurais com múltiplas camadas para processar informações complexas.", examples: "Reconhecimento de imagens, tradução automática, geração de arte", characteristic: "Capaz de encontrar padrões complexos em grandes volumes de dados" } },
+                    { title: "Processamento de Linguagem Natural", icon: "💬", summary: "Especializada em interpretar e gerar linguagem humana", details: { description: "Foca na compreensão, interpretação e geração de texto e fala humana.", examples: "Google Translate, ChatGPT, assistentes virtuais, análise de sentimentos", characteristic: "Permite comunicação natural entre humanos e máquinas" } }
+                ]
+            }
+        ];
+        const timelineData = [
+            { year: "1906", title: "O Tríodo de Lee De Forest", content: "O tríodo, inventado por Lee De Forest em 1906, foi um marco fundamental na história da eletrônica e, indiretamente, no desenvolvimento da inteligência artificial. Embora não tenha sido criado com a IA em mente, sua importância está no papel que desempenhou como precursor da computação eletrônica."},
+            { year: "1920", title: "Nasce o termo 'Robô'", content: "A peça teatral 'R.U.R.' de Karel Čapek introduziu o termo 'robô' e popularizou a ideia de seres artificiais com inteligência, influenciando profundamente a cultura, a ética e a ciência por trás da IA e da robótica."},
+            { year: "1938", title: "Lógica Digital Moderna", content: "Claude Shannon publicou sua tese 'A Symbolic Analysis of Relay and Switching Circuits', demonstrando que circuitos elétricos podiam representar operações da álgebra booleana, fundando a lógica digital moderna e tornando possível a construção de circuitos capazes de realizar cálculos e decisões lógicas." },
+            { year: "1948", title: "Nasce a Cibernética", content: "Norbert Wiener publicou 'Cybernetics: Or Control and Communication in the Animal and the Machine', fundando a ciência da cibernética. Esta obra foi essencial para o avanço da IA ao propor que máquinas poderiam aprender, se adaptar e tomar decisões com base em informações do ambiente." },
+            { year: "1950", title: "O Teste de Turing", content: "Alan Turing publicou 'Computing Machinery and Intelligence', propondo o famoso Teste de Turing como forma de avaliar se uma máquina pode exibir comportamento inteligente indistinguível do de um ser humano. Este marco estabeleceu uma meta filosófica e prática para o que significa 'pensar' em termos computacionais." },
+            { year: "1956", title: "Nascimento da IA", content: "Durante a conferência de Dartmouth College, o termo 'inteligência artificial' foi usado oficialmente pela primeira vez por John McCarthy. Esta conferência é considerada o nascimento da IA como campo de estudo acadêmico, reunindo cientistas interessados na ideia de que máquinas poderiam simular aspectos da inteligência humana." },
+            { year: "1957-1965", title: "Primeiros Avanços Práticos", content: "Entre 1957 e 1965, a IA deu passos fundamentais: Frank Rosenblatt criou o Perceptron (primeira rede neural funcional), Allen Newell e Herbert Simon desenvolveram o Logic Theorist (primeiro programa de IA), Victor Scheinman projetou robôs autônomos, e Joseph Weizenbaum lançou ELIZA (primeiro chatbot)."},
+            { year: "1965-1973", title: "Primeiro Inverno da IA", content: "O primeiro inverno da inteligência artificial ocorreu quando o entusiasmo inicial deu lugar à frustração diante dos resultados limitados. As promessas exageradas não se concretizaram devido à falta de poder computacional e imaturidade dos algoritmos, levando ao corte de financiamentos." },
+            { year: "1980-1982", title: "Avanços em Robótica", content: "Em 1980, o Japão apresentou o WABOT-2, robô capaz de tocar órgão. Em 1982, John Hopfield introduziu as redes neurais de Hopfield, que podiam armazenar padrões e recuperar informações por associação, influenciando o desenvolvimento da memória em sistemas neurais artificiais." },
+            { year: "1986-1989", title: "Revolução das Redes Neurais", content: "Em 1986, David Rumelhart publicou sobre processamento paralelo distribuído e backpropagation, revitalizando o interesse por redes neurais. Em 1989, Yann LeCun desenvolveu as primeiras redes neurais convolucionais (CNNs), estabelecendo as bases para reconhecimento de imagens moderno." },
+            { year: "1987-1993", title: "Segundo Inverno da IA", content: "O segundo inverno da IA ocorreu quando avanços como redes neurais e sistemas especialistas deram lugar à frustração com limitações práticas. O financiamento foi drasticamente reduzido, mas este período preparou o terreno para o ressurgimento com avanços em computação e big data." },
+            { year: "1994-2000", title: "IA no Mundo Real", content: "Período marcado pela criação da RoboCup (1994), arquitetura LSTM de Hochreiter e Schmidhuber (1997), lançamento do cão-robô AIBO da Sony (1999), e apresentação do robô social Kismet do MIT (2000), pioneiro em robótica afetiva." },
+            { year: "1997", title: "Deep Blue vs. Kasparov", content: "O supercomputador Deep Blue da IBM tornou-se o primeiro sistema de IA a derrotar um campeão mundial de xadrez, vencendo Garry Kasparov por 3,5 a 2,5. Este feito demonstrou que máquinas podiam superar humanos em tarefas altamente complexas e estratégicas." },
+            { year: "2003-2010", title: "Era dos Veículos Autônomos", content: "Entre 2003-2005, o DARPA Grand Challenge incentivou veículos autônomos. Em 2006, Geoffrey Hinton apresentou Deep Belief Networks, marcando o início do deep learning moderno. Em 2008, a IBM lançou o projeto Blue Brain. Em 2010, a Apple lançou a Siri." },
+            { year: "2012", title: "Revolução AlexNet", content: "A rede neural AlexNet, de Alex Krizhevsky, Ilya Sutskever e Geoffrey Hinton, revolucionou a visão computacional ao vencer a competição ImageNet. Utilizando CNN profunda, ReLU, dropout e GPU, marcou o início da era moderna do deep learning." },
+            { year: "2012-2017", title: "Explosão do Deep Learning", content: "Entre 2013-2016, a IA avançou rapidamente: fundação da DeepMind (2013), surgimento das GANs (2014), lançamento do TensorFlow (2015), e apresentação do AlphaGo (2016), que derrotou um campeão mundial de Go." },
+            { year: "2017", title: "Era dos Transformers", content: "Pesquisadores da Google apresentaram o artigo 'Attention is All You Need', introduzindo o modelo Transformer. Esta arquitetura revolucionou o processamento de linguagem natural e deu origem a modelos como BERT, GPT e outros sistemas avançados de IA generativa." },
+            { year: "2017-2020", title: "Avanços em Linguagem", content: "Período marcado pelo WaveNet da DeepMind (2017) para síntese de fala, GPT-1 da OpenAI (2018) iniciando modelos generativos, BERT do Google (2019) revolucionando compreensão de linguagem, e GPT-3 (2020) com 175 bilhões de parâmetros." },
+            { year: "2020", title: "DALL·E e IA Multimodal", content: "A OpenAI apresentou o DALL·E, modelo capaz de gerar imagens a partir de descrições em linguagem natural. Baseado em Transformers, combinou visão computacional e processamento de linguagem, marcando avanço importante na IA generativa multimodal." },
+            { year: "2020-2025", title: "IA Responsável", content: "Entre 2020-2024: Tesla lançou Full Self-Driving beta (2020), UNESCO aprovou diretrizes globais sobre ética em IA (2021), OpenAI lançou Sora para geração de vídeos (2024), e União Europeia aprovou AI Act (2024), primeira legislação abrangente para regular IA." },
+            { year: "2022", title: "ChatGPT Populariza IA", content: "A OpenAI lançou o ChatGPT, baseado em GPT-3.5 e ajustado com aprendizado por reforço com feedback humano (RLHF). Seu lançamento marcou ponto de virada na popularização da IA generativa, tornando-a acessível ao público geral." },
+            { year: "2025", title: "DeepSeek-R1 Surpreende", content: "A startup chinesa DeepSeek lançou o modelo DeepSeek-R1, que superou o desempenho da OpenAI em apenas duas semanas. Com alta eficiência, raciocínio avançado e custo baixo, destacou o potencial das soluções de código aberto." },
+            { year: "2025+", title: "Futuro da IA", content: "O futuro é moldado por conceitos como AGI (Inteligência Artificial Geral), ASI (Superinteligência Artificial) e discussões sobre Singularidade Tecnológica. Cresce o interesse em Super-Humanos através da fusão entre humanos e tecnologia via interfaces neurais." }
+        ];
+
+        let expandedCards = new Set();
+
+        function showScreen(screenId) {
+            const footer = document.getElementById('main-footer');
+            
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            
+            const activeScreen = document.getElementById(screenId);
+            if (activeScreen) {
+                activeScreen.classList.add('active');
+            }
+
+            if (screenId === 'welcome-screen') {
+                footer.style.display = 'flex';
+                // Reseta o quiz
+                document.getElementById('quiz-results').style.display = 'none';
+                document.getElementById('finish-module-btn').style.display = 'none';
+                document.getElementById('quiz-nav-buttons').style.display = 'flex';
+                document.querySelectorAll('.options label').forEach(label => {
+                    label.classList.remove('selected', 'correct', 'incorrect');
+                 });
+                 document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    radio.checked = false;
+                 });
+            } else {
+                footer.style.display = 'none';
+            }
+            
+            window.scrollTo(0, 0); 
+            
+            if (screenId === 'timeline-screen' && document.getElementById('timeline').children.length === 0) {
+                generateTimeline(timelineData);
+            }
+            
+            if (screenId === 'types-screen' && document.querySelector('.types-grid').children.length === 0) {
+                generateTypes(typesData);
+            }
+        }
+
+        function generateTypes(data) {
+            const typesGrid = document.querySelector('.types-grid');
+            typesGrid.innerHTML = '';
+            
+            data.forEach((category, categoryIndex) => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'type-category';
+                
+                const headerDiv = document.createElement('div');
+                headerDiv.className = 'category-header';
+                headerDiv.onclick = () => toggleCategory(categoryIndex);
+                
+                headerDiv.innerHTML = `<h3>${category.category}</h3><p>${category.description}</p>`;
+                
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'category-content';
+                contentDiv.id = `category-${categoryIndex}`;
+                
+                category.types.forEach((type, typeIndex) => {
+                    const typeCard = document.createElement('div');
+                    typeCard.className = 'ai-type-card';
+                    const cardId = `card-${categoryIndex}-${typeIndex}`; 
+                    typeCard.setAttribute('data-card-id', cardId);
+                    typeCard.onclick = (e) => { e.stopPropagation(); toggleTypeCard(cardId); };
+                    
+                    typeCard.innerHTML = `
+                        <div class="card-header">
+                            <div style="display: flex; align-items: center;"><span class="card-icon">${type.icon}</span><h4 class="card-title">${type.title}</h4></div>
+                            <span class="expand-indicator">▼</span>
+                        </div>
+                        <div class="card-summary">${type.summary}</div>
+                        <div class="card-details" id="details-${cardId}">
+                            <div class="card-details-content">
+                                <h4>Descrição:</h4><p>${type.details.description}</p>
+                                <h4>Exemplos:</h4><div class="example">${type.details.examples}</div>
+                                <h4>Característica Principal:</h4><p class="characteristic">👉 ${type.details.characteristic}</p>
+                            </div>
+                        </div>`;
+                    contentDiv.appendChild(typeCard);
+                });
+                
+                categoryDiv.appendChild(headerDiv);
+                categoryDiv.appendChild(contentDiv);
+                typesGrid.appendChild(categoryDiv);
+            });
+        }
+
+        function toggleCategory(categoryIndex) {
+            document.querySelectorAll('.category-header')[categoryIndex].classList.toggle('active');
+            document.getElementById(`category-${categoryIndex}`).classList.toggle('active');
+        }
+
+        function toggleTypeCard(cardId) {
+            const card = document.querySelector(`.ai-type-card[data-card-id="${cardId}"]`);
+            card.classList.toggle('expanded');
+            document.getElementById(`details-${cardId}`).classList.toggle('active');
+
+            if (card.classList.contains('expanded')) expandedCards.add(cardId);
+            else expandedCards.delete(cardId);
+            
+            checkAllCardsExpanded();
+        }
+
+        function checkAllCardsExpanded() {
+            let totalCards = 0;
+            typesData.forEach(cat => totalCards += cat.types.length);
+            if (expandedCards.size === totalCards) {
+                document.getElementById('completion-message').style.display = 'block';
+            } else {
+                document.getElementById('completion-message').style.display = 'none';
+            }
+        }
+
+        function generateTimeline(data) {
+            const timeline = document.getElementById('timeline');
+            timeline.innerHTML = '';
+            
+            data.forEach((item, index) => {
+                const timelineItem = document.createElement('div');
+                timelineItem.className = `timeline-item ${index % 2 === 0 ? 'left' : 'right'}`;
+                timelineItem.onclick = () => openModal(item.title, item.content);
+
+                const imageHtml=item.image ? `<img src="${item.image}" alt="${item.title}" class="timeline-image">`:'';
+                
+                timelineItem.innerHTML = `<div class="timeline-dot"></div> <div class="timeline-content"> ${imageHtml} <div class="timeline-year">${item.year}</div><div class="timeline-text">${item.title}</div></div>`;
+                
+                timeline.appendChild(timelineItem);
+            });
+        }
+
+        function openModal(title, content) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-text').textContent = content;
+            document.getElementById('modal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        function showQuizResults() {
+            let correctCount = 0;
+            const answers = { q1: 'b', q2: 'c', q3: 'c', q4: 'c', q5: 'c' };
+            const questions = Object.keys(answers);
+            
+            questions.forEach(q => {
+                const optionsDiv = document.querySelector(`input[name="${q}"]`).closest('.options');
+                optionsDiv.querySelectorAll('label').forEach(l => l.classList.remove('correct', 'incorrect'));
+                
+                const selected = document.querySelector(`input[name="${q}"]:checked`);
+                if (selected) {
+                    const selectedLabel = selected.parentElement;
+                    if (selected.value === answers[q]) {
+                        correctCount++;
+                        selectedLabel.classList.add('correct');
+                    } else {
+                        selectedLabel.classList.add('incorrect');
+                        optionsDiv.querySelector(`input[value="${answers[q]}"]`).parentElement.classList.add('correct');
+                    }
+                }
+            });
+
+            const percentage = (correctCount / questions.length) * 100;
+            document.getElementById('quiz-results').textContent = `Você acertou ${correctCount} de ${questions.length} perguntas (${percentage.toFixed(0)}%).`;
+            document.getElementById('quiz-results').style.display = 'block';
+            document.getElementById('quiz-nav-buttons').style.display = 'none';
+            document.getElementById('finish-module-btn').style.display = 'inline-block';
+            
+            // *** AQUI É A MÁGICA DO SCORM ***
+            // Chama a função para completar o curso no AVA, passando a nota.
+            if(typeof scorm !== 'undefined') {
+                scorm.complete(percentage.toFixed(0));
+            }
+        }
+
+        window.onclick = (event) => { if (event.target == document.getElementById('modal')) closeModal(); };
+        document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeModal(); });
+        
+         document.addEventListener('DOMContentLoaded', () => {
+             // Inicia a aplicação
+            showScreen('welcome-screen');
+            
+            // ADICIONE ESTA LINHA PARA INICIAR O SCORM
+            if(typeof scorm !== 'undefined') {
+                scorm.init();
+            }
+
+            // Adiciona listener para os botões de opção do quiz para feedback visual
+            document.querySelectorAll('.options label').forEach(label => {
+                label.addEventListener('click', function() {
+                    this.closest('.options').querySelectorAll('label').forEach(otherLabel => {
+                        otherLabel.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                });
+            });
+        });
+
+        // ADICIONE ESTA LINHA PARA FINALIZAR O SCORM AO FECHAR A PÁGINA
+        window.addEventListener('unload', () => {
+            if(typeof scorm !== 'undefined') {
+                scorm.exit();
+            }
+        });
+    </script>
+</body>
+</html>
