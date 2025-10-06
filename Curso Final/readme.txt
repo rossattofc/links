@@ -55,3 +55,23 @@ Para você e seu público aprofundarem nos temas da palestra, aqui estão quatro
 | A Próxima Onda: Inteligência Artificial, Poder e o Maior Dilema do Século XXI | Mustafa Suleyman | Aborda a geopolítica e governança da IA, vindo de um insider (cofundador do DeepMind). Foca no dilema entre o poder da IA e a dificuldade de controlá-lo. |
 | Co-Intelligence: Living and Working with AI | Ethan Mollick | Extremamente prático. Foca na colaboração imediata (co-inteligência) entre humanos e a IA generativa para aumentar dramaticamente a produtividade, reforçando o papel do Copiloto. |
 | 2041: Como a Inteligência Artificial Vai Mudar Sua Vida nas Próximas Décadas | Kai-Fu Lee e Chen Qiufan | Apresenta 10 contos para ilustrar o impacto da IA em saúde, educação e trabalho. Ideal para entender a transformação das profissões e o conceito de Reaprender, Recalibrar e Renascer. |
+
+
+Roteiro de Vídeo: “Nossas Ideias – Inovação na Prática”
+
+1. Início – Apresentação dos personagens e cenário
+[Imagens de colaboradores em diferentes áreas da cooperativa, sorrindo e trabalhando juntos.]
+NARRADOR (tom amigável):
+Você já pensou que a próxima grande inovação pode nascer de uma ideia sua? Aqui na nossa cooperativa, todos têm voz e espaço para criar. Seja você novo na equipe ou já com anos de casa, o programa “Nossas Ideias” foi feito para valorizar o olhar crítico e criativo de cada colaborador. Inovação não é só um setor, é uma cultura construída por todos nós!
+
+2. Meio – Principais eventos e decisões
+[Imagens de alguém acessando o Portal de Ideias Sistêmicas, digitando uma sugestão.]
+NARRADOR:
+Participar é simples! Sempre que você enxergar um desafio ou tiver uma sugestão para melhorar nossos processos, basta cadastrar sua ideia no Portal de Ideias Sistêmicas, na aba “Ideias Locais”. Depois disso, sua ideia passa por uma análise inicial pela equipe de Estratégia e Inovação. Se for aprovada, ela pode virar um projeto piloto e, quem sabe, ser implementada em toda a cooperativa!
+E não para por aí: as melhores ideias podem ser reconhecidas com prêmios, como participação em eventos nacionais de inovação. O mais importante é que, ao participar, você está ajudando a transformar desafios em oportunidades e fortalecendo o espírito empreendedor de todos nós.
+
+3. Fim – Resolução e mensagem final
+[Imagens de colaboradores comemorando, recebendo reconhecimento.]
+NARRADOR:
+Viu como é fácil fazer parte dessa jornada? O programa “Nossas Ideias” é a chance de transformar o seu olhar sobre o dia a dia em melhorias reais para a nossa cooperativa. Cada participação conta, e sua próxima ideia pode ser a próxima grande inovação do Sicredi!
+Então, observe, participe e inspire-se. Juntos, construímos um ambiente mais colaborativo, criativo e inovador. Cadastre sua ideia e faça parte dessa transformação!
