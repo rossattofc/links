@@ -1,21 +1,22 @@
-
-**Nome:** ALINE CRISTINA SCHWAAB  
-**Gênero:** Mulher  
-**Nome do herói:** Impulso Vermelho  
-**Frase de efeito:** Mudança rápida, resultados concretos sempre.  
-**Traços principais:** Dinâmica, competitiva, comunicativa, analítica, proativa.
-
-**Superpoderes:**
-- **Pressão Positiva:** Motiva equipes a agir com velocidade e foco, impulsionando resultados em ambientes desafiadores.
-- **Visão Analítica:** Analisa cenários complexos e propõe soluções inovadoras, garantindo precisão e qualidade nas decisões.
-- **Transformação Ágil:** Lidera mudanças estruturais, adapta-se rapidamente e inspira outros a abraçarem novas ideias e métodos.
-
-**Descrição da imagem do card:**
-- Personagem anônima com máscara total, sem cor de pele ou cabelo visíveis.
-- Estilo HQ digital moderna, corporativo futurista.
-- Card vertical (2:3), moldura padronizada em vermelho, dourado e preto.
-- Parte superior: "Impulso Vermelho" em fonte futurista.
-- Centro: Personagem em pose de poder, braços cruzados, olhar determinado.
-- Parte inferior: Três blocos com nomes e descrições dos superpoderes.
-- Faixa final: Frase de efeito em destaque.
-- Fundo: Abstrato tecnológico, luz suave vermelha e dourada, aparência inspiradora.
+Título: “A Porta Está Aberta... Você Vai Entrar?”
+Cena 1 – Abertura Misteriosa (0:00 – 0:15)
+Imagem: Relógio antigo girando rápido, som de tique-taque acelerado.
+Voz em off:
+“O tempo está correndo... mas para onde?”
+Cena 2 – Elementos Intrigantes (0:15 – 0:45)
+Imagens rápidas: Uma porta entreaberta com luz colorida, cartas de baralho caindo, uma xícara de chá girando, um chapéu maluco.
+Som: Música crescente, com tons enigmáticos.
+Voz em off:
+“Você está prestes a entrar em um lugar onde nada é o que parece... e tudo pode mudar.”
+Cena 3 – Convite Enigmático (0:45 – 1:15)
+Imagem: Silhueta de Alice correndo, seguida pelo Coelho com relógio.
+Texto na tela:
+“Prepare-se para uma experiência única. Mas cuidado... cada escolha importa.”
+Voz em off:
+“Cada papel no dia será essencial. Em breve você receberá informações de qual será o seu papel, aguarde! Juntos, vamos olhar para o futuro da cooperativa e criar soluções inovadoras.”
+Cena 4 – Fechamento com Suspense (1:15 – 1:30)
+Tela escurece, aparece apenas uma frase:
+“Está pronto para atravessar a porta?”
+Logo do evento surge lentamente.
+Som: Batida final + fade out.
+🎵 Sugestão de trilha sonora: Algo com clima de mistério e fantasia, como Alice in Wonderland soundtrack (instrumental), ou música com crescendos para gerar expectativa. 
