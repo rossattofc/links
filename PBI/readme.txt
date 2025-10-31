@@ -1,10 +1,10 @@
-Me ajude a desenvolver um problema central para um hackton baseado nisso: 
-
-vejo que precisa ser algo que possa gerar engajamento e o proposito do Cooperativismo, podemos ir no caminho das redes sociais , como são usadas pelo jovens e o que chama atenção deles.... que tipos de APP eles utilizam e nos enquanto Sicredi possamos avançar... tem que colocar eles apesarem neste contexto de atração dos jovens..
-pode ser uma maratona de ideias... com olhar mais de sustentabilidade 
-
-Precisa ser algo amplo, que abra a possibilidade para várias soluções diferentes/ideias diferentes 
-
-
-
-"Como o Sicredi pode reinventar a experiência de ser um cooperado para a Geração Z, de modo que o propósito cooperativo (participação e resultados) e a sustentabilidade sejam o principal motor de atração, engajamento e fidelização?"
+​I. Foco Máximo em Jovem & Sustentabilidade (Formato Curto e de Alto Impacto)
+​Estas são as mais recomendadas se o público-alvo principal for a Geração Z e a temática de sustentabilidade for essencial:
+​Como o Sicredi pode ser o canal da Geração Z para gerar impacto social e ambiental nas comunidades?
+​Como reinventar produtos e serviços do Sicredi para a juventude com foco em futuro e sustentabilidade?
+​Como usar a linguagem das redes para conectar o jovem ao propósito cooperativo e sustentável?
+​II. Foco em Amplitude Total (Comunidade, Sem Restrição de Tema)
+​Estas opções são ideais se você busca soluções para a comunidade em geral, sem obrigatoriedade de focar em jovens ou sustentabilidade, mantendo o Cooperativismo como base:
+​Como revolucionar a experiência de ser cooperado para atrair a nova geração da comunidade?
+​Como transformar o Sicredi na maior plataforma de soluções criadas pela comunidade?
+​Como multiplicar o engajamento na comunidade e fazer todos se sentirem donos do Sicredi?
