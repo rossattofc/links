@@ -1,0 +1,165 @@
+{
+    "name": "sicredi-verde",
+    "dataColors": [
+        "#64C832",
+        "#FFCD00",
+        "#828A81",
+        "#5A3D1F",
+        "#FE6400",
+        "#3FA010",
+        "#45D6FD",
+        "#FC403A"
+    ],
+    "maximum": "#4B9626",
+    "minimum": "#5A3D1F",
+    "good": "#64C832",
+    "neutral": "#FFCD00",
+    "bad": "#FC403A",
+    "visualStyles": {
+        "page": {
+            "*": {
+                "background": [
+                    {
+                        "image": {
+                            "name": "background_verde_16x9.png",
+                            "scaling": "Fit",
+                            "url": "data:image\/png;base64,iVBORw0KGgoAAAANSUhEUgAABQAAAALQCAMAAAGPpB3yAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAALZUExURT+hEE2oIWe1QpDIdLbbpNDoxNnt0M\/nw5LKd4fEaf\/\/\/\/3+\/FSrKqLSjJnNgFWsK3\/AYK3Xmdvt0kChEWOzPa7Ym0KiFMDgsP3+\/VyvNGu2Rr3frUOjFUilG0mmHEGiE0elGkqmHUelGUSjFkSkF6\/YnOLx27DYnXK6UEWkF4nFbHm9WK7XmoLCY7rdqdnsz+Ty3ev15+z26N\/w2EqnHluvM+r15e736afUkeXy3uXy35bMfbfcpoTDZpXLe0ynIFetLvD47LHZnozHcFasLNXqy0GiEnS7U53PhYfEao\/Ic0+pJPH47uj043e8Vc3mwKXTj7LZn9brzMjku47Icn7AX6HRinG5TkunH\/L578TitqbUkF6wNqnVlN7v1v7\/\/mKyO32\/XavWl7veq\/z++1quMmCxOfP58PT58ePx3LndqMfjuWy3SG64Smq2RdPqyWu3R1GqJni9V+n05FCpJfj89\/r9+VasLWGyOk6oI02oIma0QWW0QFmuMVCpJsTitej04uDw2d\/v1+\/367\/gr6vWlnW8U5jMf8zmv9rt0bPaoHO6UcXjt\/T68uHw2qDRidzu04vGb87nwuv15rTbovv9+vH47cHgsZTLeqTSjsLhs5PKeFyvNZ\/QiMPitEakGPX688bjuM3nwdDoxYDBYXC5TYHBYqLRi4bEaLTaoY3HcbXbo1KqJ4jFa4TDZebz4MHhssrlvcvmvmSzPu736lOrKXa8VHG6T3u+W1+wN4rFbe326aPSjW+5THy\/XJ\/Qh9PpyLjcp7fcpajUkvf79brdqvf79rzerPr8+KjVk8nkvFitL5rOgdTqyr7frtfrzWKyPHq+WdLpx8rlvHS7Up7Phl2wNefz4fb79IPCZMfkutbry2i1RIXDZ1OrKPn8+OLx2orGbmi1Q1+xOG23SZfMft3u1Xe9Vn3AXlmuMJHJdpDJdW64S5vOgqzWmJPKeWm2RPj59wAAAMk0gzQAAADzdFJOU\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/AHXY\/3wAAAAJcEhZcwAADsMAAA7DAcdvqGQAABYdSURBVHhe7d29clzXlQbQG9+M1SnmGZCgHDJGhEgKUJMpcqJiIVMVok79CEoVkLGSKRZSdgI8ACK8A\/QGc073BUdyybLEbeuDZ69lk\/0DkL61+zv77NMAjYU\/6LDdvlbrw\/ztdH\/c+Xzv1Xial7cu38yLvF+uL7enX491FG1dz2ft5n\/+E3z66VVbl+3Oq7XcbXdeq9dfwe321fISV3mJq7zEVV7iKi9xlZe4yktc5SWu8hJXeYmrvMRVXuIqL3GVl7jKS1zlJa7yEld5iau8xFVe4iovcZWXuMpLXOUlrvISV3mJq7zEVV7iKi9xlZe4yktc5SWu8hJXeYmrvMRVXuIqL3GVl7jKS1z1+l9i\/pizt9ud1+r07+pe\/kHd\/GeKr8z8136HeYXX66f1\/FX+y79xiXfrupt1\/FzJV23dlvMr9R\/wLxO321fLBVa5wCoXWOUCq1xglQuscoFVLrDKBVa5wCoXWOUCq1xglQuscoFVLrDKBVa5wCoXWOUCq1xglQuscoFVLrDKBVa5wCoXWOUCq1xglQuscoFVLrDKBVa5wCoXWOUCq1xglQuscoFVLrDq9V8g\/Fsd1tOPmTw7W86OT3x2Np7itz1dLDfL5fJ2\/mvJZXf8N6ePZ+v9un63H3fv\/zN+omPS5fq0vvyY0\/V2vX6cldytV7tZzK\/W3fYhfsN6s93h3+S1\/x8YvHavfs567RSwyBIuksAiBSyyhIsksEgBiyzhIgksUsAiS7hIAosUsMgSLpLAIgUssoSLJLBIAYss4SIJLFLAIku4SAKLFLDIEi6SwCIFLLKEiySwSAGLLOEiCSxSwCJLuEgCixSwyBIuksAiBSyyhIsksEgBiyzhIgksUsAiS7hIAosUsMgSLpLAIgUssoSLJLBIAYss4SIJLFLAIku4SAKLFLDIEi6SwCIFLLKEiySwSAGLLOEiCSxSwCJLuEgCixSwyBIuksAiBSyyhIsksEgBiyzhIgksUsCi7ScrAa\/S8\/l2hy+0Ppx+AOTZ3\/8oTT9a83dY13XZrx+Pd9Y3v\/xRmi+V5Tc8L7uL+XNJl\/XN+HW4HPVc92ezrMdfp0\/iN4wyLe+PFRyBuxl3duvFu3W3Hkb5dgr4T436XTxtd2fNRucbvz8+7Na\/zZ\/vevoI\/9j3yw\/7T+v9rOSs19YIx83X6\/36pIC\/wyjcqB+8Xqv3swrGCt\/u8YUUsOZOAYsUsEgBayzhKgUsUsAaS7hKAYsUsMYSrlLAIgWssYSrFLBIAWss4SoFLFLAGku4SgGLFLDGEq5SwCIFrLGEqxSwSAFrLOEqBSxSwBpLuEoBixSwxhKuUsAiBayxhKsUsEgBayzhKgUsUsAaS7hKAYsUsMYSrlLAIgWssYSrFLBIAWss4SoFLFLAGku4SgGLFLDGEq5SwCIFrLGEqxSwSAFrLOEqBSxSwBpLuEoBixSwxhKuUsAiBayxhKsUsEgBayzhKgUsUsAaS7hKAYsUsMYSrlLAIgWssYSrFLBIAWss4SoFLFLAGku4SgGLFLDGEq5SwCIFrLGEqxSwSAFrLOEqBSxSwBpLuEoBixSwxhKuUsAiBayxhKsUsEgBayzhKgUsUsAaS7hKAYsUsMYSrlLAIgWssYSrFLBIAWss4SoFLFLAGku4SgGLFLDGEq5SwCIFrLGEqxSwSAFrLOEqBSxSwBpLuEoBixSwxhKuUsAiBayxhKsUsEgBayzhKgUsUsAaS7hKAYsUsMYSrlLAIgWssYSrFLBIAWss4SoFLFLAGku4SgGLFLDmbgEAvsD7dV2Xs6vtEfyJPqzr22W5Xt8s6\/rh+MzNiONw9u1I5T82P\/s3PwF+h6tT2q6e785e4rSuN6c7Rw\/PH7d7u\/ngYd47e\/7uYnz2eALqHg4zY\/e70QfnwxnIu4t5+7Qbd+\/vf5w36\/qwroen63U\/snd5dRgBvFvfzc+Hghmt3QzgvPN4em4Zu+\/9eGJ53Lri+JTTJwy76\/V8Ppif8Hz8KHy5db1enten2+MoOO2HkbPbyxG+85Gzw7vnsU\/PD4wOeLh\/nEG8G78exqx4+hNQ8M2xt22\/DVfD7Zjvdrs5492M+9vdZbm4uj09N5\/6\/CzU7MZAt9\/uA\/AHbV8UhggBJGr563YHEnRAknxLL1nL3XYHEnRAkmzBZNmCidIBSbIFk2ULJkoHJMkWTJYtmCgdkCRbMFm2YKJ0QJJswWTZgonSAUmyBZNlCyZKByTJFkyWLZgoHZAkWzBZtmCidECSbMFk2YKJ0gFJsgWTZQsmSgckyRZMli2YKB2QJFswWbZgonRAkmzBZNmCidIBSbIFk2ULJkoHJMkWTJYtmCgdkCRbMFm2YKJ0QJJswWTZgonSAUmyBZNlCyZKByTJFkyWLZgoHZAkWzBZtmCidECSbMFk2YKJ0gFJsgWTZQsmSgckyRZMli2YKB2QJFswWbZgonRAkmzBZNmCidIBSbIFk2ULJkoHJMkWTJYtmCgdkCRbMFm2YKJ0QJJswWTZgonSAUmyBZNlCyZKByTJFkyWLZgoHZAkWzBZtmCidECSbMFk2YKJ0gFJsgWTZQsmSgckyRZMli2YKB2QJFswWbZgonRAkmzBZNmCidIBSbIFk2ULJkoHJMkWTJYtmCgdkCRbMFm2YKJ0QJJswWTZgonSAUmyBZNlCyZKByTJFkyWLZgoHZAkWzBZtmCidECSbMFk2YKJ0gFJsgWTZQsmSgckyRZMli2YKB2QJFswWbZgonRAkmzBZNmCidIBSbIFk2ULJkoHJMkWTJYtmCgdkCRbMFm2YKJ0QJJswWTZgonSAUmyBZNlCyZqAQAA+P0uPrx7t92FgHVd3y432wP4040ELs\/r9mBZzqb5+\/b41\/zTT4DfY133Z8vNCOBX49fR+Yjjuv5lfOTt6Ylf8zQ+e79eb4\/gC\/33DNv58n5dvt8CeHXM3\/pmBPD5+MSvOqzrbl3fb4\/gC53Sti4zTg\/HZ0YDPN6eXDw\/X2x3jw+Om+7z88Pjer7bHZ+EgquHEaOzj+Pe+v2ym\/Hab0mc2\/Ipn\/ezGa53I6LTcna6\/WY8+3\/ZhC+1+3CYN4cx183kPZ\/StXwYWXsc2\/Phx28f5lMzfx\/moDhur8YnfTuemH8OSkbHG3E7drxT63u4nnmbU97I2uV85u3xPLKuH+eAOG7Hp63r2Qjh\/CAUfD2ytl\/GaeN49niZ6n4Y2bobZ5N1Pb47eD+jNgM6HMYOfNqf3wsgZTNTy+XYbLfHJ7fjydH9LraIXY8xcBn78NXzzW75OJ+ckTxf744fhS83zry7kbXx3\/3pSyEPj4+PdzOV63o743m4fxw38x3Bdb0+HM4fRiqP7xSOx8fZESrWH2a0ThvsfDzmvelhPLmbjW4Yd2\/HR8ZQOBzGo\/F43Y8zyNP8A1BxtZvh+2p+IWSmbLm9uho77Tgbn97mu51vA76843f7\/LCMu7c3x496H5B\/jTHxjeZ3dXofGv5sN2Pm080AAPiD1ut13f6NMPyp7q4\/rf6vOUgSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJAoASRKAIkSQKIEkCgBJEoAiRJAogSQKAEkSgCJEkCiBJCodQEAAAAAAPiX+7Ce3GyPARp5c2yA+3Hvu\/XN6SmA\/9\/ePL55Ppt3zs5nB\/ywLFfj5pct8OzD4fwv1yf7s7OHeftlTfL5L4+Pj2+X5fBp\/BXbcwARF9ez663r9Wh8x87347K8n0\/87fTx6dQZX9wvy1fz9urYNf+oy\/lHv13OPo2bw\/YcQMKxEW0+XS27\/TwD78eDw8\/a22F+9P55c7MsN\/P2i\/rf8m78Vddnu7Pn5+\/m3wQQcz\/70d3jfr9\/HKPgGMm+eXOcA8ch9bOzOST+\/Lh69u78fH88AT\/\/uA2Q+8txlt6fv7sYp+X7\/fNu+fDu9JHrw8P8xIvD9nD+Nv5n3u7P9+caIBC32263O\/v1x3Hn5ny9OD7cJsAxA74cer+dj0bH+\/r49MnlcjF+vz6enp+2L6hsxpl5+xs2T8syD9WPp78NIGj3NA+m69XnRrg8zMlwfXh54mk+Orq+Gg+PXe75OCmu18+nTzm9gTifOH9\/eqPvsBt\/fP7F+9P32IyOuXXCh+Vh3vzsXUaAhFOv+9lXJC4+j2\/Hw+vm5nK+Mzi838a33fLjfPi5\/52mvuPD3d28e7g\/f5y3o7HOP3o9x8fjR8637zqcvRQg5vj13OH6Zhxh70aHGmPb1fvv7+8Pb6\/mBPcLx7ntfrmZN4flbN6MPvhidrnR24aP8yNHnx4PY648\/rljg72d98YoeBwEvQUIRB1707E7zeHsdvnbur77B5PZ7uH43TCXpwPx0\/YNNB+3D5663ul7A48d8u5iNNPRHsev44ful93Xp4nwf06D4Lvj5wLEHN+5+3p0qW\/G7eiDL1\/w+GrrbJ\/f29uc77bxbfd5epwetu8NPA2EP\/\/IeG73+fsIZ8+8+6\/led4\/vicIEDQGufnFjtP7duNUuvW7u5cvAf\/8K7j7b27GVPfD\/nF\/OH7F+O32vuD+\/fi0\/ePj\/uLlRPy09bzHHy\/nO4mXx\/f+xtT4uH\/8Zvy5cbO\/PX0mQNrx3bn1h3l3zG93v9adPr8n+HL74u8f\/5btL\/n8dwHEnRrgL74BGqAJIxkAAAAA8G+23v300\/gvQCt3P92ty7o9AGjmrxog0NXd8QgM0JEJEGhrWf+63QPoxREY6MsRGGhLAwS6cgQG+jIBAm1pgEBXjsBAXyZAoC0NEOjKERjoywQItKUBAl05AgN9mQCBtjRAoCtHYKAvEyDQlgYIdOUIDPRlAgTa0gCBrhyBgb5MgEBbGiDQlSMw0JcJEGhLAwS6cgQG+jIBAm1pgEBXjsBAXyZAoC0NEOjKERjoywQItKUBAl05AgN9mQCBtjRAoCtHYKAvEyDQlgYIdOUIDPRlAgTa0gCBrhyBgb5MgEBbGiDQlSMw0JcJEGhLAwS6cgQG+jIBAm1pgEBXjsBAXyZAoC0NEOjKERjoywQItKUBAl05AgN9mQCBtjRAoCtHYKAvEyDQlgYIdOUIDPRlAgTa0gCBrhyBgb5MgEBbGiDQlSMw0JcJEGhLAwS6cgQG+jIBAm1pgEBXjsBAXyZAoC0NEOjKERjoywQItKUBAl05AgN9mQCBtjRAoCtHYKAvEyDQlgYIdOUIDPRlAgTa0gCBrhyBgb5MgEBbGiDQlSMw0JcJEGhLAwS6cgQG+jIBAm1pgEBXjsBAXyZAoC0NEOjKERjoywQItKUBAl05AgN9mQCBtjRAoCtHYKAvEyDQlgYIdOUIDPRlAgTa0gCBrhyBgb5MgEBbGiDQlSMw0JcJEGhLAwS6cgQG+jIBAm1pgEBXjsBAXyZAoC0NEOjKERjoywQItKUBAl05AgN9mQCBtjRAoCtHYKAvEyDQlgYIdOUIDPRlAgTa0gCBrhyBgb5MgEBbGiDQlSMw0JcJEGhLAwS6cgQG+jIBAm1pgEBXjsBAXyZAoC0NEOjKERjoywQItKUBAl05AgN9mQCBtjRAoCtHYKAvEyDQlgYIdOUIDPRlAgTa0gCBrhyBgb5MgEBbGiDQlSMw0JcJEGhLAwS6cgQG+jIBAm1pgEBXjsBAXyZAoC0NEOjKERjoywQItKUBAl05AgN9mQCBtjRAoCtHYKAvEyDQlgYIdOUIDPRlAgTa0gCBrhyBgb5MgEBbGiDQlSMw0JcJEGhLAwS6cgQG+jIBAm1pgEBXjsBAXyZAoC0NEOjKERjoywQItKUBAl05AgN9mQCBtjRAoCtHYKAvEyDQlgYIdOUIDPRlAgTa0gCBrhyBgb5MgEBbGiDQlSMw0JcJEGhLAwS6cgQG+jIBAm1pgEBXjsBAXyZAoC0NEOjKERjoywQItKUBAl05AgN9mQCBtjRAoCtHYKAvEyDQlgYIdOUIDPRlAgTa0gCBrhyBgb5MgEBbGiDQlSMw0JcJEGhLAwS6cgQG+jIBAm1pgEBXjsBAXyZAoC0NEOjKERjoywQItKUBAl05AgN9mQCBtjRAoCtHYKAvEyDQlgYIdOUIDPRlAgTa0gCBrhyBgb5MgEBbGiDQlSMw0JcJEGhLAwS6cgQG+jIBAm1pgEBXjsBAXyZAoC0NEOjKERjoywQItKUBAl05AgN9mQCBtjRAoCtHYKAvEyDQlgYIdOUIDPRlAgTa0gCBrhyBgb5MgEBbGiDQlSMw0JcJEGhLAwS6cgQG+jIBAm1pgEBXjsBAXyZAoC0NEOjKERjoywQItKUBAl05AgN9mQCBtjRAoCtHYKAvEyDQlgYIdOUIDPRlAgTa0gCBrhyBgb5MgEBbGiDQlSMw0JcJEGhLAwS6cgQG+jIBAm1pgEBXjsBAXyZAoC0NEOjKERjoywQItKUBAl05AgN9mQCBtjRAoCtHYKAvEyDQlgYINPXT3f8CBJi9bztkelwAAAAASUVORK5CYII="
+                        },
+                        "transparency": 0
+                    }
+                ]
+            }
+        },
+        "*": {
+            "*": {
+                "visualHeader": [
+                    {
+                        "show": true
+                    }
+                ],
+                "title": [
+                    {
+                        "fontFamily": "Segoe UI Semibold",
+                        "show": true,
+                        "fontSize": "14",
+                        "alignment": "Left",
+                        "fontColor": {
+                            "solid": {
+                                "color": "#666666"  
+                            }
+                        }
+                    }
+                ],
+                "border": [
+                    {
+                        "show": true,
+                        "radius": "1",
+                        "color": {
+                            "solid": {
+                                "color": "#E6E6E6"
+                            }
+                        }
+                    }
+                ],
+                "labels": [
+                    {
+                        "labelDisplayUnits": "Auto",
+                        "labelPrecision": "",
+                        "labelPosition": "Auto",
+                        "backgroundTransparency": 0,
+                        "fontFamily": "Segoe UI Light"
+                    }
+                ],
+                "categoryAxis": [
+                    {
+                        "position": "Top",
+                        "fontFamily": "Segoe UI Light",
+                        "titleFontFamily": "Segoe UI",
+                        "fontSize": "10",
+                        "titleFontSize": "10"
+                    }
+                ],
+                "background": [
+                    {
+                        "show": true,
+                        "color": {
+                            "solid": {
+                                "color": {
+                                    "expr": {
+                                        "ThemeDataColor": {
+                                            "ColorId": 0,
+                                            "Percent": 0
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "transparency": "15"
+                    }
+                ],
+                "*": [
+                    {
+                        "fontFamily": "Segoe UI Light",
+                        "titleFontFamily": "Segoe UI",
+                        "titleFontSize": "14",
+                        "titleWrap": true
+                    }
+                ],
+                "general": [
+                    {
+                        "responsive": true
+                    }
+                ],
+                "legend": [
+                    {
+                        "fontFamily": "Segoe UI Light",
+                        "position": "Right",
+                        "fontSize": "10"
+                    }
+                ],
+                "valueAxis": [
+                    {
+                        "fontFamily": "Segoe UI Light",
+                        "titleFontFamily": "Segoe UI",
+                        "fontSize": "10",
+                        "titleFontSize": "10"
+                    }
+                ],
+                "outspacePane": [{
+                    "backgroundColor": {"solid": {"color": "#666666"}},
+                    "foregroundColor": {"solid": {"color": "#FFFFFF"}},
+                    "transparency": 0,
+                    "titleSize": 16,
+                    "headerSize": 10,
+                    "fontFamily": "Segoe UI Light",
+                    "border": true,
+                    "borderColor": {"solid": {"color": "#666666"}},
+                    "inputBoxColor": {"solid": {"color": "#808080"}}
+                }],
+                "filterCard": [
+                    {
+                    "$id": "Applied",
+                    "transparency": 0,
+                    "backgroundColor": {"solid": {"color": "#A2DE84"}},
+                    "foregroundColor": {"solid": {"color": "#666666"}},
+                    "textSize": 10,
+                    "fontFamily": "Segoe UI Light",
+                    "border": true,
+                    "borderColor": {"solid": {"color": "#666666"}},
+                    "inputBoxColor": {"solid": {"color": "#E6E6E6"}}
+                    },
+                    {
+                    "$id": "Available",
+                    "transparency": 0,
+                    "backgroundColor": {"solid": {"color": "#E6E6E6"}},
+                    "foregroundColor": {"solid": {"color": "#666666"}},
+                    "textSize": 10,
+                    "fontFamily": "Segoe UI Light",
+                    "border": true,
+                    "borderColor": {"solid": {"color": "#666666"}},
+                    "inputBoxColor": {"solid": {"color": "#E6E6E6"}}
+                }] 
+            }
+        }
+    }
+}
