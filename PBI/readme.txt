@@ -4,3 +4,7 @@ vejo que precisa ser algo que possa gerar engajamento e o proposito do Cooperati
 pode ser uma maratona de ideias... com olhar mais de sustentabilidade 
 
 Precisa ser algo amplo, que abra a possibilidade para várias soluções diferentes/ideias diferentes 
+
+
+
+"Como o Sicredi pode reinventar a experiência de ser um cooperado para a Geração Z, de modo que o propósito cooperativo (participação e resultados) e a sustentabilidade sejam o principal motor de atração, engajamento e fidelização?"
