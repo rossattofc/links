@@ -1,0 +1,344 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Radar Semicircular de Soluções de IA</title>
+  <style>
+    body {
+      background: #182233;
+      color: #fff;
+      font-family: 'Montserrat', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .title {
+      margin-top: 48px;
+      font-size: 2.8rem;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+    .subtitle {
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 32px;
+      text-align: center;
+      color: #cfd8dc;
+    }
+    .content-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 18px;
+      margin: 32px 0 0 0;
+    }
+    .content-item {
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 500;
+      border-radius: 16px;
+      padding: 10px 28px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      border: none;
+      margin-bottom: 8px;
+    }
+    .content-item.active,
+    .content-item:hover {
+      background: linear-gradient(90deg, #7c4dff 0%, #3ec6e0 100%);
+      color: #fff;
+    }
+    .radar-container {
+      position: relative;
+      width: 600px;
+      max-width: 95vw;
+      margin: 0 auto 32px auto;
+    }
+    .radar-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .selected-card-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 16px;
+      margin-bottom: -16px;
+    }
+    .selected-card {
+      background: rgba(255,255,255,0.15);
+      border-radius: 22px;
+      padding: 28px 36px;
+      min-width: 320px;
+      max-width: 420px;
+      box-shadow: 0 8px 32px rgba(60, 198, 224, 0.18);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      border-left: 10px solid #7c4dff;
+      font-size: 1.1rem;
+      animation: fadeIn 0.3s;
+    }
+    .selected-card.automacao { border-left-color: #4f46e5; }
+    .selected-card.preditiva { border-left-color: #6366f1; }
+    .selected-card.atendimento { border-left-color: #a21caf; }
+    .selected-card.otimizacao { border-left-color: #43e97b; }
+    .selected-card.inteligencia { border-left-color: #3ec6e0; }
+    .selected-card.credito { border-left-color: #b388ff; }
+    .selected-card.recrutamento { border-left-color: #26c6da; }
+    .selected-card.visual { border-left-color: #7c4dff; }
+    .selected-card.busca { border-left-color: #ff9800; }
+    .selected-card.recuperacao { border-left-color: #009688; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .tooltip {
+      position: fixed;
+      background: #222a3a;
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-size: 1rem;
+      pointer-events: none;
+      z-index: 10;
+      box-shadow: 0 4px 24px rgba(60, 198, 224, 0.15);
+      display: none;
+      max-width: 320px;
+      word-break: break-word;
+    }
+  </style>
+</head>
+<body>
+  <div class="title">Radar Semicircular de Soluções de IA</div>
+  <div class="subtitle">Visualização por Desafios Resolvidos</div>
+  <div class="content-section" id="filterSection"></div>
+  <div class="radar-container">
+    <svg class="radar-svg" id="radarSVG" viewBox="0 0 700 400">
+      <!-- Semicircular grid -->
+      <path d="M100,350 A250,250 0 0,1 600,350" stroke="#7c4dff" stroke-width="2" fill="none"/>
+      <path d="M150,350 A200,200 0 0,1 550,350" stroke="#43e97b" stroke-width="2" fill="none"/>
+      <path d="M200,350 A150,150 0 0,1 500,350" stroke="#3ec6e0" stroke-width="2" fill="none"/>
+      <!-- Radial lines -->
+      <line x1="350" y1="350" x2="350" y2="100" stroke="#cfd8dc" stroke-width="1"/>
+      <line x1="350" y1="350" x2="600" y2="350" stroke="#cfd8dc" stroke-width="1"/>
+      <line x1="350" y1="350" x2="100" y2="350" stroke="#cfd8dc" stroke-width="1"/>
+      <line x1="350" y1="350" x2="500" y2="200" stroke="#cfd8dc" stroke-width="1"/>
+      <line x1="350" y1="350" x2="200" y2="200" stroke="#cfd8dc" stroke-width="1"/>
+      <!-- Points will be added dynamically -->
+    </svg>
+    <div class="tooltip" id="tooltip"></div>
+  </div>
+  <div class="selected-card-container" id="selectedCardContainer"></div>
+  <script>
+    // Dados reorganizados por desafio
+    const radarData = [
+      {nome:"Databricks", desafio:"Análise preditiva", descricao:"Ferramenta para análise de grandes volumes de dados e criação de modelos preditivos de Machine Learning."},
+      {nome:"API GPT (OpenAI)", desafio:"Automação de processos", descricao:"Integra IA generativa aos processos e sistemas locais, automatizando tarefas e análise de dados."},
+      {nome:"GitHub Copilot", desafio:"Automação de processos", descricao:"Assistente de IA para desenvolvimento de software, sugere código e gera documentação."},
+      {nome:"Copilot Studio", desafio:"Atendimento ao cliente", descricao:"Ferramenta para criar agentes inteligentes personalizados e chatbots corporativos."},
+      {nome:"TheoGPT", desafio:"Atendimento ao cliente", descricao:"Assistente virtual conversacional baseado em Azure/OpenAI, voltado para colaboradores do Sicredi."},
+      {nome:"Perplexity.AI", desafio:"Busca e geração de informações", descricao:"Plataforma de busca baseada em IA, fornece respostas precisas e contextualizadas."},
+      {nome:"Vitrine de Modelos", desafio:"Análise preditiva", descricao:"Compartilhamento de modelos de machine learning homologados entre CAS, Centrais e Cooperativas."},
+      {nome:"Copilot Chat", desafio:"Atendimento ao cliente", descricao:"Assistente de IA para perguntas, geração de textos, imagens, gráficos e análise de documentos."},
+      {nome:"Copilot 365", desafio:"Automação de processos", descricao:"Assistente de IA integrado ao Office 365, automatiza tarefas e gera relatórios."},
+      {nome:"Teams Premium", desafio:"Atendimento ao cliente", descricao:"Recursos de IA para reuniões, como resumos inteligentes e tradução simultânea."},
+      {nome:"API do OCR", desafio:"Automação de processos", descricao:"Reconhecimento óptico de caracteres para transformar imagens em texto digital."},
+      {nome:"IA GEN na Base de Conhecimento", desafio:"Busca e geração de informações", descricao:"IA generativa aplicada à base de documentos, elabora resumos e indexa textos."},
+      {nome:"Portal Rag", desafio:"Busca e geração de informações", descricao:"Busca e geração de informações com IA generativa e RAG, acelera desenvolvimento de IA local."},
+      {nome:"Fala Diana", desafio:"Atendimento ao cliente", descricao:"Plataforma conversacional com IA para acessar dados do Hyperion de forma ágil."},
+      {nome:"IA integrada ao Gupy", desafio:"Recrutamento e seleção", descricao:"Automatiza e otimiza recrutamento e seleção, triagem de currículos e entrevistas."},
+      {nome:"Power Automate", desafio:"Automação de processos", descricao:"Automatiza processos e tarefas rotineiras com IA, integra serviços como Copilot e OpenAI."},
+      {nome:"Canva IA", desafio:"Criação visual", descricao:"Ferramentas de IA para criação visual, geração de textos, imagens e apresentações."},
+      {nome:"Modelo Biribinha - Analista de Crédito Virtual", desafio:"Crédito e risco", descricao:"IA para análise e concessão de crédito 100% automática."},
+      {nome:"Crédito Fácil com IA", desafio:"Crédito e risco", descricao:"Modelos estatísticos para definir valores e limites de crédito mais adequados."},
+      {nome:"Modelos de Propensão para Consórcios", desafio:"Inteligência de mercado", descricao:"Identifica associados com maior propensão para contratação de consórcios."},
+      {nome:"MIA (Monest IA)", desafio:"Recuperação de crédito", descricao:"Automatiza recuperação de crédito, sugere acordos personalizados e estratégias de renegociação."}
+    ];
+
+    // Lista de desafios (filtros)
+    const desafios = [
+      "Todas",
+      "Automação de processos",
+      "Análise preditiva",
+      "Atendimento ao cliente",
+      "Otimização de operações",
+      "Inteligência de mercado",
+      "Crédito e risco",
+      "Recrutamento e seleção",
+      "Criação visual",
+      "Busca e geração de informações",
+      "Recuperação de crédito"
+    ];
+
+    // Cores para cada desafio (personalize como quiser)
+    const desafioColors = {
+      "Automação de processos": "#4f46e5",
+      "Análise preditiva": "#6366f1",
+      "Atendimento ao cliente": "#a21caf",
+      "Otimização de operações": "#43e97b",
+      "Inteligência de mercado": "#3ec6e0",
+      "Crédito e risco": "#b388ff",
+      "Recrutamento e seleção": "#26c6da",
+      "Criação visual": "#7c4dff",
+      "Busca e geração de informações": "#ff9800",
+      "Recuperação de crédito": "#009688"
+    };
+
+    // Parâmetros dos setores (agora desafios)
+    function getDesafioParams() {
+      // Divide o arco semicircular igualmente entre os desafios
+      const filteredDesafios = desafios.filter(d => d !== "Todas");
+      const total = filteredDesafios.length;
+      let params = {};
+      filteredDesafios.forEach((d, i) => {
+        const start = 180 - (180 / total) * i;
+        const end = 180 - (180 / total) * (i + 1);
+        params[d] = {
+          start: start,
+          end: end,
+          color: desafioColors[d] || "#7c4dff"
+        };
+      });
+      return params;
+    }
+    const layers = [250, 200, 150];
+
+    // Distribui pontos por desafio
+    function distributePoints(data, desafioParams, layers, filter="Todas") {
+      let points = [];
+      Object.keys(desafioParams).forEach(cat => {
+        if (filter !== "Todas" && filter !== cat) return;
+        const items = data.filter(d => d.desafio === cat);
+        const {start, end, color} = desafioParams[cat];
+        const angleStep = (end - start) / (items.length + 1);
+        items.forEach((item, i) => {
+          const angle = start + angleStep * (i + 1);
+          const radius = layers[i % layers.length];
+          const rad = Math.PI * angle / 180;
+          const x = 350 + radius * Math.cos(rad);
+          const y = 350 - radius * Math.sin(rad);
+          points.push({...item, x, y, color});
+        });
+      });
+      return points;
+    }
+
+    // Renderiza os filtros
+    function renderFilters() {
+      const section = document.getElementById('filterSection');
+      section.innerHTML = '';
+      desafios.forEach((d, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'content-item' + (idx === 0 ? ' active' : '');
+        btn.setAttribute('data-filter', d);
+        btn.textContent = d;
+        section.appendChild(btn);
+      });
+    }
+
+    function renderRadarPoints(filter) {
+      const svg = document.getElementById('radarSVG');
+      Array.from(svg.querySelectorAll('.radar-point')).forEach(e => e.remove());
+      const desafioParams = getDesafioParams();
+      const points = distributePoints(radarData, desafioParams, layers, filter);
+      points.forEach((pt, idx) => {
+        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        circle.setAttribute("cx", pt.x);
+        circle.setAttribute("cy", pt.y);
+        circle.setAttribute("r", 16);
+        circle.setAttribute("fill", pt.color);
+        circle.setAttribute("opacity", "0.85");
+        circle.setAttribute("class", "radar-point");
+        circle.setAttribute("data-idx", idx);
+        circle.setAttribute("style", "cursor:pointer;");
+        // Mouseover: tooltip
+        circle.addEventListener("mouseenter", function(e) {
+          showTooltip(pt);
+        });
+        circle.addEventListener("mouseleave", function() {
+          hideTooltip();
+        });
+        // Click: card abaixo
+        circle.onclick = function() {
+          showSelectedCard(pt);
+        };
+        svg.appendChild(circle);
+      });
+    }
+
+    function showTooltip(pt) {
+      const tooltip = document.getElementById('tooltip');
+      tooltip.innerHTML = `<strong>${pt.nome}</strong><br><span style="color:#b388ff">${pt.desafio}</span><br>${pt.descricao}`;
+      tooltip.style.display = 'block';
+
+      // Pega a posição do SVG na tela
+      const svg = document.getElementById('radarSVG');
+      const rect = svg.getBoundingClientRect();
+
+      // Ajusta para o centro do ponto
+      const x = rect.left + pt.x * (rect.width / svg.viewBox.baseVal.width);
+      const y = rect.top + pt.y * (rect.height / svg.viewBox.baseVal.height);
+
+      tooltip.style.left = (x - tooltip.offsetWidth / 2) + 'px';
+      tooltip.style.top = (y - tooltip.offsetHeight - 16) + 'px';
+    }
+    function hideTooltip() {
+      const tooltip = document.getElementById('tooltip');
+      tooltip.style.display = 'none';
+    }
+
+    function showSelectedCard(pt) {
+      const container = document.getElementById('selectedCardContainer');
+      // Classe para cor lateral do card
+      let cls = '';
+      switch (pt.desafio) {
+        case "Automação de processos": cls = "automacao"; break;
+        case "Análise preditiva": cls = "preditiva"; break;
+        case "Atendimento ao cliente": cls = "atendimento"; break;
+        case "Otimização de operações": cls = "otimizacao"; break;
+        case "Inteligência de mercado": cls = "inteligencia"; break;
+        case "Crédito e risco": cls = "credito"; break;
+        case "Recrutamento e seleção": cls = "recrutamento"; break;
+        case "Criação visual": cls = "visual"; break;
+        case "Busca e geração de informações": cls = "busca"; break;
+        case "Recuperação de crédito": cls = "recuperacao"; break;
+      }
+      container.innerHTML = `
+        <div class="selected-card ${cls}">
+          <div class="card-title">${pt.nome}</div>
+          <div class="card-category">${pt.desafio}</div>
+          <div class="card-desc">${pt.descricao}</div>
+        </div>
+      `;
+    }
+
+    // Filtro dos botões
+    function setupFilterEvents() {
+      document.querySelectorAll('.content-item').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.content-item').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          const filter = this.getAttribute('data-filter');
+          // Limpa card selecionado ao trocar filtro
+          document.getElementById('selectedCardContainer').innerHTML = '';
+          renderRadarPoints(filter);
+        });
+      });
+    }
+
+    window.onload = function() {
+      renderFilters();
+      setupFilterEvents();
+      renderRadarPoints('Todas');
+    };
+  </script>
+</body>
+</html>
