@@ -183,3 +183,39 @@ print("Arquivo final exportado: 'Resultado_Analise_Agencias.csv'")
 # Exibir prévia do Grupo de Risco
 print("\n>>> AGÊNCIAS EM GRUPO DE RISCO (Prioridade):")
 print(df[df['Grupo_Estrategico'].str.contains('RISCO')][['Agência', 'NPS', 'GERAL']].to_string(index=False))
+
+# ==============================================================================
+# COMPLEMENTO: TESTES DE VALIDAÇÃO ESTATÍSTICA (P-VALORES)
+# Cole este trecho no seu script para gerar os números de confiabilidade
+# ==============================================================================
+
+print("\n>>> RODANDO TESTES DE VALIDAÇÃO ESTATÍSTICA (Significância)...")
+
+# 1. TESTE T DE STUDENT (Para H2 - Detratores)
+# Valida se a diferença de detratores entre Alta e Baixa Principalidade é real
+grupo_alta = df[df['Nivel_Princ'] == 'Alta']['% Detrator']
+grupo_baixa = df[df['Nivel_Princ'] == 'Baixa']['% Detrator']
+
+# O teste assume variâncias diferentes (Welch's t-test)
+t_stat, p_val_ttest = stats.ttest_ind(grupo_baixa, grupo_alta, equal_var=False)
+
+print(f"   [H2] Teste T (Detratores): P-Valor = {p_val_ttest:.4f}")
+if p_val_ttest < 0.10:
+    print("   -> Resultado: A diferença é estatisticamente relevante (confiável).")
+else:
+    print("   -> Resultado: A diferença pode ser obra do acaso (não significativa).")
+
+# 2. ANOVA ONE-WAY (Para H4 - Monetização)
+# Valida se existe diferença real de dinheiro entre os grupos de NPS
+grupo_critico = df[df['Faixa_NPS'] == 'Crítico']['GERAL']
+grupo_neutro = df[df['Faixa_NPS'] == 'Neutro']['GERAL']
+grupo_excelencia = df[df['Faixa_NPS'] == 'Excelência']['GERAL']
+
+f_stat, p_val_anova = stats.f_oneway(grupo_critico, grupo_neutro, grupo_excelencia)
+
+print(f"   [H4] ANOVA (Monetização): P-Valor = {p_val_anova:.4f}")
+if p_val_anova < 0.10:
+    print("   -> Resultado: Os grupos têm níveis de principalidade diferentes.")
+else:
+    print("   -> Resultado: Não há prova estatística de que o NPS muda a principalidade (Gap confirmado).")
+print("==============================================================================\n")
